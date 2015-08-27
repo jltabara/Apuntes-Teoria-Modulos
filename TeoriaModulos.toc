@@ -1,0 +1,20 @@
+\select@language {spanish}
+\contentsline {section}{\numberline {1}Definici\'on de A-m\'odulo}{1}
+\contentsline {section}{\numberline {2}Morfismos de m\'odulos}{7}
+\contentsline {section}{\numberline {3}Subm\'odulos y cocientes}{10}
+\contentsline {section}{\numberline {4}Ret\IeC {\'\i }culo de subm\'odulos}{17}
+\contentsline {section}{\numberline {5}Categor\IeC {\'\i }as y functores}{21}
+\contentsline {section}{\numberline {6}Suma y producto directo}{29}
+\contentsline {section}{\numberline {7}Dualidad}{33}
+\contentsline {section}{\numberline {8}Sucesiones exactas}{35}
+\contentsline {section}{\numberline {9}Longitud de un m\'odulo}{40}
+\contentsline {section}{\numberline {10}M\'odulos libres}{44}
+\contentsline {section}{\numberline {11}M\'odulos proyectivos e inyectivos}{50}
+\contentsline {section}{\numberline {12}M\'odulos graduados}{55}
+\contentsline {section}{\numberline {13}Producto tensorial}{59}
+\contentsline {section}{\numberline {14}Extensi\'on de escalares}{66}
+\contentsline {section}{\numberline {15}Algebras sobre anillos}{70}
+\contentsline {section}{\numberline {16}Algebra tensorial}{77}
+\contentsline {section}{\numberline {17}Localizaci\'on}{84}
+\contentsline {section}{\numberline {18}M\'odulos noetherianos}{92}
+\contentsline {section}{\numberline {19}M\'odulos sobre anillos principales}{97}
