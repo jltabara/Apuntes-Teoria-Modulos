@@ -3,6 +3,7 @@
 %%%%%%%%%%%%%%%%%%%%%%Paquetes
 \usepackage[spanish]{babel}  
 \usepackage{indentfirst} %%%%%%%%%%%%%%%%Crear un indent al principio
+\usepackage{makeidx}
 \usepackage[latin1]{inputenc}%%%%%%%%%%%%ñ y acentos
 \usepackage{amstext}%%%%%%%%
 \usepackage{amsfonts}%%%%%%%
@@ -91,7 +92,7 @@
 \DeclareMathOperator{\Ob}{Ob}  %%% Objetos de una categoría
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
+\makeindex
 
 %%%%%%%%%%%%%%%%%
 \title{Teoría de Módulos}
@@ -4904,6 +4905,17 @@ Sea $M$ libre, con rango posiblemente infinito.  Si $N$ es un submó\-dulo de $M$
 Una vez probado esa afirmación demostrar que proyectivo equivale a libre, aunque el módulo no sea finito generado.
 
 \end{*pro}
+
+\newpage
+
+\printindex
+
+\nocite{*}
+
+\newpage
+
+\bibliographystyle{plain}
+\bibliography{Modulos.bib}   
 
 
 \end{document}
