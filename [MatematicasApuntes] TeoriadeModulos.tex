@@ -1,0 +1,4909 @@
+\documentclass[a4paper, 12pt]{article}
+
+%%%%%%%%%%%%%%%%%%%%%%Paquetes
+\usepackage[spanish]{babel}  
+\usepackage{indentfirst} %%%%%%%%%%%%%%%%Crear un indent al principio
+\usepackage[latin1]{inputenc}%%%%%%%%%%%%ñ y acentos
+\usepackage{amstext}%%%%%%%%
+\usepackage{amsfonts}%%%%%%%
+\usepackage{amssymb}%%%%%%%% AMSLaTeX
+\usepackage{amscd}%%%%%%%%%%
+\usepackage{amsmath}%%%%%%%%
+\usepackage{enumerate}%%%%%%%%%%%%%%%%Mejoras del entorno enumerate
+\usepackage[all]{xy}
+\usepackage{latexsym}
+\usepackage{color}
+\usepackage[mathcal]{eucal}%%%%%%%Caligrafica matematica
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{tcolorbox}
+\usepackage{diagrams}
+\usepackage{setspace}
+\onehalfspacing
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%Teoremas
+\newtheorem{teo}{Teorema}[section]%%%%%%%%% Teorema
+\newtheorem{defi}{Definición}[section]%%%%%%%% Definicion
+\newtheorem{lema}[teo]{Lema}%%%%%%%%%%%%% Lema
+\newtheorem{propo}[teo]{Proposición}%%%%%%%% Proposicion
+\newtheorem{cor}[teo]{Corolario}%%%%%%%%%%%Corolario
+\newtheorem{pro1}{}%[chapter]%%%%%%%%%Problema
+\newenvironment{pro}{\begin{pro1} \sf } {\end{pro1}}
+\newtheorem{*pro1}[pro1]{* Problema}%%%%%%%%%%Problema complicado
+\newenvironment{*pro}{\begin{*pro1} \sf} {\end{*pro1}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%Comandos
+\newcommand{\dem}{\noindent \textbf{Demostración. }\vspace{0.3 cm}}%%Demostracion
+\newcommand{\R}{\mathbb{R}}%%%%%%%%%%%%Numeros reales
+\newcommand{\F}{\mathbb{F}}%%%%%%%%%%%%Cuerpo
+\newcommand{\C}{\mathbb{C}}%%%%%%%%%%%%Numeros complejos
+\newcommand{\Q}{\mathbb{Q}}%%%%%%%%%%%%Numeros racionales
+\newcommand{\N}{\mathbb{N}}%%%%%%%%%%%%Numeros naturales
+\newcommand{\Z}{\mathbb{Z}}%%%%%%%%%%%%Numeros enteros
+\newcommand{\g}{\mathfrak{g}}%%%%%%%%%%%%Algebra de Lie del grupo G
+\newcommand{\V}{\mathcal{V}}%%%%%%%%%%%%Variedad
+\newcommand{\W}{\mathcal{W}}%%%%%%%%%%%%Variedad
+\newcommand{\h}{\mathcal{H}}%%%%%%%%%%%%Algebra de Lie del grupo H
+\newcommand{\fin}{ $\Box $ \vspace{0.4 cm}}
+\newcommand{\p}{\mathfrak{p}}%%%%%%%% Ideal primo
+\newcommand{\m}{\mathfrak{m}}%%%%%%%% Ideal maximal
+\newcommand{\limind}{\lim_{\longrightarrow} } 
+\newcommand{\gp}{\mathcal{G'}}%%%%%%%%%%%Algebra del grupo G'
+\newcommand{\lto}{\rightarrow}%%%%%%Simplificacion de la flecha larga
+\newcommand{\wa}{\omega_2} %%%%%%%%%%%forma simplectica
+\newcommand{\Wa}{\Omega_2} %%%%%%%%%% forma simplectica lineal
+\newcommand{\lag}{\lambda_g}%%%%%%%%%%%%Traslacion a la izquierda
+\newcommand{\rg}{\rho_g}%%%%%%%%%%%%%%%%Traslacion a la derecha
+\newcommand{\Gr}{\boldsymbol{G}}%%%%%%%%%%Recubridor universal
+\newcommand{\norma}[1]{\: \parallel #1 \!\parallel\! }%%%Norma de un vector
+\newcommand{\abs}[1]{\left|\, #1 \right|}  %%%Valor absoluto 
+\newcommand{\Pro}{\mathbb{P}}%%%%%%Espacio proyectivo
+\newcommand{\Problemas}{\newpage  \begin{center}{\Huge Problemas}\end{center}}
+\newcommand{\Ejemplos}{\vspace{0.5 cm} {\bf Ejemplos}}
+\renewcommand{\to}{\lto}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%Operadores
+\DeclareMathOperator{\End}{End}%%%%%%%%%%Endomorfismo
+\DeclareMathOperator{\Ad}{Ad}%%%%%%%%%%Adjunta
+\DeclareMathOperator{\grad}{grad}%%%%%%%%%%Graciente
+\DeclareMathOperator{\Dif}{Dif}%%%%%%%%%%Diferenciales
+\DeclareMathOperator{\sop}{sop}%%%%%%%%%Soporte
+\DeclareMathOperator{\distancia}{d}%%%%%%%%Distancia
+\DeclareMathOperator{\sen}{sen}%%%%%%%%%%Seno español
+\DeclareMathOperator{\Der}{Der}%%%%%%%%%%Derivaciones
+\DeclareMathOperator{\rang}{rang}%%%%%%%%Rango
+\DeclareMathOperator{\Hom}{Hom}%%%%%%Homomorfismos
+\DeclareMathOperator{\Ann}{Ann}%%%%%%%Anulador
+\DeclareMathOperator{\Img}{Im} %%%%Parte imaginaria
+\DeclareMathOperator{\rad}{rad}%%%%%%%%Radical
+\DeclareMathOperator{\Ker}{Ker}%%%%%%%Nucleo
+\DeclareMathOperator{\Id}{Id}%%%%%%% Identidad
+\DeclareMathOperator{\GL}{GL}%%%%%%%%%Grupo lineal
+\DeclareMathOperator{\Apli}{Apli}%%%%%%Aplicaciones
+\DeclareMathOperator{\Bil}{Bil}%%%%%Bilineales
+\DeclareMathOperator{\Spec}{Spec}%%%%Espectro
+\DeclareMathOperator{\Ob}{Ob}  %%% Objetos de una categoría
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%
+\title{Teoría de Módulos}
+\author{José Luis Tábara}
+\date{jltabara@gmail.com}
+%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+
+
+\begin{tcolorbox}[colback=red!5!white,colframe=red!75!black]
+
+\vspace{-1cm}
+\maketitle
+
+\end{tcolorbox}
+
+\thispagestyle{empty}
+
+\tableofcontents
+
+\newpage
+
+
+\section{Definición de A-módulo}
+\setcounter{page}{1}
+Salvo mención explícita de lo contrario, siempre supondremos que  todos los anillos son conmutativos y poseen unidad.
+
+\begin{defi}
+
+Sea $A$ un anillo, $M$ un grupo abeliano.  $M$  posee una estructura de {\sf $A$-módulo} \index{módulo!sobre A} si está dotado de una operación externa,  llamada {\sf multiplicación por escalares} \index{multiplicación por escalares}, $ \phi : A \times M \rightarrow M$ que verifica (denotando $\phi (a, m)$ por $am$)
+
+\begin{enumerate}[\indent  i)  ]
+
+ \item $a(m + m') = am + am'$
+
+\item $(a+b)m = am + bm$
+
+\item $a(bm) = (ab)m$
+
+\item $1m =m$
+
+\end{enumerate}
+donde $a,b$ denotan elementos del anillo y $m, m'$ elementos del grupo abe\-liano~$M$.
+
+\end{defi}
+
+Por lo general y siguiendo la notación del Algebra Lineal, los elementos del anillo se llamarán {\sf escalares} \index{escalares} y los elementos del grupo abeliano se denomi\-narán {\sf vectores}. \index{vectores}
+
+\bigskip
+
+Consideremos la aplicación 
+$$
+\begin{array}{ccccc}
+\lambda_a & : & M & \lto  & M\\
+          &   & a & \lto & am
+\end{array}
+$$
+ Dicha aplicación se denomina {\sf translación a la izquierda} por~$a$. \index{traslación a la izquierda} La propiedad $i)$ nos dice que $\lambda_a$ es un morfismo del grupo aditivo $M$.  Esto nos permite construir una aplicación $\lambda$ que mande el escalar $a$ a la operación~$\lambda_a$
+$$
+\begin{array}{ccccc}
+\lambda &: &A &\lto &\End_{gr} (M)\\
+        &   & a & \lto & \lambda_a
+\end{array}
+$$
+
+Las tres últimas propiedades nos indican que esta aplicación $\lambda$ es un morfismo de anillos.  Por ello podemos establecer la siguiente 
+
+\begin{defi}
+
+Una estructura de {\sf $A$-módulo} \index{módulo!sobre A} en un grupo abeliano $M$ es un morfismo de anillos con unidad de $A$ en 
+$\End_{gr} (M)$.
+
+\end{defi}
+
+Para reconstruir la multiplicación por escalares defínase $am = \lambda(a)(m)$ si $\lambda$ denota el morfismo de anillos.
+
+Visto desde esta perspectiva un módulo es una {\sf representación del anillo} $A$ \index{representación!de un anillo} en el grupo abeliano $M$.  Emplearemos la notación
+$\lambda : A \lto \End_{gr} (M)$ para referirnos a esta representación.
+
+\bigskip
+
+\noindent{\bf Ejemplos.}
+
+\begin{itemize}
+
+\item Si $A$ es un anillo, el producto $A \, \times A \lto A$ define una estructura canónica de $A$-módulo en el anillo $A$.  Salvo que se diga lo contrario, siempre consideraremos en $A$ esta estructura de $A$-módulo.
+
+\item Si $\mathfrak{a}$ es un ideal, el  producto por elementos de $A$ lo dota de una estructura de $A$-módulo.
+
+\item Los módulos sobre un anillo que sea un cuerpo son los \index{espacios vectoriales}{\sf espacios vectoriales}. 
+
+\item Cada grupo abeliano admite una estructura natural de módulo sobre el anillo $\Z$ de los enteros.  Si $g$ es un elemento del grupo entonces 
+$$
+ng = g+ \stackrel{n)}{\ldots} +g
+$$ 
+ Esta es la única estructura de $\Z$-módulo que admite pues $1g$ debe ser $g$, $2g= (1+1)g= g+g$ y se sigue por inducción.
+Si consideramos el módulo como una representación de $A$, entonces $\lambda : \Z \lto \End_{gr} (M)$ es  el morfismo de anillos que nos permite calcular la {\sf característica del anillo} \index{característica del anillo}$\End_{gr} (M)$.
+
+\item Sea $k[x]$ el anillo  de polinomios sobre el cuerpo $k$ y $E$ un espacio vectorial.  Dado un endomorfismo $\varphi$ del espacio $E$, existe un único morfismo de $k$-álgebras que manda el polinomio $x$ al endomorfismo $\varphi$.  Esto nos da una estructura de $k[x]$-módulo en el grupo abeliano $E$. Dicho módulo se denotará $E_{\varphi}$.
+
+\item  Si $B$ es un subanillo de $A$, todo $A$-módulo es un $B$-módulo, sin más que considerar la multiplicación por elementos de $B$ como la restricción de la multiplicación por elementos de $A$. También se puede entender como la restricción  a $B$ del morfismo de anillos que define la estructura de \linebreak $A$-módulo.
+
+\item El grupo aditivo $A^n$ es un módulo sobre el anillo $A$, mediante la multiplicación componente a componente
+$$
+r(a_1, \ldots , a_n) = (ra_1, \ldots ,ra_n)
+$$
+
+\item Si $\varphi : A \rightarrow A'$ es un morfismo de anillos y $M$ es módulo sobre $A'$, entonces  $M$ es un módulo sobre $A$ definiendo
+$$
+am = \varphi(a).m
+$$
+Se dice que este módulo se ha obtenido por {\sf restricción de escalares}.\index{restricción de escalares}
+Entendiendo el módulo como  una representación $\lambda$ del anillo $A'$, la estructura de módulo sobre $A$ se obtiene componiendo el morfismo $\lambda$ con $\varphi$.
+
+\item $A(x_1, \ldots , x_n)$ y $A[[x]]$ (anillo de las series formales) son módulos sobre $A$ de modo natural puesto que $A$ es un subanillo de ambos.
+
+\end{itemize}
+
+Llamamos {\sf anulador} de un módulo \index{anulador!de un módulo} y denotamos $\Ann(M)$ al núcleo de la representación asociada.  Como sabemos por teoría de anillos, el anulador es un ideal del anillo $A$.  Decimos que el módulo es {\sf fiel} \index{módulo!fiel} si su anulador es el cero.  Si $\mathfrak{a}$ es cualquier ideal de $\Ann(M)$, por el teorema de factorización de anillos, tenemos un morfismo bien definido de $A/\mathfrak{a}$ en $\End_{gr} (M)$.  Esto dota a $M$ de una estructura de $(A/\mathfrak{a})$-módulo. En particular $M$ tiene siempre una estructura de módulo sobre $A/\Ann(M)$.  Además por la definición de ideal anulador este módulo siempre es fiel.
+
+\bigskip
+
+
+
+Desde este punto hasta el final de esta sección, $A$ será un anillo con unidad, pero no conmutativo.
+
+\begin{defi}
+
+Una estructura de {\sf $A$-módulo por la izquierda} \index{módulo!por la izquierda} en un grupo abe\-liano $M$ es la dada por un morfismo de anillos con unidad de $A$ en los endomorfismos grupales de $M$.
+
+\end{defi}
+
+Decimos que una función $\phi : A \lto A'$ es un {\sf antimorfismo de anillos} \index{antimorfismo!de anillos} con unidad~si:
+
+\begin{enumerate}[\indent i)]
+
+\item $\phi (x+y) = \phi(x) +\phi(y)$
+\item $\phi(1) =1$
+\item $\phi(xy) = \phi(y) . \phi(x)$
+
+\end{enumerate}
+
+\begin{defi}
+
+Una estructura de {\sf $A$-módulo por la derecha} \index{módulo!por la derecha} en un grupo abeliano $M$ es la dada por un antimorfismo de anillos con unidad de $A$ en los endomorfismos grupales de $M$.
+
+\end{defi}
+
+\noindent{\bf Ejemplos.}
+
+\begin{itemize}
+
+\item  Todo anillo no conmutativo $A$ está dotado de una estructura natural de \mbox{$A$-módulo} por la derecha, dada por la multiplicación.  En este caso el segundo factor debe entenderse como anillo de escalares y el primero como conjunto de vectores.  Cuando se considere en $A$ esta estrucura de \mbox{$A$-módulo} se denotará por $A_A$. Análogamente se puede definir una estructura de módulo por la izquierda.
+
+\item  Todo ideal por la derecha del anillo es un módulo por la derecha.
+
+\item De la misma forma $A^n$, mediante la multiplicación por escalares coordenada a coordenada es $A$-módulo por la derecha.
+
+\item Todo grupo abeliano $G$ es un módulo por la izquierda sobre el anillo no conmutativo $\End_{gr} (G)$.  Toda estructura de $A$-módulo sobre $G$ se obtiene por restricción de escalares de este módulo.
+
+\end{itemize}
+
+Si en la definición de módulo quitamos la condición $1m=m$ entonces decimos que estamos ante un {\sf $A$-módulo sin unidad}. \index{módulo!sin unidad} El morfismo de anillos que define la estructura puede mandar a la unidad de $A$ (si existe) a un operador distinto de la identidad.
+
+El lector interesado intentará encontrar qué construcciones o resultados  dados en el texto para anillos conmutativos, son generalizables a los otros tipos de módulos.
+
+\section*{Problemas}
+
+
+\begin{pro}
+Probar que 
+\begin{itemize}
+
+\item $a\cdot 0 = 0$
+\item $0\cdot m =0$
+\item $(-a) m = -(am)= a(-m)$
+\item $z(am) = a(zm)$ donde $z$ es un número entero.
+
+\end{itemize}
+
+\end{pro}
+
+\begin{pro}
+
+Dotar de estructura de $A$-módulo al grupo aditivo $A/\mathfrak{a}$ donde $\mathfrak{a}$ es un ideal de~$A$.
+
+\end{pro}
+
+\begin{pro}
+
+Consideremos en $A$ la estructura natural de $A$-módulo.  Probar que la representación asociada es inyectiva y que por lo tanto $A$ es un subanillo de $\End_{gr} (A)$. \index{teorema!de Cayley} Dicha representación se llama {\it representación regu\-lar} \index{representación!regular} del anillo $A$. Este resultado es el análogo al {\it teorema de Cayley} para grupos. 
+\end{pro}
+
+\begin{pro}
+
+Sea $V$ un espacio vectorial sobre un cuerpo $k$.  Ver que $V$ es también un módulo sobre el anillo (no conmutativo) $\End(V)$.
+
+\end{pro}
+
+\begin{pro}
+
+Dar la definición estandard de módulos por la derecha y por la izquierda.
+
+\end{pro}
+
+\begin{pro}
+
+Construir un módulo sin unidad sobre el anillo de los enteros.
+
+\end{pro}
+
+\begin{pro}
+
+Probar que $M$ es fiel sobre el anillo $A/\Ann(M)$
+
+\end{pro}
+
+\begin{pro}
+
+Sea $m \in M$ un elemento no nulo.  Llamamos  {\it anulador de $m$} \index{anulador!de un vector} y denotamos $\Ann(m)$ al subconjunto de $A$ formado por los escalares que anulan a~$m$.
+\begin{itemize}
+
+\item Probar que $\Ann(m)$ es un ideal.
+
+\item Probar que 
+$$
+\Ann(M) = \bigcap_{m \in M} \Ann(m)
+$$
+
+\end{itemize}
+
+\end{pro}
+
+\begin{pro}
+
+Un módulo es {\it cíclico} \index{módulo!cíclico} se existe un elemento $m \in M$ de tal forma que todo otro elemento $m' \in M$ sea de la forma $m' = am$.
+
+\begin{itemize}
+
+\item Probar que $\Z_n$ es un $\Z$-módulo cíclico.
+
+\item Probar que $V$ es un $\End(V)$-módulo cíclico si $V$ es un $k$-espacio vectorial.
+
+\item Ver si existe alguna relación entre el anulador de $m$ y este ejercicio.
+
+\end{itemize}
+
+\end{pro}
+
+\begin{pro}
+
+Sea $X$ un conjunto cualquiera.  Consideremos las funciones  $f: X \rightarrow A$.  Dotar a este conjunto de funciones de estructura de $A$-módulo.  Estudiar en particular el caso en que $X$ es finito.
+\end{pro}
+\begin{pro}
+
+Sea el módulo $E_\varphi$.  El anulador de este módulo es un ideal del anillo de polinomios y como tal está generado por un polinomio cuyo primer coe\-ficiente es $1$.  Dicho polinomio se denomina {\it polinomio anulador} del módulo \index{polinomio!anulador} o polinomio anulador del endomorfismo $\varphi$.  Se sabe por Algebra Lineal que si el  $k$-espacio $E$ es de dimensión finita, el {\it polinomio} \index{polinomio!característico} {\it característico }de $\varphi$ anula al módulo.  Por lo tanto el anulador debe ser un divisor del polinomio característico.  Para más detalles véase el teorema de Cayley-Hamilton en algún libro de Algebra Lineal.
+
+\end{pro}
+
+
+\begin{pro}
+
+Sea $M_{n,m} (A)$ el conjunto de las matrices $n \times m$ con coeficientes en $A$.  Introducir en este conjunto una estructura de $A$-módulo.
+
+Denotando por $M_n (A)$ al conjunto de matrices cuadradas de orden $n$, probar que $M_{n,m} (A)$ puede dotarse de una estructura de módulo por la izquierda sobre el anillo $M_n (A)$ mediante la multiplicación matricial.
+
+\end{pro}
+
+\begin{pro}
+
+Sea $M$ un $A$-módulo.  Sea $M[x]$ el conjunto de polinomios con coeficientes en~$M$.  Probar que $M[x]$ es un $A$-módulo.  Definir en $M[x]$ una estructura de $A[x]$-módulo.
+
+\end{pro}
+
+
+
+\begin{pro}
+
+Sea $\phi : A \lto A$ un antimorfismo de anillos con unidad.  Probar que cada estructura de módulo por la izquierda induce una estructura de módulo por la derecha definiendo
+$$
+m.a = \phi (a). m
+$$
+
+Sea $k(G)$ el álgebra del grupo $G$ sobre el cuerpo $k$.  Este álgebra está formada por las combinaciones lineales finitas de elementos de $G$ con coeficientes en $k$.  Probar que
+$$
+\varphi (\sum_{g \in G} \lambda_g g) = \sum_{g \in G} \lambda_g g^{-1}
+$$
+es un antimorfismo de anillos con unidad.
+
+Consideremos en el conjunto ${\mathbb{H}}$ de los cuaterniones la conjugación
+$$
+a+ xi+yj+zk \lto a-xi-yj-zk
+$$
+
+Probar que es un antimorfismo de anillos con unidad.
+
+\end{pro}
+
+
+ 
+
+
+
+
+
+\section{Morfismos de módulos}\label{cap:morfismos}
+
+
+Por $M$ y $N$ denotaremos  siempre $A$-módulos.
+\begin{defi}
+Una aplicación $\varphi : M \rightarrow N$ se dice que es un {\sf morfismo de \linebreak $A$-módulos} \index{morfismo!de módulos} (aplicación $A$-lineal o simplemente {\sf  aplicación lineal} \index{aplicación!lineal} si se sobreentiende el anillo) si cumple:
+
+\begin{enumerate}[\indent i)]
+
+\item $\varphi$ es morfismo de  los grupos aditivos.
+
+\item $\varphi(am) = a \varphi(m)$ para todo $a$ y todo $m$. Esto equivale a que $\varphi$ ``conmute'' con $\lambda_a$ para todo $a$.  $\varphi \lambda_a =\lambda_a  \varphi$
+
+\end{enumerate}
+
+\end{defi}
+
+Si $\varphi: M \lto N$ y $\varphi' : N \lto P$ son lineales, entonces su composición \linebreak $\varphi' \: \varphi : M \lto P$ es un morfismo de módulos.
+
+Los morfismos se dirán que son {\sf inyectivos} \index{morfismo!inyectivo}  o {\sf epiyectivos} \index{morfismo!epiyectivo} cuando lo sean las aplicaciones que los definen.  $\varphi:M \lto N$ es un {\sf  isomorfismo} \index{isomorfismo}cuando la aplicación sea biunívoca.  En este caso la aplicación inversa $\varphi^{-1} : N \lto M$ es lineal, y por ser biunívoca es un isomorfismo.
+
+En el caso en que $M=N$ normalmente los isomorfismos reciben el nombre de {\sf automorfismos}. \index{automorfismo}  La aplicación identidad de un módulo $M$ en si mismo es siempre un automorfismo, que se denotará por $\Id$ (o $\Id_M$ si hay riesgo de confusión)
+
+Al ser la composición de automorfismos de nuevo un automorfismo, estos forman un grupo respecto a la composición.  Se le denota $\GL(M)$.  Es el grupo lineal de $M$.
+
+
+Dos módulos se dirán que son {\sf  isomorfos} \index{módulo!isomorfo} cuando exista al menos un isomorfismo entre ellos.  Es claro que la relación de isomorfía es de equivalencia.
+
+El conjunto de todos los morfismos de $A$-módulo de $M$ en $N$ se denota $\Hom_A (M,N)$ o simplemente $\Hom (M,N)$ si se sobreentiende el anillo.  Este último conjunto tiene una estructura natural de $A$-módulo definida por las opera\-ciones:
+$$
+(f+g) (m) = f(m) + g(m)
+$$  
+$$
+(af)(m) =a(fm)
+$$
+
+  Teniendo en cuenta la conmutatividad del anillo se prueba que tanto $f+g$ como $af$ son lineales.
+
+En el caso en que $M=N$ la composición introduce una estructura de anillo en $\Hom (M,N)$.  La aplicación $\lambda_a$ es lineal.  De esta forma $\End_A(M)$ es un álgebra sobre $A$, via el morfismo $\lambda : A \lto \End_A(M)$.
+
+\bigskip
+
+\noindent{\bf Ejemplos.}
+
+\begin{itemize}
+
+\item   $\Hom(A,M) = M$.  A cada morfismo $\varphi: A \lto M$ le corresponde $\varphi(1)$.  Recíprocamente, dado $m \in M$ existe un único morfismo de módulos $\varphi$ tal que $\varphi(1)=m$. Naturalmente este morfismo debe cumplir 
+$$
+\varphi(a) = a \varphi(1) = am
+$$
+
+\item  Toda aplicación lineal entre espacios vectoriales.
+
+\item  La inyección canónica de un ideal en el anillo.
+
+\item  Si $\varphi$ es $A$-lineal, entonces $\varphi$ es $B$-lineal si $B$ es un subanillo de  $A$.
+
+\item  Todo morfismo de grupos, entre dos grupos abelianos, entendidos como módulos sobre $\Z$, es lineal.
+
+\item $\varphi_0 : M \lto N$ definida como
+$$
+\varphi_0 (m) = 0 \text{ para todo   } m
+$$
+es lineal.  $\varphi_0$ es el elemento neutro de $\Hom (M,N)$ y por consiguiente lo notaremos como $0$.
+
+\item Consideremos a $\Z$ como un $\Z$-módulo.  La aplicación $n \lto 2n$ es morfismo de módulos pero no de anillos.  Debemos diferenciar claramente la estructura que consideramos en $\Z$ para poder hablar de morfismos sin ambigüedad.
+
+\item Sea $\C$ un módulo sobre si mismo.  La conjugación compleja $z \lto \overline{z}$ es morfismo de anillos pero no lo es de módulos.
+
+\end{itemize}
+
+\section*{Problemas}
+
+
+\begin{pro}
+
+Probar que efectivamente la composición de dos aplicaciones linea\-les es lineal.  Lo mismo con la suma y con el producto por un escalar.
+Comprobar que para que el producto por un escalar sea morfismo es primordial que $A$ sea conmutativo.
+\end{pro}
+
+\begin{pro}
+
+Una aplicación $\varphi: M \lto N$ es un isomorfismo si y solo si existe  $\varphi' : N \lto M$ tal que
+ $\varphi'  \varphi = \Id$ y $\varphi  \varphi' = \Id$.
+
+\end{pro}
+
+\begin{pro}
+
+Todo morfismo epiyectivo es simplificable por la derecha.  En diagramas
+
+\begin{diagram}
+M &\rTo^\phi & N & \rTo^{\varphi_1}_{\varphi_2}& N
+\end{diagram}
+
+$$\varphi_1\: \phi = \varphi_2\: \phi \quad \Rightarrow \quad \varphi_1 = \varphi_2$$
+Todo morfismo inyectivo es simplificable por la izquierda.  Dar nuevas definiciones de inyectividad y epiyectividad.
+\end{pro}
+
+\begin{pro}
+
+Sea $E_\varphi$ el $k[x]$-módulo asociado a un endomorfismo $\varphi$.
+Probar que la multiplicación por $x$ es una aplicación lineal de dicho módulo.
+
+\end{pro}
+
+
+\begin{pro}
+
+Sean $E_{\varphi}$ y $E_{\varphi'}$ dos $k(x)$-módulos.
+Probar que los módulos son isomorfos si y solo si existe un automorfismo $\tau$ del espacio vectorial que cumple 
+$\varphi' =\tau \:\varphi \: \tau^{-1}$.  Así los dos endomorfismos son equivalentes y existen bases donde tienen la misma matriz.
+
+\end{pro}
+
+
+\begin{pro}
+
+Demostrar los siguientes enunciados:
+
+\begin{itemize}
+
+
+\item Todo endomorfismo de $\Z$ es la multiplicación por un escalar.  Demostrar que $\End (\Z)$ y $\Z$ son isomorfos como anillos.
+
+\item A todo endomorfismo de $\Z^2$ se le puede asociar una matriz $2 \times 2$ con coeficientes enteros.  Ver que esta correspondencia es biunívoca.  Dar la condición para que un endomorfismo de $\Z^2$ sea invertible.
+
+\item  Calcular los endomorfismos del grupo cíclico $\Z_n$.  Calcular los automorfismos de dicho grupo abeliano.
+
+\end{itemize}
+
+\end{pro}
+
+\begin{pro}
+
+Probar que si el anillo no es conmutativo, en general la aplicación $af$ no será lineal.
+
+Si $A$ no es conmutativo $\Hom_A (M,N)$ tiene una estructura de módulo por la izquierda sobre el anillo $\End_A (M,M)$.
+
+\end{pro}
+
+
+
+
+\section{Submódulos y   cocientes}
+
+
+Sea $M$ un módulo.  Se dice que un subgrupo $M'$ de $M$ es un {\sf submódulo} \index{submódulo} si $am' \in M'$ cuando $m' \in M$ y esto ocurra para todo $a$.
+
+\begin{propo}
+
+Un conjunto $ M' \subset M$ es un submódulo si y sólo si es cerrado por combinaciones lineales.
+
+Si $\varphi : M \to N$ es lineal, entonces la imagen de un submódulo de $M$ es un submódulo de $N$. La imagen inversa de un submódulo de $N$ es un submódulo de $M$.
+
+\end{propo}
+
+\dem
+
+Exactamente igual que para espacios vectoriales. \fin
+
+En particular la antiimagen del cero (que es siempre un submódulo) es un submódulo de $M$ llamado {\sf núcleo} \index{núcleo de una aplicación} de la aplicación $\varphi$.  Se denota $\Ker(\varphi)$. 
+
+Todo submódulo puede considerarse como un $A$-módulo con las operaciones inducidas.
+
+Si $N$ es un submódulo de $M$, en el grupo abeliano $M/N$ existe una única estructura de $A$-módulo que hace que el morfismo canónico de paso al cociente $ \pi : M \to M/N$ sea una aplicación lineal.  Entonces la multiplicación por escalares debe estar definida como
+$$
+a. \pi (m) = \pi(am)
+$$
+
+La definición anterior es independiente del representante.  El módulo que acabamos de construir es el {\sf cociente }\index{módulo!cociente}{\sf  de $M$ módulo $N$}.
+
+El teorema de factorización canónica que se ha visto para otras estructuras, es también válido para los módulos.
+
+Si $\varphi: M \to M'$ es un morfismo cuyo núcleo contenga a un submódulo $N$, entonces existe una única aplicación lineal $\overline{\varphi}$ que hace conmutativo el diagrama
+
+\begin{diagram}
+M & \rTo^\varphi & M' \\
+\dTo^\pi & \ruTo_{\overline{\varphi}} & \\
+M/N & &
+\end{diagram}
+Por lo tanto $\overline{\varphi}$ debe actuar de la siguiente manera
+$$
+\overline{\varphi} (\pi (m)) = \varphi (m)
+$$
+y no depende del representante que tomemos.
+
+\begin{propo}\label{submodulo}
+
+Si $\pi : M \to M/N$ es la proyección canónica, los submó\-dulos de $M/N$ se corresponden canónicamente con los submódulos de $M$ que contienen a $N$.  A cada submódulo $N'$ le hacemos corresponder $\pi ^{-1}(N')$.
+
+\end{propo}
+
+
+
+
+
+Los submódulos de $A$ son precisamente los ideales.  Entonces en el caso particular de que $M=A$ se reencuentra el resultado conocido de Teoría de anillos.
+
+\begin{propo}
+
+Un morfismo es inyectivo si y sólo si su núcleo es el submó\-dulo cero.
+
+\end{propo}
+
+
+
+\noindent {\bf Ejemplos}
+
+\begin{itemize}
+
+\item Un ideal de $A$ es un submódulo y recíprocamente.
+
+\item Si $\mathfrak{a}$ es un ideal de $A$ entonces existe una estructura natural de módulo en $A/\mathfrak{a}$.
+
+\item  Todo subgrupo es un $\Z$-submódulo y recíprocamente.
+
+\item El conjunto de las funciones infinitamente diferenciables sobre $\R$ es un subespacio del de todas las funciones continuas en $\R$.
+
+\item Sea $G$ un grupo abeliano.  El conjunto de los elementos de $G$ cuyo orden es una potencia de un primo $p$ forman un submódulo $G_p$.
+
+\item  Los espacios cocientes y los subespacios.
+
+\item  $n \Z$ es un submódulo de $\Z$ y $\Z/n\Z = \Z_n$ es el módulo cociente.  El cardinal de $\Z_n$ es $n$, que es menor que $\aleph_0$.  Así encontramos un módulo distinto de cero que es ``más pequeño'' que el anillo.  Como sabemos esto no ocurría nunca en los espacios vectoriales.
+\item Sea $m \in M$ no nulo.  El conjunto
+$$
+Am = \{ a.m \quad\text{ con } a \in A \}
+$$
+es un submódulo de M.  
+
+\item En $E_\varphi$ un submódulo es un subespacio $V$ que cumple $ \varphi (V) \subset V$.  En álgebra lineal $V$ se denomina {\sf subespacio invariante} por $\varphi$. \index{subespacio invariante}
+
+\end{itemize}
+
+
+
+\begin{defi}
+
+Decimos que un módulo es {\sf cíclico} \index{módulo!cíclico} si existe un vector $m \in M$ de tal manera que $ M =Am$.
+
+\end{defi}
+
+\begin{propo}
+
+Todo módulo cíclico es isomorfo al cociente del anillo mó\-dulo un ideal.
+
+\end{propo}
+
+\dem
+
+Definimos $\rho_m : A \to M$ por la fórmula $\rho_m(a) =am$. Esta aplicación es un morfismo de módulos.  Al ser cíclico $\rho_m$ es epiyectivo.  Su núcleo es un ideal y por el teorema de factorización $M$ es isomorfo a $A/\mathfrak{a}$. \fin
+
+Seguiremos con algunos isomorfismos canónicos entre módulos que gene\-ralizan lo obtenido para grupos.  Se deben a Emmy Noether.
+
+El primero es de factorización canónica y a estas alturas ya es suficientemente conocido.
+
+\begin{teo}
+
+Sea $\varphi : M \to N$ lineal.  Entonces
+$$
+M/\ker(\varphi) \sim \Img (\varphi)
+$$
+\end{teo}
+
+\begin{teo}
+
+Sea $ N \subset M \subset L$ submódulos
+$$
+(L/N)/(M/N) \sim L/M
+$$
+
+\end{teo}
+
+\dem
+
+Definimos $\varphi : L/N \to L/M$ como $\varphi (\pi_N (x) ) = \pi_M (x)$ que es lineal y epiyectiva. $\pi_N (x)$ está en el núcleo de $\varphi$ si $ x \in M$.  Entonces el núcleo de la aplicación  es $M/N$. \fin
+
+\begin{teo}
+Si $M_1, M_2$ son dos submódulos de $M$
+$$
+(M_1 + M_2)/(M_1) \sim M_2/(M_1 \cap M_2)
+$$
+\end{teo}
+
+
+\dem
+
+
+Definimos el morfismos canónico
+$$
+\overline{\pi} : M_2 \to (M_1 + M_2)/M_1
+$$
+$\overline{\pi}(x) = 0 \Leftrightarrow x \in M_2$ y $ x \in M_1\Leftrightarrow x \in M_1 \cap M_2 $.  Como $\overline{\pi}$ es epiyectivo terminamos aplicando el teorema de factorización. \fin
+
+
+
+\begin{defi}
+
+Un módulo es {\sf simple} \index{módulo!simple} si sus únicos submódulos son el mismo $M$ y el cero.
+
+\end{defi}
+
+\begin{defi}
+
+Si $M$ es un módulo, decimos que un submódulo $N$ es {\sf máxi\-mal} \index{submódulo!máximal} si para todo submódulo $N'$ que contenga a $N$ se tiene que o bien $N' =N$ o bien $N'=M$.
+
+\end{defi}
+
+\begin{propo}\label{propo:maximal}
+
+Un submódulo $N \subset M$ es maximal $\Leftrightarrow$ $M/N$ es simple.
+
+\end{propo}
+
+\dem
+
+Nos basamos en la proposición \ref{submodulo}.
+
+Si $N$ es maximal, entonces en $M/N$ sólo pueden existir dos submódulos.  Por lo tanto $M/N$ es simple.
+
+\smallskip
+
+Si $M/N$ es simple cualquier submódulo $N'$ que contenga a $N$ tiene como imagen un submódulo de $M/N$.  Pero como este es simple necesariamente $N'$ debe ser igual  a $N$ o a $M$.  \fin
+
+\begin{lema}[Schur]
+
+Si $M$ es simple, entonces $\End(M)$ es un {\sf anillo con división}. \index{anillo!con división}
+
+\end{lema}
+
+\dem
+
+Sea $\varphi \in \End(M)$ no nulo.  $\Ker(\varphi)$ no es todo el espacio, luego por ser $M$ simple debe ser cero.  Así $\varphi$ es inyectivo.
+
+$\Img(\varphi)$ es un submódulo y como $\varphi$ no es nulo necesariamente $\Img(\varphi) = M$.  Luego  $\varphi$ es epiyectivo.  Así concluimos que $\varphi$ es invertible siempre que no sea nulo. \fin
+
+Debemos tener cuidado pues en general el anillo con división no será conmutativo.
+
+\begin{cor}
+
+Si $M$ es simple, entonces es un espacio vectorial sobre el cuerpo (posiblemente no conmutativo) $\End(M)$.
+
+\end{cor}
+
+\begin{propo} \label{pro:simple}
+
+Todo $A$-módulo simple es el cociente de $A$ por un ideal maxi\-mal.
+
+\end{propo}
+
+\dem
+
+Sea $M$ simple, $m \in M$ y distinto de cero.  La aplicación lineal $\rho_m : A \to M$ que manda el $1$ hasta $m$ es epiyectiva por ser $M$ simple.  Su núcleo es un ideal (o~sea un submódulo de $A$) y debido a la correspondencia entre submódulos de $M$ y submódulos(= ideales) de $A$, debe ser maximal.  Se acaba aplicando el teorema de factorización.
+\fin
+
+De este teorema se deduce que la variedad de módulos simples no isomorfos dependerá en gran medida de la cantidad de ideales maximales del anillo.
+
+\section*{Problemas}
+
+
+\begin{pro}
+
+Si $M$ es simple $ \Rightarrow $ $\Ann(m)$ es un ideal maximal para todo $m \in M$.
+Si $M$ es simple entonces es cíclico. Ver si el recíproco es cierto.
+
+\end{pro}
+
+\begin{pro}
+
+Sea $A$ un dominio de integridad y $M$ un módulo. Un vector  $m \in M$ es de {\it  torsión} \index{vector de torsión} si existe un escalar $a$ tal que $am =0$.  Designamos por $M_\tau$ al conjunto de todos los vectores de torsión  de $M$.  Decimos que $M$ es un {\it módulo de torsión} \index{módulo!de torsión} si $M = M_\tau$.  Decimos que no tiene torsión si $M_\tau = 0$.
+
+
+\begin{itemize}
+
+
+\item $M_\tau$ es un submódulo.
+
+\item $M/ M_\tau$ tiene torsión cero.
+
+\item  Los submódulos y los cocientes de módulos de torsión son de torsión.
+
+\item  En un grupo abeliano un elemento es de torsión si y solo si es de orden finito.
+
+\item  Probar que $\Q$ entendido como $\Z$-módulo no tiene torsión.
+
+\item Probar que $\Q / \Z $ es un módulo de torsión sobre $\Z$.
+
+\item Ver si la condición de que $A$ sea dominio de integridad es o no fundamental para los resultados de este problema.
+
+\end{itemize}
+
+\end{pro}
+
+\begin{pro}
+
+
+Sea $\mathfrak{a} \subset A$ un ideal.  $M$ un $A$-módulo.  El conjunto de todas las sumas finitas $\sum^{'} a_i m_i $ con $a_i \in  \mathfrak{a}$ es un submódulo de $M$. Denotamos este submódulo por $\mathfrak{a}M$.  Hacer lo mismo con un submódulo $M' \subset M$.
+
+¿Ocurre siempre que e $\mathfrak{a}M$ es distinto de cero si $\mathfrak{a}$ lo es?
+
+\end{pro}
+
+
+\begin{pro}
+
+Sea $M$ un $A$-módulo.  Sea $N_1 \subset N_2 \subset \dots \subset N_n \subset \dots$ una cadena de submódulos.  Probar que la unión de esos submódulos es un submódulo.
+\end{pro}
+
+\begin{pro}
+
+Sea $\m$ un ideal maximal de $A$.  Probar que $M/\m M$ es un espacio vectorial sobre el cuerpo $A/\m$ definiendo
+$$
+\pi(a)\pi(m)= \pi(am)
+$$
+
+Utilizar esto para probar que si $A^m \sim A^n$ entonces $n=m$.
+
+\end{pro}
+
+
+
+
+
+
+
+\section{Retículo de submódulos}
+
+
+El conjunto de submódulos de $M$ es un subconjunto de la clase de las partes de $M$.  
+$$
+Submodulos (M) \subset Partes(M)
+$$
+Por lo tanto hereda una estructura de orden \index{estructura de orden} y es esa estructura natural la que consideraremos en lo que sigue.
+
+Diremos que un submódulo $N$ es {\sf menor} que otro submódulo $N'$ cuando $ N \subset N'$. Se debe observar que en general el orden no es total.
+
+La clase de todos los submódulos de $M$ admite un {\sf máximo} \index{elemento máximo} (o último elemento) y un {\sf mínimo} \index{elemento mínimo}(o primer elemento).  El primer elemento es el módulo cero que es menor que cualquier submódulo.  El último elemento es el propio $M$ que contiene, como es obvio, a todo submódulo.  Este conjunto además admite la siguiente estructura reticular.
+
+Sea $\{N_i\}$ una familia, posiblemente infinita, de submódulos de $M$.  Se define la {\sf suma} \index{suma de submódulos} de estos submódulos como el conjunto de todos los vectores de $M$ que son combinación lineal finita de elementos de $ \bigcup N_i$.  Se denotará $\sum N_i$ y es un sumódulo.  Entonces todo vector de $ \sum N_i$ se puede escribir de la forma $ \sum^{'} n_i$ con $n_i \in N_i$, donde el apóstrofe indica que la suma es finita (casi todos los $n_i$ deben ser cero).
+
+
+Es evidente que $\sum N_i$ es mayor que todos los submódulos $N_i$ y que si $H$ es un submódulo que contiene a todos los $N_i$, necesariamente contiene a $\sum N_i$, puesto que debe contener a todas las combinaciones lineales formadas con elementos de los submódulos.  Por lo tanto $\sum N_i$ es el {\sf supremo} \index{supremo de una familia} de los $N_i$ respecto al orden dado por la inclusión natural.
+
+Dados $\{N_i\}$, su intersección conjuntista es un submódulo contenido en todos los $N_i$.  Si  $H$ es un submódulo contenido en todos los $N_i$, necesariamente está contenido en $\bigcap N_i$.  Así $\bigcap N_i$ es el {\sf ínfimo} \index{infimo de una familia@ínfimo de una familia} de la familia $\{N_i\}$.
+
+Esto se resume en la siguiente 
+
+\begin{propo}
+
+El conjunto de submódulos de $M$ es un {\sf retículo completo} \index{retículo completo} con elemento máximo y mínimo.
+
+\end{propo}
+
+Como en todo retículo con primer y último elemento, existe la noción de suplementario.
+
+
+\begin{defi}
+
+$N \subset M$ admite un {\sf suplementario} \index{suplementario}  si existe otro submódulo $N'$ tal que se tenga:
+
+\begin{enumerate}[i)]
+
+ \item $N + N' = M  \Leftrightarrow \sup (N,N')=$ \text{elemento  máximo}
+
+\item $ N \cap N' =0 \Leftrightarrow \inf (N,N')=$ \text{elemento mínimo}
+
+\end{enumerate}
+
+\end{defi}
+
+El suplementario, caso de existir, no tiene porqué ser único, contrariamente a lo que ocurre en el retículo de todas las partes de $M$.  Si un submódulo admite un suplementario se dice que ese submódulo es un {\sf sumando directo}. \index{sumando directo}
+
+Es un resultado conocido de Algebra Lineal, que todo subespacio vectorial admite al menos un suplementario.  Es una consecuencia del lema de Zorn.  Sin embargo esta afirmación es falsa, en general, para módulos.
+
+\bigskip
+
+\noindent{\bf Ejemplos.}
+
+\begin{itemize}
+
+\item  Sea $n\Z$ un submódulo de $\Z$.  Este submódulo no admite suplementario puesto que si $m\Z$ es otro submódulo siempre se tiene que $n\Z \cap m\Z$ es no nulo.
+
+\item  El mismo razonamiento se aplica al anillo de polinomios sobre un cuerpo.
+
+\end{itemize}
+
+
+\begin{defi}
+
+Se dice que un módulo es {\sf semisimple} \index{módulo!semisimple} si todo submódulo es un sumando directo. Se dice que un módulo es {\sf simple} \index{módulo!simple} si sus únicos submódulos son el cero y el total.
+
+\end{defi}
+
+Es claro que todo módulo simple es semisimple.  Recordemos (véase proposición \ref{pro:simple}) que todo módulo simple es el cociente del anillo módulo un ideal maxi\-mal.
+
+Enunciemos ahora un resultado de Algebra Lineal en nuestro lenguaje.
+
+\begin{teo}
+
+Sea $k$ un cuerpo.  Todo $k$-espacio vectorial es semisimple y todo $k$-módulo simple es isomorfo a $k$.
+
+\end{teo}
+
+Este par de propiedades son las que hacen tan sencillo el estudio lineal de los módulos sobre cuerpos. Todo anillo que goze de las mismas propiedades será asimismo de fácil estudio.
+
+Sea ahora $S$ un subconjunto arbitrario de $M$.  Llamaremos {\sf submódulo gene\-rado} \index{submódulo!generado} por $S$, al mínimo submódulo que contiene a $S$.  Coincide con la intersección de todos los submódulos que contienen a $S$, o también con el submódulo formado por todas las combinaciones lineales de elementos de~$S$.  Debido a esto último, el submódulo generado por $S$ también se llama {\sf envolvente lineal} de $S$. \index{envolvente lineal}
+
+\begin{defi}
+
+Un módulo $M$ es de {\sf  generación finita} \index{módulo!de generación finita} si es la envolvente lineal de algún subconjunto finito de $M$.
+
+\end{defi}
+
+\begin{cor}
+
+Si $k$ es un cuerpo y $M$ un $k$-módulo.  $M$ es de generación finita si y solo si es de dimensión finita
+
+\end{cor}
+
+\begin{teo}
+
+Un $A$-modulo $M$ es de generación finita si y solo si existe un $n \in \N $ y un morfismo epiyectivo $\phi : A^n \to M$.
+
+\end{teo}
+
+\dem
+
+$ \Rightarrow $)$(m_1, \ldots , m_n)$ una familia generadora.  El morfismo que manda a $e_i$ hasta $m_i$ es epiyectivo.  Dicho morfismo se extiende por linealidad.  Por $e_i$ denotamos  al elemento con todas las componentes nulas, salvo la que ocupa la posición $i$ que es $1$.
+
+\smallskip
+
+$ \Leftarrow $)$\{e_i\}$ generan $A^n$.  Entonces sus imagenes por una aplicación epiyectiva generan $M$. \fin
+
+
+\begin{propo}  
+
+Se cumplen los siguientes enunciados:
+
+\begin{enumerate}[\indent i)]
+
+ \item  Si $M$ es módulo y $\{N_i\}$ una colección finita de submódulos de gene\-ración finita, su suma $ \sum N_i$ es también de generación finita.
+
+\item  El cociente de un módulo finito generado es finito generado.
+
+\item Un sumando directo de un módulo finito generado es también finito gene\-rado.
+
+\end{enumerate}
+
+\end{propo}
+
+\dem
+
+\begin{enumerate}[\indent i)]
+
+\item Tomamos un conjunto generador de cada $N_i$.  La unión de todos esos gene\-radores es finita y generan la suma.
+
+\item Las imagenes de una familia generadora genera el cociente.
+
+\item Si $N$ es un sumando directo entonces $M= N +N'$ y $N \sim M/N'$ y se concluye por el apartado anterior. \fin
+
+\end{enumerate}
+
+
+
+
+\section*{Problemas}
+
+
+\begin{pro}
+
+Sean $A \subset B$ dos anillos.  Supongamos que $M$ es de gene\-ración finita como módulo sobre el anillo $B$.  Supongamos también que $B$ es de generación finita como $A$-módulo.   Probar que el $A$-módulo obtenido por restricción de escalares es finito-generado.
+
+\end{pro}
+
+
+
+\begin{pro}
+
+Sean $ A \subset B$ dos anillos.  $M$ un módulo sobre $B$ y sobre $A$ por restricción de escalares.  Ver la relación que hay entre sus retículos de submódulos. ¿Coinciden en general el $A$-módulo generado por una parte $S$ y el $B$-módulo gene\-rado por el mismo conjunto?
+
+\end{pro}
+
+\begin{pro}
+Si $N$ y $M/N$ son de generación finita demostrar que $M$ también.
+
+\end{pro}
+
+\begin{pro}
+
+¿$\Q$ es finito-generado sobre $\Z$ o no lo es?
+
+\end{pro}
+
+\begin{pro}
+
+Si $M_1 \subset M_2 \subset \dots \subset M_n \subset \dots$, demostrar que la unión de submódulos coincide con la suma de dichos submódulos.
+
+\end{pro}
+
+
+
+
+
+\section{Categorías y functores}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\Ca}{\mathcal{C}}
+\newcommand{\Da}{\mathcal{D}}
+\newcommand{\Ea}{\mathcal{E}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+En esta sección daremos una pequeña introducción a la teoría de categorías y functores.  El material cubierto en este capítulo no es imprescindible para comprender los siguientes.  Sin embargo es muy conveniente su estudio, pues introduce al lector en un mundo nuevo para él, donde la abstracción alcanza un grado muy elevado.  La teoría de categorías y functores invade actualmente gran parte del enorme reino de las matemáticas.
+
+
+
+A partir de los años $40$ del siglo {\sc xx}, se trató de sistematizar el estudio de todas las estructuras matemáticas conocidas.  Asociadas a esas estructuras tenemos siempre unos morfismos.  Estos morfismos normalmente son funciones entre los conjuntos soporte de las estructuras.  Por ello la composición funcional de morfismos es una operación válida y además lo normal es que nos de otro morfismo.  Todo ello se encuentra recogido dentro del cálculo categórico.
+
+
+La teoría de functores representables es la asociada a los problemas de las propiedades universales.
+
+Nosotros partiremos de la definición ``clásica'' de categoría, que es la más intuitiva.   Debemos señalar que todo este capítulo, a excepción del teorema de Grotendieck, es simplemente notación.
+
+\begin{defi}
+
+Una {\sf categoría} \index{categoría} $\Ca$ consta de:
+\begin{itemize}
+ \item Una clase $\Ob (\Ca)$ cuyos elementos llamaremos {\sf objetos} \index{objeto de  una categoría} de $\Ca$.  En general $\Ob (\Ca)$ será una clase y no un conjunto.
+\item  Para cada par de objetos de la categoría $M$ y $N$, existe un conjunto $\Hom (M,N)$ que son los {\sf morfismos} \index{morfismo!de una categoría} de $M$ en $N$.
+\item Para cada trio de objetos $M,N,P$ una aplicación
+$$
+\begin{array}{ccc}
+\Hom_\Ca (M,N) \times  \Hom_\Ca (N,P) & \longrightarrow & \Hom_\Ca (M,P) \\
+(f                            ,                 g  )         &  \longrightarrow   &     gf \\
+\end{array}
+$$    
+ que llamaremos composición de morfismos y que debe cumplir:
+\begin{enumerate}[i)]
+ \item  Asociativa, cuando esto tenga sentido (o sea cuando la composición esté definida).
+\item Para cada objeto $M$, existe un morfismo de $M$ en si mismo, $\Id_M$ y que actua como identidad a la derecha y a la izquierda, siempre que la composición tenga sentido.  Este morfismo se llama ``identidad del objeto $M$''.
+$$
+ f \Id_M = f \quad f \in \Hom (M,P) \text{ para todo } P \in \Ob(\Ca) 
+$$
+$$
+  \Id_M g = g \quad g \in \Hom (P, M) \text{ para todo } P \in \Ob(\Ca) 
+$$
+\end{enumerate}
+
+
+
+\end{itemize}
+
+\end{defi}
+
+
+Dada una categoría, podemos hablar de una subcategoría.
+
+
+\begin{defi}
+
+$\Ca'$  es una {\sf subcategoría} \index{subcategoría} de $\Ca$ si:
+\begin{enumerate}[i)]
+
+\item $\Ob (\Ca') \subset \Ob (\Ca)$
+
+\item $ \Hom_{\Ca'} (M,N) \subset \Hom_\Ca (M,N)$
+
+\end{enumerate}
+\noindent y la composición en $\Ca'$ es la restricción de la composición en $\Ca$.
+
+\end{defi}
+
+En el caso en que $ \Hom_{\Ca'} (M,N) = \Hom_\Ca (M,N) $ para todo par de objetos de $\Ca'$, la subcategoría se dirá que es {\sf completa}  o plena. \index{categoría!completa}  En estas subcategorías sólo quitamos objetos, pero no morfismos entre los objetos que nos quedan.
+\bigskip
+
+
+\noindent{\bf Ejemplos.}
+
+\begin{itemize}
+
+ \item   Categoría de conjuntos.  Los objetos son los conjuntos y los morfismos entre dos conjuntos son las funciones entre ellos.  La composición es la habitual entre aplicaciones.  Como es bien sabido, el conjunto de todos los conjuntos no es un conjunto.  En realidad es una clase.  Sin embargo no tendremos en cuenta nunca este tipo de problema, que lo dejaremos para los ``fundamentalistas'' de la matemática.
+
+\item  Categoría de grupos, anillos, $k$-espacios vectoriales, $A$-módulos $\ldots$, junto con los morfismos propios de la estructura y la composición habitual como funciones.
+
+\item  Categoría de grupos abelianos o categoría de grupos finitos.  Son subcategorías plenas de la categoría de gupos.  Sin embargo la categoría de $k$-álgebras no es completa en la de $k$-espacios, pues en general una aplicación lineal no tiene por qué ser un morfismo de anillos.
+
+\item Las variedades diferenciales y las aplicaciones $C^\infty$.
+
+\item Los espacios topológicos y las aplicaciones continuas.
+
+\item  Los espacios métricos y los morfismos que conservan las distancias.
+
+\item Los espacios normados sobre el cuerpo $\R$, junto con las aplicaciones lineales que conservan la norma.
+
+\end{itemize}
+
+Veamos ahora ciertas definiciones referentes a los morfismos.  Son simple traducción a nuestro lenguaje de propiedades que caracterizan a los morfismos que hemos estudiado en otras estructuras.
+
+Decimos que $f : M \lto N$ es un {\sf isomorfismo} \index{isomorfismo} si existe $ g : M \lto N$ tal que $ gf = \Id_M$ y $fg = \Id_N$.
+El lector puede probar que este $g$, caso de existir es único.   Se dirá que es el inverso de $f$ y se denotará $f^{-1}$ como norma general.
+
+A los morfismos de un objeto en si mismo los llamaremos {\sf endomorfismos}. \index{endomorfismos}  A los endomorfismos que sean isomorfismos los llamaremos {\sf  automorfismos}. \index{automorfismo}
+
+Un morfismo $f : M \lto N$ es {\sf inyectivo} \index{morfismo!inyectivo} si para todo par de morfismos
+$$
+g, \overline{g} : P \lto M 
+$$
+que cumplan $ fg = f \overline{g} \quad \Rightarrow \quad g = \overline{g}$.
+
+Un morfismo $f: M \lto N$ es {\sf epiyectivo} \index{morfismo!epiyectivo} si para cualquier par de morfismos 
+$$
+g, \overline{g} : N \lto P
+$$
+que cumpla $\overline{g} f = g f$ se tiene que $g = \overline{g}$.
+
+Debido a esto todo monomorfismo (= inyectivo) es simplificable por la izquierda y cualquier epimorfismo es simplificable por la derecha.  Estas definiciones coinciden con las conocidas.
+
+
+Como no podía ser menos, existen unos morfismos entre categorías.  Para evitar complicaciones de lenguaje se les llama functores.
+
+\begin{defi}
+
+Sean $\Ca$ y $\Da$ categorías.  Un {\sf functor covariante} \index{functor!covariante} de $\Ca$ en $\Da$ es una  regla que asigna a cada objeto $M$ de $\Ca$ un objeto $F(M)$ de $\Da$, y a cada morfismo $f : M \lto N$ un morfismo
+$F(f) : F(M) \lto F(N)$ de modo que se cumpla:
+\begin{itemize}
+ \item $F(\Id_M) = \Id_{F(M)}$
+\item $F(gf) = F(g) F(f)$
+\end{itemize}
+Un functor se denota $ F : \Ca \lto \Da$
+
+\end{defi}
+
+\begin{defi}
+Un {\sf functor contravariante} \index{functor!contravariante} es una ley que asigna a cada objeto $M$ de $\Ca$ un objeto $F(M)$ de $\Da$ y a cada morfismo
+$f: M\lto N$ un morfismo $F(f): F(N) \lto F(M)$ (observese que cambia el orden) de modo que se verifique:
+\begin{itemize}
+ \item $F(\Id_M) = \Id_M$
+\item $F(gf)=F(f) F(g)$
+\end{itemize}
+También se denota $ F : \Ca \lto \Da$.
+
+\end{defi}
+
+Si hubiesemos estudiado la teoría de categorías, entendiendolas como semigrupoides, el concepto de functor aparecería de modo natural.
+\bigskip
+
+\noindent {\bf Ejemplos.}
+
+\begin{itemize}
+
+ \item El paso al dual.  Si $E$ es un espacio vectorial $F(E) = E^* \: ,\:\:\: F(\varphi) = \varphi^*$.  A cada espacio le asociamos su dual y a cada aplicación su transpuesta.  Así hemos construido un functor contravariante de la categoría de los  \mbox{$k$-espacios} vectoriales en si misma.
+
+\item Si $X$ es un espacio topológico o una variedad, asociamos a $X$ el anillo de funciones reales continuas o diferenciables.  A cada morfismo $f$ le asocia\-mos $f_* $.  $f_*$ consiste en componer con $f$ por la izquierda.  Este functor covariante valora en la categoría de $\R$-álgebras.
+
+\item $M$ un $A$-módulo.  $F(M) = \{\text{Submódulos de }M\}$,  $F(f) = f^{-1}$. $f^{-1}$ es la imagen inversa.  Tenemos entonces un functor de la categoría de \mbox{$A$-módulos} en la categoría de conjuntos ordenados.
+
+
+
+\item Si $A$ es un anillo $F(A)= \{\text{Ideales primos de } A\} $, $F(f)=f^{-1}$.  Es un functor de la categoría de anillos conmutativos en la de conjuntos ordenados.  Este functor se denomina functor {\sf espectro} \index{functor!espectro} y $F(A)$ se denota $\Spec (A)$.  Este functor es contravariante.
+
+\item Si $X$ es una variedad diferenciable. $\tau (X)$ el álgebra tensorial y para cada apliación diferenciable 
+$f : X \lto Y$ sea $f^* : \tau (Y) \lto \tau (X)$ la imagen inversa, también llamada {\sf pull-back}. \index{pull-back}
+
+\item  Sea $N$ un objeto. $F(M) = \Hom_\Ca (N,M)$.  Es un functor covariante de la categoría $\Ca$ en la de conjuntos.  Naturalmente $F(f) = f_*$ que consiste en componer por la izquierda con $f$.  Este functor se suele denotar $H_N$.
+
+\item Si $N$ es un objeto, $F(M) = \Hom_\Ca (N,M)$ es un functor contravariante.
+
+
+\end{itemize}
+
+Sean ahora $F$ y $G$ dos functores de $\Ca$ en $\Da$
+
+\begin{defi}
+
+Una {\sf transformación natural} \index{transformación natural} entre los functores $F$ y $G$ es dar una ley que asigne a cada objeto $M$ de $\Ca$ un morfismo $\tau_M : F(M) \lto G(M)$ de tal modo que sea conmutativo el diagrama
+\begin{diagram}
+F(M) & \rTo^{F(f)} & F(N) \\
+\dTo^{\tau_M} & & \dTo_{\tau_N} \\
+G(M) & \rTo^{F(g)} & G(N) \\
+\end{diagram}
+La transformación natural se denotará $\tau : F \lto G$.
+
+\end{defi}
+
+Diremos  que esa ley es una equivalencia o un isomorfismo de functores \index{isomorfismo!de functores} si todos los morfismos $\tau_M$ son isomorfismos.
+
+Todo lo dicho se aplica a functores covariantes.  El lector intentará traducir estos conceptos a los functores contravariantes.
+
+\bigskip
+
+\noindent{\bf Ejemplos.}
+
+\begin{itemize}
+
+ \item  Sea la categoría de los espacios vectoriales de dimensión finita sobre un cuerpo.  El funtor tomar doble dual es equivalente al functor identidad, pues es sabido que dado $E$, existe un isomorfismo canónico de $E$ en $E^{**}$ que hace el diagrama conmutativo.
+
+\item  Las equivalencias naturales entre functores, son la realización abstracta de los isomorfismos canónicos.
+
+
+\end{itemize}
+
+Una vez dado el concepto de equivalencia de functores, podremos hablar de functores representables, que es el tema del resto del capítulo.
+
+Consideremos el ejemplo dado anteriormente de functor $H_N$.  Sea $F$ un functor arbitrario de la categoría $\Ca$ en la de conjuntos.  Cada elemento \mbox{$\varphi \in F(M)$} define una equivalencia natural entre el functor $H_M$ y $F$:
+$$
+\varphi : H_M \lto F
+$$
+$$
+\varphi (f) = F(f) (\varphi)
+$$
+
+\begin{defi}
+
+Diremos que la pareja $(M, \varphi)$ representa al functor $F$, si la transformación natural construida anteriormente es un isomorfismo de functores.  Diremos que un functor es {\sf representable} \index{functor!representable} si existe alguna pareja que lo represente.
+
+\end{defi}
+
+De modo análogo se define la representatividad de los functores contrava\-riantes.
+
+Todos los teoremas de factorización canónica y de propiedades universales afirman que cierto functor es representable.
+
+Si existe un pareja $(M,\varphi)$ que representa a $F$, y si suponemos que exis\-te un objeto $M'$ isomorfo a $M$, mediante un isomorfismo $f : M \lto M'$, entonces la pareja $(M', F(f)\varphi)$ también representa a $F$.  Estas parejas serán consideradas equivalentes
+
+\begin{defi}
+
+Dos parejas $(M, \varphi)$ y $(M', \varphi')$ que representan a $F$ son equi\-valentes si existe un isomorfismo $ f :M \lto M'$ que cumpla $\varphi' = F(f) \varphi$.
+
+\end{defi}
+
+Veamos el importante teorema de unicidad de la pareja representante de un functor.
+
+\begin{teo}[Grotendieck]
+
+Si un functor representable está representado por dos parejas, estas son equivalentes.
+
+\end{teo}
+
+\dem
+
+$(M, \varphi)$ y $(M', \varphi')$ dos parejas que representan a $F$.  Existe un único morfismo $f:M \lto M'$ que cumple
+$\varphi' = F(f) (\varphi)$.
+Del mismo modo, existe un único morfismo $g : M' \lto M$ que cumple $F(g) (\varphi') = \varphi$.
+Entonces $\varphi = F(gf) (\varphi)$ y $\varphi' = F(fg) (\varphi')$.  Se puede concluir que $F(gf) = \Id_M$ y que $fg= \Id_{M'}$.  Por lo tanto $f$ es un isomorfismo. \fin
+
+Ejemplos de functores representable se dan en el texto, aunque no se mencionan explicitamente.  Simplemente probamos las ``propiedades universales''.
+
+Otros ejemplos de functores representables pueden ser:
+\begin{itemize}
+
+ \item Construcción de $\Z$ a partir de $\N$.
+\item Construcción de las estructuras cociente.
+\item  Construcción del anillo de fracciones de un anillo íntegro.
+\item Localización de un anillo por un subconjunto multiplicativamente ce\-rrado.
+\item Algebra envolvente de un álgebra de Lie.
+\item Algebra de Clifford asociada a un tensor métrico.
+\item Completación de un espacio métrico.
+\item Construcción del anillo de polinomios sobre un cuerpo.
+\item $k$-álgebra de un grupo.
+
+
+\end{itemize}
+
+
+
+\section*{Problemas}
+
+\begin{pro}
+
+Pruébese la verdad o falsedad de las afirmaciones que siguen:
+
+\begin{enumerate}[\indent  i)]
+
+
+
+ \item  Los $\R$-espacios normados se pueden considerar una subcategoría de los espacios topológicos.
+
+\item Los $\R$-espacios normados son una subcategoría plena en los $\R$-espacios vectoriales.
+
+\item Los conjuntos ordenados, junto con los antimorfismos forman una categoría. ($f$ es es antimorfismo si $f(x) \leq f (y)$ cuando $ y \leq x$).
+
+\end{enumerate}
+
+\end{pro}
+
+\begin{pro}
+$f$ es isomorfismo.  Entonces es inyectivo y epiyectivo. ¿Es cierta la afirmación recíproca?
+
+¿Es siempre cierto, cuando los morfismos son funciones, que los isomorfismos son los morfismos biunívocos?
+
+Los automorfismos de un objeto forman un grupo.
+
+\end{pro}
+
+\begin{pro}
+
+Probar que todo grupo puede considerarse una categoría con un único objeto y los elementos del grupo como morfismos.
+La composición es el producto del grupo.  Hállense los isomorfismos, monomorfismos y epimorfismos.
+
+\end{pro}
+
+\begin{pro}
+
+Probar que $\Id_M$ es necesariamente único.  Además es un isomorfismo.  Debido a ello los objetos de la categoría se pueden inyectar en la colección de todos los morfismos de la categoría.  Ello lleva a la conclusión de que en la categoría los elementos que tienen importancia son los morfismos, pues un objeto no es más que un morfismo con ciertas propiedades.  Esta última afirmación se ve reforzada al estudiar el teorema de Grotendieck de functores representables.
+
+\end{pro}
+
+\begin{pro}
+
+Dos objetos de una categoría se dice que son equivalentes o isomorfos, si existe algún isomorfismo entre ellos.  Esto introduce una relación de equivalencia en la clase de todos los objetos de la categoría.  Formamos una nueva categoría, donde los nuevos objetos serán las clases de equivalencia de los anti\-guos.  Intente el lector construir los morfismos y verificar si es cierto que forman una categoría.
+
+\end{pro}
+
+\begin{pro}
+Los functores transforman isomorfismos en isomorfismos. Ade\-más $F(f^{-1}) = F(f)^{-1}$.
+
+Si dos objetos son isomorfos en $\Ca$ sus imágenes por un functor son isomorfas en~$\Da$.
+
+Si tenemos un funtor de $\Ca$ en $\Da$ y sabemos que $F(N)$ y $F(M)$ no pueden ser isomorfos en $\Da$, entonces $M$ y $N$ no pueden ser equivalentes en $\Da$.  Esta idea está latente en muchos problemas de clasificación.
+
+\end{pro}
+
+\begin{pro}
+
+Si $F$ es un functor de $\Ca$ en $\Da$ y $G$ es un functor de $\Da$ en $\Ea$, construir la composición de functores.
+
+¿Cuál sería el functor identidad?
+
+¿Cuándo dos categorías son isomorfas o antiisomorfas?
+
+La composición de dos functores contravariantes, ¿qué tipo de functor~dá?
+
+\end{pro}
+
+\begin{pro}
+
+Definimos el espectro maximal de un anillo como el conjunto de los ideales maximales.  Por analogía con uno de los ejemplos dados todo parece indicar que estamos construyendo un functor.  Pruebese que esto es falso.
+
+\end{pro}
+
+
+
+
+
+
+\section{Suma y producto directo}
+
+
+Sea $\{N_i\}$ una familia de módulos sobre el mismo anillo $A$.  Sea $ \oplus N_i$ es conjunto de las sucesiones $\{e_i\},\: e_i \in N_i$ casi nulas.  Esto quiere decir que en una sucesión todos los elementos, salvo un número fínito, son el cero del correspondiente módulo.  En $\oplus N_i$ existe una estructura natural de módulo, mediante las operaciones  ``componente a componente'':
+$$ \{e_i\} + \{e'_i\} = \{e_i + e'_i\}$$
+$$ a \{e_i\} = \{ae_i\}$$
+que son sucesiones casi nulas.
+
+El módulo $\oplus N_i$ que se acaba de construir se llamará {\sf suma directa} \index{suma directa} de la familia $\{N_i\}$.  No es dificil probar la asociatividad de la suma directa.  Asimismo cambiar el orden de los módulos lo único que hace es construir otro módulo isomorfo al anterior.
+
+Si quitamos la condición de casi nulidad de las sucesiones tenemos, con las mismas operaciones, otro módulo, que en general no será el mismo que el módulo suma directa.  Este nuevo módulo se denota $\prod N_i$ y sus elementos son las sucesiones $\{e_i\}$.  Este nuevo módulo se llama {\sf producto directo} \index{producto!directo} de la familia $ \{N_i\}$.  En el caso en que el conjunto de módulos sea finito, la suma y el producto directo coinciden.  En el caso general la suma es un submódulo del producto directo.
+
+La suma y el producto directo están dotados de las siguientes aplicaciones
+$$
+i_j : N_j \lto \oplus N_i
+$$
+$$
+i_j :N_j \lto \textstyle{\prod} N_i
+$$
+$i_j$ hace corresponder a cada $e \in N_j$ la sucesión donde todos los elementos son cero, salvo el que ocupa el lugar  $j$ que es justamente $e$.
+
+Estas aplicaciones son claramente morfismos de módulo.  Es más, en la suma directa se ha definido la suma y el multiplicación por escalares del modo indicado, precisamente para que las aplicaciones $i_j$ sean morfismos de módulo. Estas aplicaciones se llaman {\sf inyecciones canónicas}. \index{inyección canónica}  Via esta inyección $N_j$ se puede considerar un submódulo de la suma o del producto directo.  Con estas identificaciones resulta que $\oplus N_i$ coincide con $\sum N_i$.  La suma directa es el menor submódulo que contiene a toda la familia de módulos.
+
+Otras aplicaciones naturales son:
+$$
+\pi_i : \oplus N_i \lto N_i
+$$
+$$
+\pi_i : \textstyle{\prod} N_i \lto N_i
+$$
+donde $\pi_i(\{e_j\}) = e_i$. 
+De nuevo estas aplicaciones son morfismos de módulo.  Se llaman {\sf proyecciones canónicas} \index{proyecciones canónicas} sobre el $i$-ésimo factor y son epiyectivas.
+
+\bigskip
+
+\noindent{\bf Ejemplos.}
+\begin{itemize}
+ \item  $A^n$ es el producto directo de $n$ copias de $A$.  También es la suma directa de $n$ copias de $A$.
+
+\item  El conjunto de polinómios $A[x]$ es isomorfo a la suma directa de $\N$ copias de $A$ pues todo polinómio tiene un número finito de términos.
+
+\item  El anillo de las series formales $A[[x]]$ es isomorfo al producto directo de $\N$ copias de $A$.
+\end{itemize}
+
+
+Vamos a ver ahora las {\sf propiedades universales} del producto y de la suma directa.  Estas propiedades caracterizan a estos módulos salvo un isomorfismo.
+
+Sea $M$ un módulo arbitrario y $\{\varphi_i\}$ un conjunto de morfismos lineales
+$$
+\varphi_i : M \lto N_i
+$$
+Entonces existe un único morfismo de $A$-módulos \index{propiedad universal!del producto directo}
+$$
+\varphi : M \lto \textstyle{\prod} N_i
+$$ 
+tal que $\pi_i \circ \varphi = \varphi_i$.
+
+Esto nos dice que para dar una aplicación lineal de un módulo en un producto directo basta darla componente a componente.
+
+Sea ahora una familia $\{\varphi_i\}$ de morfismos
+$$
+\varphi_i : N_i \lto M
+$$
+Entonces existe una única aplicación lineal \index{propiedad universal! de la suma directa}
+$$
+\varphi : \oplus N_i \lto M
+$$
+tal que $\varphi \circ i_j = \varphi_j $
+
+Lo anterior nos permite establecer los siguientes isomorfismos 
+\begin{eqnarray}
+\textstyle{\prod \Hom (M, M_i) \sim \Hom(M, \prod M_i)} \nonumber\\
+\textstyle{\prod \Hom (M_i,M) \sim \Hom(\oplus M_i, M)} \nonumber
+\end{eqnarray}
+
+Las nociones de producto directo y de suma directa son duales. \index{propiedad dual} Se obtiene una de la otra ``dando la vuelta a las flechas''.  Es habitual en libros algo antiguos llamar al producto directo simplemente producto y a la suma directa {\sf coproducto}. \index{coproducto}   Las propiedades universales nos dicen que tanto la suma como el producto directo son representantes de functores y como tales, únicos salvo isomorfismos.
+
+\section*{Problemas}
+
+\begin{pro}
+
+Si $N$ y $N'$ son dos submódulos suplementarios de $M$ probar que $M \sim N \oplus N'$.
+
+\end{pro}
+
+
+\begin{pro}\label{pro:suma}
+
+Si $ \varphi : N \lto M \quad \varphi^{'} : M \lto L$ son tales que $\varphi^{'} \varphi $ sea un isomorfismo, entonces $M \sim \Img (\varphi) \oplus \Ker(\varphi')$
+
+Sea $\varphi : M \lto N$ idempotente ($\varphi^2 = \varphi$).  Entonces $ M \sim \Img (\varphi) \oplus \Ker(\varphi^{'})$.
+
+\end{pro}
+
+\begin{pro}
+
+El anulador de una suma directa es la intersección de los anuladores de los módulos componentes.
+
+Si $\{m_i\}$ es un sistema  generador de $M$, el anulador de $M$ es la intersección de los anuladores de $Am_i$.
+
+La suma directa de módulos sin torsión no tiene torsión.
+
+\end{pro}
+
+\begin{pro}
+
+El anillo de polinomio sobre $A$ es isomorfo a la suma directa de $\N$ copias de $A$.  En cambio el anillo de las series formales sobre $A$ es isomorfo al producto directo de $\N$ copias de $A$.
+
+\end{pro}
+
+\begin{pro}
+
+Demostrar que el submódulo $2\Z$ de $\Z$ no admite suplementario.
+
+Recordando la teoría de grupos demostrar que en $\Z_{p^2}$ el sub\-módulo $ \Z p$ no puede ser un sumando directo.
+
+\end{pro}
+
+\begin{pro}
+
+Un módulo $M$ es la suma directa de sus submódulos $N_1, \dots N_n$ si y solo si:
+
+\begin{enumerate}[i) ]
+
+\item $M = N_1 + \dots + N_n$.
+
+\item  Para cada $i$ se cumple $N_i \cap ( \sum_{j \neq i} N_j) = 0$.
+
+\end{enumerate}
+
+\end{pro}
+
+\begin{pro}
+
+Si $\varphi_i :M_i \lto N_i$ es lineal demostrar que existe un morfismo $\varphi: \prod M_i \lto \prod N_i$.  Analizar el núcleo y la imagen de este módulo.  Hacer lo mismo con la suma directa.
+
+\end{pro}
+
+\begin{pro}
+
+Un endomorfismo $\pi$ de $M$ se dice que es un proyector si \mbox{$\pi^2= \pi$}.  Dos proyectores $\pi_1$ y $\pi_2$ son ortogonales si $\pi_1 \pi_2=0$.  Demostrar que si  $\Id = \pi_1 + \dots + \pi_n$ y los proyectores son ortogonales dos a dos, el módulo $M$ es isomorfo a la suma directa de los submódulos $M_i=\pi_i(M)$.
+
+\end{pro}
+
+
+
+
+
+
+
+\section{Dualidad}
+
+\begin{defi}
+
+Llamaremos {\sf forma lineal} \index{forma lineal}sobre $M$ a todo morfismo de $M$ en $A$ ($A$ con su estructura natural).  Al conjunto de todas las formas lineales sobre $M$ lo llamaremos {\sf módulo dual} \index{módulo!dual} de $M$ y lo denotaremos $M^*$. Se cumple entonces que $M^* = \Hom_A(M,A)$.
+
+\end{defi}
+
+Por lo visto en el capítulo \ref{cap:morfismos}, $M^*$ posee en efecto una estructura de módulo dada por las operaciones
+$$
+(f+g)(m) = f(m) + g(m)
+$$
+$$
+(af)(m) = a f(m)
+$$
+
+Si no se dice lo contrario, esta es la estructura que consideraremos en $M^*$.  Como se ve está  canónicamente asociada a la de $M$.
+
+En principio no se puede asegurar que un módulo no nulo, posea más formas lineales que la forma lineal cero.  Esto, como sabemos, si ocurre en $k$-espacios y más en general en los módulos libres (véase capitulo \ref{cap:libre}).
+
+Las formas lineales las denotaremos por $\omega$ siguiendo la notación tradicional en el caso de los $k$-espacios.
+
+Sea $\varphi : M \to M'$ un morfismo.  Definimos $\varphi^* : (M')^* \to M^*$ por la fórmula $ \varphi^* (\omega) = \omega \varphi$ (véase diagrama)
+
+\begin{diagram}
+M & \rTo^{\varphi}& M' \\
+ & \rdTo_{\varphi^*(\omega)} & \dTo_\omega \\
+ &     &                A
+\end{diagram}
+Fácilmente se comprueba que $\varphi^*$ es lineal. 
+
+\begin{defi}
+
+La aplicación $\varphi^*$ que acabamos de construir se llama dual de~$\varphi$. \index{dual de un morfismo}
+
+\end{defi}
+La aplicación dual tiene una serie de propiedades importantes
+\begin{itemize}
+\item $ (\varphi + \mu)^* = \varphi^* +\mu^*$
+\item $(a \varphi)^* = a \varphi^*$
+\item $(\varphi \mu)^* = \mu^* \varphi^*$
+\item $\Id^* = \Id$
+\end{itemize}
+
+De estas propiedades aplicandolas a una expresión de la forma $ \varphi\circ \mu = \Id$           se puede concluir que el dual de un isomorfismo es un isomorfismo entre los espacios duales.
+ Además la asociación $M \to M^*, \varphi \to \varphi^*$ es un functor contravariante de la categoría de $A$-modulos en si misma.
+
+Aplicando la propiedad universal de la suma directa obtenemos 
+$$
+(\oplus M_i)^* =\Hom (\oplus M_i, A)= \textstyle{\prod} \Hom (M_i, A) = \textstyle{\prod} {M_i}^*
+$$
+Por lo tanto el dual de una suma directa es el producto directo de los duales.
+
+Veamos ahora un caso más particular de aplicación de esta propiedad universal.
+Sea $A^n$ el producto (suma) directa de $n$ copias del módulo $A$. Como acabamos de ver $(A^n)^* =(A^*)^n$.  Pero como
+$A^* = \Hom (A,A) = A$ ocurre que $A^n$ y su dual son isomorfos.  Además este isomorfismo es canónico.  Sin embargo si $L$ es un módulo isomorfo a $A^n$, ocurre también que $L$ y $L^*$ son isomorfos, pero no canóniamente.  Veremos en el capítulo \ref{cap:libre} que depende de la base elegida en~$L$.
+
+\begin{defi}
+
+$\omega \in M^* $ es {\sf incidente} con $m \in M$ si $\omega(m) =0$. \index{incidencia}
+
+Si $M'$ es un submódulo, diremos que $\omega$ es incidente con $M'$ si es incidente con todos los vectores de $M'$.
+
+\end{defi}
+
+El conjunto de vectores de $M^*$ que son incidentes con un submódulo $M'$, forman un submódulo del espacio dual, llamado {\sf incidente} con $M'$ \index{incidente de un submódulo} y denotado $(M')^\circ$.
+
+\begin{propo}
+
+Si $M' \subset M''$ entonces $(M'')^\circ \subset (M')^\circ$.
+
+\end{propo}
+
+La proposición nos dice que tomar incidente es un {\sf antimorfismo} \index{antimorfismo!de un retículo} del retículo de submódulos de $M$ en el retículo de submódulos de su dual.
+
+\section*{Problemas}
+
+\begin{pro}
+
+Sea $ B \subset A$ un subanillo y $M$ un módulo sobre el anillo $A$.  ¿El módulo dual de $M$, es igual calcularlo entendiendo $M$ como $A$-módulo que entendiendolo como $B$-módulo?
+
+\end{pro}
+
+\begin{pro}
+
+Si $\varphi$ es inyectiva, ¿es cierto que $\varphi^*$ es epiyectiva?
+
+Si $\varphi$ es epiyectiva, ¿es cierto que $\varphi^*$ es inyectiva?
+
+\end{pro}
+
+\begin{pro}
+
+Comprobar si se cumplen las igualdades:
+$$
+\textstyle{(M' \cap M'') ^\circ = (M')^\circ +(M'')^\circ}
+$$
+$$
+\textstyle{ (M' + M'') ^\circ = ( M' \cap M'') ^\circ}
+$$
+
+\end{pro}
+
+\begin{pro}
+
+Demostrar que todo $k$-espacio vectorial no nulo, posee al menos una forma lineal no nula.
+
+\end{pro}
+
+
+
+
+%%%%%%%%falta una referencia a un problema.  escribir el problema
+
+
+\section{Sucesiones exactas}
+
+
+Diremos que una sucesión de morfismos de $A$-módulo
+$$
+\dots \stackrel{\varphi_n}{\lto} M \stackrel{\varphi_{n+1}}{\lto} M_{n+1} \lto \cdots
+$$
+es {\sf exacta} \index{sucesión exacta} si la imagen de cada morfismo coincide con el núcleo del siguiente
+$$
+ \Img(\varphi_n) = \Ker(\varphi_{n+1})
+$$
+
+\bigskip
+
+\noindent{\bf Ejemplos.}
+
+\begin{itemize}
+
+\item $ 0 \lto M'  \stackrel{\varphi}{\lto} M \text{ es exacta } \Leftrightarrow  \varphi \text{ es inyectiva.}$
+
+\item $ M \stackrel{\varphi}{\lto} M'' \lto 0 \text{ es exacta } \Leftrightarrow \varphi \text{ es epiyectiva.}$
+
+\item $ 0 \lto M' \stackrel{\varphi}{\lto} M \stackrel{\mu}{\lto} M'' \lto 0 $ es exacta si y solo si $\varphi$ es inyectiva, $\mu$~epiyectiva y $\Ker(\varphi) = \Img(\mu)$. Estas últimas sucesiones se llaman {\sf sucesiones exactas cortas}.\index{sucesión exacta!corta}
+
+\item Si $N$ es un submódulo de $M$ entonces tenemos la sucesión exacta
+$$
+0 \lto N \lto M \lto M/N \lto 0
+$$
+
+\item Sea $\varphi : M \lto N$ un morfismo.  Llamamos {\sf conúcleo} \index{conúcleo} de $\varphi$ a $M/\Img(\varphi)$.  Entonces la sucesión siguiente es exacta
+$$
+0 \lto \Ker (\varphi) \lto M \stackrel{\varphi}{\lto} N \lto \mathrm{Coker}(\varphi) \lto 0
+$$
+
+\end{itemize}
+
+La importancia de las sucesiones exactas cortas radica en que toda sucesión ``larga'' puede descomponerse en sucesiones cortas. 
+
+\begin{propo}
+
+Dada una sucesión exacta
+$$
+\cdots \lto M_{i-1} \stackrel{\varphi_i}{\lto} M_i \stackrel{\varphi_{i+1}}{\lto} M_{i+1} \cdots
+$$
+puede descomponerse en sucesiones cortas
+$$
+0 \lto N_i \lto M_i \stackrel{\varphi_{i+1}}{\lto} N_{i+1} \lto 0
+$$
+donde $N_i = \Img(\varphi_i)= \Ker (\varphi_{i+1})$.
+
+\end{propo}
+
+\dem
+
+En efecto, la sucesión larga es exacta en $M_i$ si y solo si $\Img(\varphi_{i}) = \Ker (\varphi_{i+1})$.  Pero eso es exactamente la condición de que la sucesión corta sea exacta. \fin
+
+
+\begin{propo}
+
+Si $M_i \subset M$ son una familia de submódulos la siguiente sucesión es exacta:
+
+$$
+\textstyle{0 \lto \bigcap M_i \lto M \lto \prod (M/M_i) \lto 0}
+$$
+
+\end{propo}
+
+\dem
+
+La sucesión es efectivamente epiyectiva puesto que lo son todas las proyecciones canónicas.  El núcleo está formado por los vectores que pertenecen a todos los submódulos $M_i$ y por tanto a la intersección de dichos submódulos. \fin
+
+\begin{propo}
+
+Si $N_1$ y $N_2$ son submódulos de $M$ la siguiente sucesión es exacta:
+
+$$
+\textstyle{0 \lto N_1 \bigcap N_2 \lto N_1 \oplus N_2 \lto N_1 + N_2 \lto 0}
+$$
+
+\end{propo}
+
+\dem
+
+Si $n_1+n_2=0$, entonces $n_1=-n_2$ y por lo tanto pertenecen a la intersección de los dos submódulos. \fin
+
+
+\begin{propo}
+
+$M' \stackrel{i}{\lto} M \stackrel{p}{\lto} M'' \lto 0 $ es exacta si y solo si para todo módulo $N$ la sucesión
+$$
+0 \lto \Hom(M'', N) \stackrel{p^*}{\lto} \Hom(M,N) \stackrel{i^*}{\lto} \Hom (M', N) 
+$$
+es exacta, donde $ \varphi^*(\mu) = \mu \, \varphi$.
+
+\end{propo}
+
+
+
+\begin{propo}
+
+La condición necesaria y suficiente para que la sucesión
+$$
+0 \lto M' \stackrel{i}{\lto} M  \stackrel{p}{\lto} M''
+$$
+sea exacta es que para todo módulo $N$ sea exacta
+$$
+0 \lto \Hom(N,M')  \stackrel{i_*}{\lto} \Hom(N,M)  \stackrel{p_*}{\lto} \Hom (N,M'')
+$$
+donde $f_*(g) = f g$.
+\end{propo}
+
+\dem
+
+La demostración de ambas proposiciones no ofrece dificultades relevantes pero es extremadamente tediosa. \fin
+
+\begin{defi}
+
+Se dice que una sucesión exacta corta 
+$$
+0 \lto M' \stackrel{i}{\lto} M  \stackrel{p}{\lto} M'' \lto 0
+$$  
+{\sf escinde} (o rompe o descompone) \index{escindir} si $i(M')$ es un submódulo que admite un suplementario.
+
+\end{defi}
+
+Veamos algunas condiciones equivalentes a esta definición.  Naturalmente una vez vistas puede tomarse como definición  la que más convenga a nuestros propositos.
+
+\begin{teo}
+$
+0 \lto M' \stackrel{i}{\lto} M  \stackrel{p}{\lto} M'' \lto 0
+$ exacta.  Son equivalentes:
+
+\begin{itemize}
+ \item  La sucesión rompe.
+ \item $i$ posee un {\sf retracto } \index{retracto}(un inverso por la izquierda). Así $\:r$ es un retracto si $r : M \lto M'$ y cumple $r i = \Id_{M'}$.
+ \item $p$ tiene una {\sf sección} \index{sección} (un inverso por la derecha). Por lo tanto $s$ es una sección de $p$ si $ps =\Id_{M''}$.
+\end{itemize}
+
+\end{teo}
+
+\dem
+
+$i) \Rightarrow  ii)$  $M' \oplus N = M$. Si $ \pi$ es la proyección en el primer factor, resulta que $\pi$ es un retracto.
+
+$ii) \Rightarrow i)$ Si $r i = \Id$ es fácil (problema \ref{pro:suma}) probar que $M = i(M) \oplus \Ker (r)$.
+
+Las otras implicaciones siguen los mismos pasos. \fin
+
+\begin{cor}
+
+Si $M$ es semisimple entonces 
+$$
+0 \lto M' \stackrel{i}{\lto} M  \stackrel{p}{\lto} M'' \lto 0
+$$
+siempre escinde.
+
+\end{cor}
+
+\begin{cor}
+
+Toda sucesión de espacios vectoriales escinde.
+
+\end{cor}
+
+Designemos por $C$ una clase de $A$-módulos.  Una función $\lambda$ de $C$ en $\Z$ es {\sf aditiva} \index{función aditiva}
+si para toda sucesión exacta corta 
+
+$$
+0 \lto M' \stackrel{i}{\lto} M  \stackrel{p}{\lto} M^{''} \lto 0
+$$
+cuyos términos sean todos elementos de $C$ se cumpla
+$$
+\lambda (M) = \lambda (M') + \lambda (M'')
+$$
+
+En particular si las sucesiones escindiesen tendriamos que 
+$$
+ \lambda (M' \oplus M'') = \lambda (M') + \lambda (M'')
+$$
+lo que justifica el apelativo de aditiva que hemos asignado a la función $\lambda$.
+
+Conocemos ya una función aditiva, la dimensión definida para los espacios vectoriales sobre un cuerpo.  En el capítulo \ref{cap:longitud} se introducirá la noción de longitud de un módulo que es también aditiva.
+
+
+\begin{propo}
+
+Sea $0 \lto M_0 \lto M_1 \lto \cdots \lto M_n \lto 0$ exacta y tal que $M_i \in C \: \: \forall i$ entonces
+$$
+\sum_i^n (-1)^i \lambda (m_i) = 0
+$$
+
+\end{propo}
+\dem
+
+Se descompone la sucesión exacta ``larga'' en sucesiones cortas y se aplica la definición de función aditiva, teniendo en cuenta que $N_0= N_{i+1} =0$. \fin
+
+\section*{Problemas}
+
+\begin{pro}Demostrar las afirmaciones:
+\begin{itemize}
+
+\item $0 \lto M \lto 0$ es exacta, entonces $M=0$.
+
+\item $0 \lto M \stackrel{g}{\lto} N \lto 0 $ exacta, entonces $g$ es isomorfismo.
+
+\end{itemize}
+
+\end{pro}
+
+\begin{pro}
+
+Sea $ 0 \lto M' \stackrel{i}{\lto} M \stackrel{p}{\lto} M'' \lto 0 $ una sucesión exacta  que escinde.  Entonces son exactas las sucesiones:
+$$
+0 \lto \Hom(M'',N) \stackrel{p^*}{\lto} \Hom (M,N) \stackrel{i^*}{\lto} \Hom(M',N) \lto 0
+$$
+$$
+0 \lto \Hom (N,M') \stackrel{i_*}{\lto} \Hom (N,M) \stackrel{p_*}{\lto} \Hom (N,M'') \lto 0
+$$
+¿Son ciertos los reciprocos?
+\end{pro}
+
+
+\begin{pro}
+
+Demostrar que la siguiente sucesión es exacta.
+$$
+0 \lto M_1 \cap M_2 \lto M_1 \oplus M_2 \lto M_1 +M_2 \lto 0
+$$
+donde el vector $m$ lo mandamos a $(m, -m)$ y a $(m_1,m_2)$ lo mandamos a $m_1 +m_2$.
+
+\end{pro}
+
+
+
+\begin{pro}
+
+Sea $\varphi: M \lto N$ un morfismo.  Probar que $\varphi(M_\tau) \subset N\tau$.\\
+Si $0 \lto M' \lto M \lto M''$ es exacta, entonces $0 \lto M'_\tau  \lto M_\tau \lto M''_\tau$ es exacta.
+\end{pro}
+
+
+
+
+
+
+
+
+\section{Longitud de un módulo}\label{cap:longitud}
+
+
+Una sucesión de inclusiones estrictas 
+$$
+0= M_0 \subset M_1 \subset \cdots \subset M_{n-1} \subset M_n = M
+$$
+se llama {\sf cadena de submódulos}. \index{cadena!de submódulos} El módulo cociente $M_k / M_{k-1}$ se dice que es el {\sf $k$-ésimo factor} de la serie. \index{factor de una serie}
+
+Llamaremos {\sf extensión simple} \index{extensión simple} a una inclusión $M \subset M'$ tal que $M /M'$ sea un módulo simple.  Por la proposición \ref{propo:maximal} ello nos dice que entre $M$ y $M'$ no existe ningún submódulo distinto de ellos mismos.
+
+Llamaremos {\sf serie de composición}, \index{serie de composición} cadena irrefinable \index{cadena!irrefinable} o  cadena máximal, \index{cadena!máximal} a una cadena de submódulos tal que todos los factores sean simples.  En dicha cadena no podemos introducir más eslabones, por ello se  llama cadena irrefinable o máximal.
+
+Debemos tener en cuenta que pueden existir  $A$-módulos simples no isomorfos entre si, a diferencia de los espacios vectoriales donde el único \mbox{$k$-módulo} simple es $k$.
+
+Sea $0= M_0 \subset M_1 \subset \cdots \subset M_{n-1} \subset M_n = M$ una serie de composición.  Al número $n$ lo llamaremos {\sf longitud de la serie}. \index{longitud!de una serie}
+En general un módulo no posee ninguna serie de composición con un número finito de eslabones.
+
+\begin{defi}
+
+Se dice que un módulo es de {\sf longitud finita} \index{longitud!finita} si posee al menos una serie de composición con un número finito de eslabones.  Llamaremos {\sf longitud de un módulo} \index{longitud!de un módulo}  a la menor de las longitudes de sus series de composición.
+
+\end{defi}
+
+
+\begin{teo}
+
+Sea $M$ un módulo de longitud finita.
+\begin{enumerate}[i )]
+ \item  Si $M' \subset M $ entonces $M'$ tiene longitud finita y $l(M') \leq l (M)$.  Se tiene que $l (M') = l (M)$ si solo si $ M' = M$
+\item Todas las series de composición tienen la misma longitud.
+\item La longitud es una función aditiva.  Si $ M ,M', M''$ son de longitud finita~y 
+$$
+0 \lto M' \lto M \lto M'  \lto 0
+$$
+es exacta, entonces 
+$$
+l(M) = l (M') + l (M'')
+$$
+\end{enumerate}
+
+\end{teo}
+
+\dem
+
+$ i ) $ Sea $M_0 \subset \cdots \subset M_n$ una serie de composición se $M$.  Sea \mbox{$M'_i = M_i \cap M'$}. Como $M'_i / M'_{i-1}$ se puede inyectar en $ M_i / M_{i-1}$ resulta que dicho módulo es un módulo simple o bien es el módulo nulo.  Si alguno es nulo entonces \mbox{$M_i = M_{i-1}$} y podemos quitar un término a la cadena.  La serie $\{M'_i\}$ es una serie de composición de $M'$ tras quitar los repetidos.  Entonces la longitud de esta serie es menor que $n$.  Tomando una serie de composición de longitud mínima, se concluye el enunciado para longitudes.
+
+Si $l(M) = l(M')$, entonces ningún factor de $\{M_i\}$ puede ser cero.  No se puede verificar $M'_i = M'_{i-1}$, es decir $M'_i = M_i$ para todo $i$ por inducción.
+
+$ii)$  Por inducción sobre la longitud.  En el caso de módulos simples el enunciado es claro. Si  $M_0 \subset \cdots \subset M_n$
+es una serie de composición de $M$, entonces $\{M_i/M_1\}$ es una serie de composiciónde $M /M_1$.  Todas las series de composición de $M/M_1$ tienen la misma longitud.  Entonces $M$ también.
+
+$iii)$ 
+Sea la sucesión exacta 
+$$
+0 \lto M' \stackrel{i}{\lto} M \stackrel{p}{\lto} M'' \lto 0
+$$
+Sean 
+$$ 0 \subset M'_1 \subset \cdots \subset M'_n = M'$$
+$$ 0 \subset M''_1 \subset \cdots \subset M''_m = M''$$
+series de composición.  Entonces 
+$$
+0 \subset i(M_1) \subset \cdots \subset i (M'_n) \subset p^{-1} (M''_1) \subset \cdots \subset p^{-1} (M''_m) = M
+$$
+es una serie de composición de $M$.  Por lo tanto
+$$
+l (M) = l(M') + l(M'')
+$$
+y se concluye. \fin
+
+
+\section*{Problemas}
+
+\begin{pro}
+$$
+0 \lto M_0 \lto M_1 \lto \dots \lto M_{n-1} \lto M_n \lto 0
+$$
+una sucesión exacta. Entonces 
+$$
+\sum_{i=0}^n (-1) ^k l(M_k) =0
+$$
+
+\end{pro}
+
+\begin{pro}
+
+Si $M$ y$N$ son dos submódulos de longitud finita, entonces $M+N$ y $M \cap N$ son de longitud finita y además
+$$
+l(M+N) + l(M \cap N ) = l (M) + l(N)
+$$
+
+\end{pro}
+
+\begin{pro}
+
+Sea una familia finita de módulos de longitud finita.  \mbox{Hallar} la longitud de la suma directa de dichos módulos.  Demostrar que para espacios vectoriales la longitud y la dimensión son la misma cosa.
+
+\end{pro}
+
+\begin{pro}
+Sea $M$ de longitud finita.  Probar que toda cadena se puede completar para obtener una serie de composición.
+
+\end{pro}
+
+\begin{pro}
+
+Sea $M$ de longitud finita $n$. ¿Ocurre entonces que $M^*$ es de longitud finita n?
+
+\end{pro}
+
+\begin{pro}
+
+Este es el {\it teorema de Jordan-Holder} \index{teorema!de Jordan-Holder} para módulos.
+
+
+Si $ 0 \subset M_1 \subset \cdots \subset M_n$ es una serie de composición,  llamamos factores de la cadena a los cocientes $M_i /M_{i-1}$.  Dadas dos series de composición probar que tienen la misma longitud y que tras una permutación los factores son isomorfos.  Así los factores son invariantes del módulo y no dependen de la serie elegida.
+
+\end{pro}
+
+\begin{pro}
+
+Todo módulo de longitud finita es de generación finita.
+
+\end{pro}
+
+
+\begin{*pro}
+
+En todo este ejercicio los grupos serán finitos, aunque posiblemente no conmutativos.
+
+\begin{defi}
+
+Un grupo $G$ es {\it simple} \index{grupo!simple} si no posee subgrupos normales.
+
+Una sucesión de subgrupos
+$$
+e = G_0 \subset G_1 \subset \dots \subset G_n = G
+$$
+es una serie de composición si todos los grupos factores $G_{i+1}/G_i$ son simples.
+\end{defi}
+
+Admitamos sin demostración el siguiente teorema de Jordan-Holder: \index{teorema!Jordan-Hölder}
+
+Dos series de composición de un grupo tienen la misma longitud y factores isomorfos.
+
+\begin{defi} 
+
+La longitud de un grupo es el número de eslabones de una cual\-quiera de sus series de composición.  La denotaremos por $l(G)$.
+
+\end{defi}
+
+Demostrar las siguientes afirmaciones:
+
+\begin{itemize}
+
+\item Utilizando inducción probar que todo grupo de orden $p^n$ con $p$ un número primo tiene longitud $n$ y que todos los factores son isomorfos a un grupo cíclico de $p$ elementos.
+
+\item Calcular la longitud de un grupo abeliano de orden $p_1^{n_1} \dots p_r^{n_r}$.
+
+\item Si $H$ es un subgrupo normal de $G$ entonces $l(G) = lH)+l(G/H)$.
+
+\end{itemize}
+
+
+\begin{defi}
+
+Un grupo es resoluble \index{grupo!resoluble} si todos los factores de una serie de composición son grupos cíclicos.
+
+\end{defi}
+
+\begin{itemize}
+
+\item  Demostrar que si $H \subset G$ es normal entonces
+
+$G$ es resoluble $\Longleftrightarrow $ $H$ y $G/H$ son resolubles.
+
+\item  Todo grupo abeliano es resoluble.
+
+\end{itemize}
+
+\end{*pro}
+
+
+
+\section{Módulos libres}\label{cap:libre}
+
+
+Un módulo {\sf libre} \index{módulo!libre} es todo módulo isomorfo a uno de la forma $ \oplus_{i \in I} N_i$ donde cada $N_i$ es isomorfo a $A$ como módulo. Se considera en $A$ la estructura natural de módulo.
+
+El cardinal de $I$ está perfectamente determinado. En el caso de un cardinal finito coincide con el rango del módulo.
+
+Sabemos que todo espacio vectorial es libre pues por simple aplicación del lema de Zorn se obtiene la existencia de bases algebraicas (también llamadas {\sf bases de Hamel}). \index{bases de Hamel} Cada elección de una base de Hamel nos da un isomorfismo del espacio vectorial en el producto directo de copias de $k$.  Debemos tener en cuenta que sobre un anillo arbitrario pueden existir módulos que no sean libres.  Por ejemplo $\Z_n$ no puede ser libre como $\Z$-módulo.
+
+Los módulos libres poseen una propiedad universal que los caracteriza.  Son los representantes de un cierto functor.  Para ver esta propiedad partimos de la idea de que si tenemos una base del módulo libre y a cada elemento de la base le asignamos un vector de un módulo $N$, entonces podemos construir una aplicación de todo el módulo libre que sobre la base coincida con la aplicación dada, sin más que extender por linealidad la definición.
+
+Si $M$ es libre, entonces existe al menos un conjunto $S$ verificando la siguiente propiedad.
+
+Si $\varphi : S \to N$ es una función arbitraria de $S$ en un $A$-módulo, entonces existe un único morfismo de módulos de $M$ en $N$ que sobre $S$ coincide con~$\varphi$.
+
+Esta es la {\sf propiedad universal} de los módulos libres. \index{propiedad universal!de los módulos libres}
+
+Ello quiere decir que el diagrama siguiente admite un único $\overline{\varphi}$ que lo hace  conmutativo.
+
+\begin{diagram}
+S & \rTo^\varphi & N \\
+\dTo^i & \ruTo_{\overline{\varphi}}& \\
+M & &
+\end{diagram}
+
+
+Si $M$ es un módulo, una familia finita de vectores  $m_1, m_2, \ldots , m_n$ se dice que es {\sf linealmente independiente} \index{linealmente independiente} si
+$$
+a_1m_1 + \ldots + a_2m_2 = 0 \quad\Rightarrow a_i = 0 \quad\forall i
+$$
+
+\begin{defi}
+
+Diremos que un conjunto $S$ de $M$ es una {\sf base} \index{base} cuando cada subconjunto finito de $S$ sea linealmente independiente y además $S$ genere el módulo~$M$.
+
+\end{defi}
+
+Como $S$ genera $M$, todo vector  es combinación lineal finita de elementos de $S$.  Por ser cada subconjunto finito linealmente independiente, esta combinación lineal es única.  Si damos la imagen de los elementos de una base de $M$ en un módulo $N$, tenemos definido un morfismo de $A$-módulos, sin más que extender la aplicación por linealidad.  Claramente este morfismo es único.
+
+De igual modo si un subconjunto $S$ de $M$ verifica la propiedad universal, necesariamente es linealmente independiente y genera $M$.  Si no fuera linealmente independiente, a veces no existiría el morfismo que lo extiende y si no generará $M$ el morfismo no tendría por que ser único.
+
+Resumiendo obtenemos
+
+\begin{teo}
+
+Un $A$-módulo es libre si y solo si tiene una base.
+
+\end{teo}
+
+Para cada cardinal, existe un único módulo, salvo isomorfismos, que tiene una base con el cardinal dado.  Si $S$ es un subconjunto cuyo cardinal conocemos entonces $\oplus_{i \in S} A_i$ con $A_i \sim A$ es un $A$-módulo cuya base es, por ejemplo, las sucesiones de elementos de $A$, todas nulas, salvo el lugar $i$-ésimo donde aparece un $1$. \fin
+
+\noindent{\bf Ejemplos}
+
+\begin{itemize}
+
+\item $A^n$ es  libre de rango $n$.
+
+\item $M_{n,m} (A) $ es libre de rango $m n$.
+
+\item  $A(x)$ es libre de rango infinito.  Una base de este módulo está formada por los polinómios $\{1,x,x^2, \dots\}$.
+
+\item  La suma directa de módulos libres es libre y una base se obtiene uniendo las bases de cada sumando.
+
+\item  Sea $S$ un conjunto cualquiera sin ninguna estructura.  Consideremos el conjunto $M$ de todas las funciones $f : S \lto A$ casi nulas. $M$ es un módulo libre. A cada elemento $s \in S$ le podemos asociar una función $\overline{s}$ que cumple $s(s') = 0 $ si $s'\neq s$ y $s(s) =1$. El conjunto de las funciones $\overline{s}$ cuando $s$ recorre el conjunto es una base del módulo.
+Por abuso de notación, denotarmos directamente a la función por $s$ en vez de por $\overline{s}$.
+
+El módulo que acabamos de construir se llama {\sf módulo libre con base S}. \index{módulo!libre con base S}
+
+\item  En un módulo libre sobre un anillo sin divisores de cero no pueden existir vectores de torsión.
+
+\end{itemize}
+
+Veamos ahora como el estudio de las aplicaciones lineales entre módulos libres es muy sencilla y tiene grandes semejanzas con el estudio que se realiza para los espacios vectoriales.  Para no recargar la notación nos ceñiremos a los módulos de rango finito.
+
+Según los propiedades universales del producto y de la suma directa tenemos que el conjunto $\Hom (A^n, A^m)$ es isomorfo al módulo $A^{m\times n}$.  A cada aplicación lineal entre estos dos módulos se le puede hacer corresponder una matriz $n \times m$ de la misma forma que en el Algebra Lineal.  Reciprocamente, dada una matriz de ese tamaño podemos reconstruir la aplicación lineal sin más que utilizar el producto matricial por vectores columna.
+
+Resumiendo, tenemos la siguiente proposición
+
+\begin{propo}
+ $\Hom (A^n, A^m) \sim M_{n,m} (A)$.
+\end{propo}
+
+
+\begin{lema}
+Todo módulo es cociente de un módulo libre.
+\end{lema}
+
+\dem
+
+Sea $M$ el módulo en cuestión.  $L$ un módulo libre cuya base tenga por cardinal $M$.  A cada elemento de la base le asignamos un elemento de $M$, de modo biunívoco, y extendemos por linealidad.  Naturalmente este morfismo es epiyectivo.
+$$
+L \lto M \lto 0
+$$
+es exacta. \fin
+\begin{propo}
+
+Sea $ N \subset M$ un módulo de tal forma que el cociente $M/N$ sea libre.  Entonces tenemos que $N$ es un sumando directo y además
+$$
+M \sim N \oplus (M/N)
+$$
+
+\end{propo}
+
+\dem
+
+Tenemos la sucesión exacta
+$$
+0 \lto N \lto M \lto M/N \lto 0
+$$
+Se probará en el capítulo \ref{cap:proyectivo} que esta sucesión escinde.  Por lo tanto se tiene el isomorfismo del enunciado. \fin
+
+\begin{cor}
+
+Si $\varphi : M \lto L$ es una aplicación lineal epiyectiva sobre un módulo libre se tiene el isomorfismo
+$$
+M \sim \Ker (\varphi) \oplus L
+$$
+
+\end{cor}
+
+Aunque nosotros siempre trabajamos con anillos conmutativos, no es difícil probar que todo módulo a la izquierda sobre un anillo con división (o sea, un cuerpo no conmutativo) es un módulo libre, siguiendo exactamente los mismos pasos que en Algebra Lineal conducen a los resultados análogos en el caso conmutativo (problema \ref{pro:espaciovectorial}).
+
+
+
+\section*{Problemas}
+
+\begin{pro}
+
+Probar que si $A^n \sim A^m$ entonces $ n = m$.  Para espacios vectoriales esta definición coincide con la de longitud. ¿Es cierto esto para un anillo arbitrario?  Probar que el rango es una función aditiva.
+
+\end{pro}
+
+\begin{pro}
+
+Sea $A$ un anillo que tenga las propiedades:\begin{itemize}
+ \item  Todo $A$-módulo es semisimple.
+ \item  Todos los submódulos simples son isomorfos a $A$.
+\end{itemize}
+¿Se puede concluir que todo $A$-módulo es libre?
+
+\end{pro}
+
+\begin{pro}
+
+Sea $A$ un anillo de ideales principales e íntegro.
+Probar que todo submódulo de $A$ es libre.
+
+Probar que todo submódulo de $A^n$ es libre.  Además el rango de un submódulo es siempre menor o igual que el del módulo.
+
+Este ejercicio se utilizará en el tema de clasificación de módulos de tipo finito sobre un anillo principal. 
+
+\end{pro}
+
+
+\begin{pro}\label{pro:espaciovectorial}
+
+En este ejercicio el lector intentará demostrar resultados que son ``evidentes'' para espacios vectoriales, pero que no lo son para módulos.
+\begin{itemize}
+ \item  Sea $m_1, \ldots, m_n$ una base de un espacio vectorial.  Entonces 
+$$
+\lambda_1 m_a, \ldots , \lambda_n m_n \text{ con }\lambda_i \neq 0 \quad \forall i
+$$ es una  base.  Esto no es cierto para módulos.
+
+\item Un submódulo de un módulo de tipo finito generado no tiene por qué ser finito generado.
+
+\item  Hay submódulos de módulos libres que no son libres.
+
+\item  Todo espacio vectorial no nulo tenía al menos un subespacio que si era libre.  Sin embargo un grupo abeliano finito no puede contener nunca a $\Z^n$.
+
+\item  En un espacio vectorial todo conjunto linealmente independiente se puede ampliar hasta una base.  Esto es falso para módulos.
+
+\item Sea $ B \subset A$ un subanillo.  $M$ es libre como $A$-módulo. ¿Es libre también como $B$-módulo?
+\end{itemize}
+
+\end{pro}
+
+\begin{pro}
+
+Probar que un módulo de generación finita es un cociente de un módulo libre de rango finito.
+
+\end{pro}
+
+
+
+\begin{pro}
+
+Sea $V$ un espacio vectorial sobre un anillo posiblemente no conmutativo.  Probar las afirmaciones siguientes:
+\begin{itemize}
+
+ \item Todo espacio vectorial es libre.
+
+\item   Dos bases de un espacio vectorial tienen el mismo número de elementos (Probarlo solo en caso finito).
+
+\item Si $S$ es un conjunto linealmente independiente, existe una base que contiene a $S$.
+
+\item Un conjunto maximal de vectores linealmente independiente es una base.
+
+\item  Un conjunto mínimo de vectores que generen el espacio es una base.
+
+\end{itemize}
+
+\end{pro}
+
+
+\begin{pro}
+
+Sea $A$ un dominio de ideales principales.  Demostrar por inducción que todos los submódulos de $A^n$ son libres y de rango menor o igual a $n$.
+
+\end{pro}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Módulos proyectivos e inyectivos}\label{cap:proyectivo}
+
+
+
+
+\begin{defi}
+
+Diremos que un $A$-módulo $P$ es {\sf proyectivo} \index{módulo!proyectivo}si todo diagrama
+\begin{diagram}
+& &P & & \\
+& &\dTo& & \\
+M&\rTo & M' &\rTo & 0 \\
+\end{diagram}
+se puede completar con una aplicación lineal $\varphi$ para obtener un diagrama conmutativo
+\begin{diagram}
+& &P & & \\
+&\ldTo^\varphi &\dTo& & \\
+M&\rTo & M' &\rTo & 0 \\
+\end{diagram}
+
+\end{defi}
+
+El morfismo que cierra el diagrama no tiene por que ser único, solo pedimos que exista al menos uno.
+
+
+\begin{propo}
+
+Todo módulo libre es proyectivo
+
+\end{propo}
+
+\dem
+
+\begin{diagram}
+& &P & & \\
+& &\dTo_ \phi& & \\
+M&\rTo^\pi & M' &\rTo & 0 \\
+\end{diagram}
+
+Si $\{e_i\}$ es una base, asignemosle a cada $e_i$ un elemento de $\pi^{-1} (\phi (e_i))$ (aplicando el axioma de elección).  La aplicación lineal $\varphi$ que extiende a la así definida cierra el diagrama y lo convierte en conmutativo. \fin
+
+\begin{teo}
+
+Los siguientes enunciados son equivalentes:
+
+\begin{enumerate}[\indent i)]
+
+\item $P$ es proyectivo
+
+\item  Toda sucesión exacta $0 \lto M' \lto M \lto P \lto 0$ escinde.
+
+\item  Existe un módulo $M$ tal que $P\oplus M$ es libre.
+
+\end{enumerate}
+
+\end{teo}
+
+\dem
+\begin{itemize}
+\item $ 1\Rightarrow 2 )$ Considerese el diagrama
+
+\begin{diagram}
+& & & && &P & & \\
+& & & && &\dTo_\Id& & \\
+0 &\rTo & M' & \rTo &M&\rTo^\pi & M' &\rTo & 0 \\
+\end{diagram}
+Por ser $P$ proyectivo existe una aplicación $s$ de $P$ en $M$ que cumple $\pi s = \Id$.  Por tanto $s$ es una sección y la sucesión escinde.
+
+
+\item $ 2\Rightarrow 3 )$  Sea $L$ libre, de tal modo que P sea un cociente suyo. La sucesión 
+$$
+0 \lto N \lto L \lto P \lto 0
+$$ 
+escinde.  Entonces $P \oplus N \sim L$
+
+\item $ 3\Rightarrow 1 )$  Por ser sumando directo de un libre. \fin
+
+\end{itemize}
+
+
+\begin{propo}
+
+La condición necesaria y suficiente para que una suma directa de módulos sea  un módulo proyectivo es que sea proyectivo cada sumando.
+
+\end{propo}
+
+\dem
+
+Si $\varphi_i : P_i \lto M$ son los morfismos que cierran el diagrama para cada módulo $P_i$, entonces por la propiedad universal de la suma directa, existe $\varphi : \oplus P_i \lto M$ que cierra el diagrama.
+
+La otra implicación es trivial por ser sumando directo de un libre. \fin
+
+
+\begin{defi}
+Un módulo $Q$ es  {\sf inyectivo} \index{módulo!inyectivo} si todo diagrama
+\begin{diagram}
+0&\rTo  &M' & \rTo& M \\
+& &\dTo& & \\
+& & Q& &  \\
+\end{diagram}
+se puede extender hasta completar un diagrama conmutativo
+\begin{diagram}
+0&\rTo  &M' & \rTo& M \\
+& &\dTo&\ldTo_\varphi & \\
+& & Q& &  \\
+\end{diagram}
+
+
+
+\end{defi}
+
+El morfismo $\varphi$ que cierra el diagrama no tiene por que ser único.
+
+
+
+\begin{propo}
+
+La condición necesaria y suficiente para que un producto directo de módulos sea inyectivo es que lo sea cada factor.
+
+\end{propo}
+
+\dem
+
+Sean $\varphi_i : M \lto Q_i $ morfismos que cierran el diagrama.  Aplicando la propiedad universal del producto, existe
+ $\varphi : M \lto \prod Q_i$ que cierra el diagrama. \fin
+
+\begin{propo}
+
+Un $A$-módulo inyectivo $Q$ hace que toda sucesión exacta
+$$
+0 \lto Q \lto M \lto N \lto 0
+$$
+escinda.
+
+\end{propo}
+
+El inverso es también cierto, pero para probarlo debemos demostrar antes que todo módulo $M$ se puede sumergir en uno inyectivo.
+
+\begin{lema}[Criterio del ideal]
+
+Un $A$-módulo $Q$ es inyectivo, si y solo si para todo ideal $I$ de $A$ y para todo morfismo $\phi :I\lto Q$, existe un  morfismo $\overline{\phi}: A \lto Q$ que lo prolonga.
+
+\end{lema}
+
+\dem
+
+La necesidad es evidente.
+
+Reciprocamente
+
+\begin{diagram}
+0&\rTo  &M' & \rTo& M \\
+& &\dTo_f& & \\
+& & Q& &  \\
+\end{diagram}
+
+Sea $m$ un vector de $M$ que no pertenezca a $M'$.  El ideal de $A$ formado por los elemento $\{ a \in A \text{ tales que } am \in M'\}$ lo denotamos por $I$.  Sea $\phi$ el morfismo de $I$ en $Q$ definido por $\phi (a) = f(am)$.
+
+Existe una extensión a todo el anillo.  Denotemos dicha extensión por $\overline{\phi}$.  Para todos los vectores de la forma $M' + bm$ con $m \in M'$ definimos
+
+$$
+\overline{f} (m'+ bm) = f(m') + \overline{\phi} (b)
+$$
+
+Es un morfismo de $M' + <m> $ en $Q$.
+
+Procediendo mediante el lema de Zorn se concluye.
+
+Si una extensión maximal de $f$ estuviera definida solo en un submódulo, por el procedimiento anterior lo podriamos extender más, en contra de la maximalidad que afirma el lema de Zorn. \fin
+
+\noindent{\bf Nota}
+
+Decimos que $(\overline{M}, \overline{f})$ es una extensión de de $f$ si $M' \subset \overline{M}$ y $\overline{f}$ restingida a $M'$ coincide con $f$.  Decimos que una extensión es mayor que otra si la primera es extensión de la segunda.
+
+\begin{lema}[Criterio del ideal II]
+
+Un $A$-módulo $Q$ es inyectivo si y solo si para todo morfismo $f$ de un ideal $I$ en $Q$, existe un punto en $X \in Q$ tal que 
+$f(a)= ax$ para todo $a \in I$.
+
+\end{lema}
+
+\dem
+
+Todo morfismo de $I$ en $Q$ es la restricción de un morfismo de $A$ en $Q$.  Como $\Hom_A (A,Q) = Q$ se concluye. \fin
+
+
+\section*{Problemas}
+
+\begin{pro}
+
+Probar mediante el criterio del ideal que todo $k$-espacio es inyectivo
+
+¿Es cierto que todo módulo sobre un anillo principal es inyectivo?
+
+\end{pro}
+
+\begin{pro}
+
+Probar las siguientes afirmaciones:
+
+\begin{itemize}
+
+
+
+\item  Todo módulo es cociente de un proyectivo.
+\item  La noción de inyectividad es la noción dual de la de epiyectividad ( o sea se obtiene dando la vuelta a las flechas en todas las definiciones)
+
+\item  Sabemos que para todo módulo $M$ existe una sucesión exacta
+$$
+P \lto M \lto 0
+$$
+El enunciado dual es que todo módulo se puede sumergir en un módulo inyectivo.  Está proposición también es cierta, pero su demostración es de una mayor dificultad.  Para la demostración remítase el lector a la bibliografia.
+\end{itemize}
+\end{pro}
+
+\begin{pro}
+
+Un grupo abeliano $M$ se dice que es {\it divisible} \index{divisible} si para todo $ y \in M$ y todo número natural $n \neq 0$ existe $x \in M$ tal que $nx=y$.
+
+\begin{itemize}
+\item Ver porqué se llama divisible
+\item $\Q$ es divisible.  $\Z$ no lo es.
+\item  La suma directa de divisibles es divisible.
+\item  Una suma directa es divisible si y solo si lo es cada sumando.
+\item $M$ es divisible si y solo si $M$ es un $\Z$-módulo inyectivo.
+
+\end{itemize}
+\end{pro}
+
+\begin{pro}
+
+Sea $A$ un dominio de integridad.  Si $P$ es proyectivo, entonces no tiene torsión.
+
+\end{pro}
+
+\begin{pro}
+
+Un módulo proyectivo $P$ es de rango finito si y solo si es un sumando directo de un módulo libre de rango finito.
+
+\end{pro}
+
+
+
+
+\section{Módulos graduados}
+
+
+
+La intención de este capítulo es introducir unos conceptos que nos serán de gran utilidad al estudiar los tensores sobre un módulo.  Daremos una visión un poco más general que la estrictamente necesaria para ese propósito.  También es útil este tema para el estudio de los polinomios de varias variables sobre un anillo y de la cohomología y homología.
+
+\begin{defi}
+
+Dado un grupo conmutativo $G$, se llama {\sf graduación de tipo $\Delta$} \index{graduación de tipo $\Delta$} a una colección de subgrupos  $\{G_i\} \: i \in \Delta$ tales que $G$ es la suma directa de esos subgrupos (suma directa como $\Z$-módulos).
+
+\end{defi}
+
+$\Delta$ es el conjunto de los grados del grupo.  Se dice que un elemento $x$ de $G$ es {\sf homogéneo} \index{homogéneo} de grado $i$ si $x \in G_i$.  El cero del subgrupo es un elemento homogéneo de todos los grados.  Los otros elementos solo pueden tener un grado.
+
+Todo elemento $x \in G$ se puede escribir de modo único en la forma \mbox{$x = \sum^{'} x_i$} donde cada $x_i$ es homogéneo de grado $i$.  El apóstrofe indica que la suma es finita.
+$x_i$ se llama componente homogénea de grado $i$ de $x$.  $ x_i = \pi_i (x)$ donde $\pi_i$ es la proyección canónica en el factor $G_i$.  
+
+\bigskip
+
+\noindent{\bf  Ejemplos.}
+
+\begin{itemize}
+
+\item Los polinomios en una variable sobre un cuerpo $k$, con la graduación habitual sobre $\N$ dada por $k(x)_n = k x^n$.
+
+\item  Los tensores de un $k$-espacio vectorial.  También las formas exteriores o las simétricas.
+
+\item Los polinomios sobre $k$ en $m$ variables
+$$
+k(x_1, \dots, x_m)_n = \text{\{Polinomios homogéneos de grado n\}}
+$$
+
+\end{itemize}
+
+
+
+Si sobre el anillo $A$  se ha dado una graduación de tipo $\Delta$, estando dotado $\Delta$ de una estructura de monoide conmutativo, se dice que esta estructura es compatible con la estructura anular si
+$$
+A_i \cdot A_j \subset A_{i+j}
+$$
+
+\begin{defi}
+
+Un anillo con una estructura graduada compatible se llama {\sf ani\-llo graduado}. \index{anillo!graduado}
+
+\end{defi}
+
+Si $M$ es un $A$-módulo y tanto $A$ como $M$ poseen una graduación de tipo $\Delta$, se dice que estas graduaciones son compatibles con la estructrura de módulo si 
+$$
+A_i \cdot M_j \subset M_{i+j}
+$$
+
+Un $A$-módulo que cumpla lo anterior se dice que es un {\sf módulo graduado} \index{módulo!graduado} de tipo $\Delta$.
+
+Si $A$ no es un anillo graduado un módulo graduado sobre $A$ debe cumplir 
+$$
+A\cdot M_j \subset M_j
+$$
+
+Si denotamos por $grad(x)$ al grado del elemento homogéneo $x$, entonces las definiciones se reducen a la conocida fórmula
+$$
+grad(x \cdot y) = grad (x) + grad (y)
+$$
+
+\bigskip
+
+\noindent{\bf Ejemplos.}
+
+\begin{itemize}
+ \item El álgebra de polinomios $A(x)$ con el concepto de grado habitual es un módulo graduado con $\N$ como monoide de grados.
+
+\item  El algebra exterior de un espacio vectorial es  un módulo graduado con  $\N$ como monoide de grados.  Si el espacio vectorial es de dimensión finita $n$, entonces no hay elementos homogéneos de grado mayor que $n$.
+
+\item  El conjunto de tensores covariantes y contravariantes de un espacio vectorial estan graduados sobre $\N \times \N$.
+
+\end{itemize}
+
+
+
+\begin{lema}
+
+Si $M$ es un módulo graduado de tipo $\Delta$ y $N$ es un submódulo de $M$, son equivalentes las afirmaciones siguientes:
+
+\begin{enumerate}[\indent a) ]
+
+ \item  $N$ es suma directa de $(N \cup M_i) \:\: i \in \Delta$.
+
+\item  Las componentes homogéneas de todo elemento de $N$, pertenecen también a~$N$.
+
+\item  $N$ está engendrado linealmente por elementos homogéneos.
+\end{enumerate}
+\end{lema}
+
+\dem
+
+Al lector. \fin
+
+\begin{defi}
+
+Un {\sf submódulo graduado} \index{submódulo!graduado} es aquel que cumple alguna de las condiciones del anterior lema.
+
+\end{defi}
+
+\begin{defi}
+
+Sean $M$ y $M'$ dos módulos graduados de tipo $\Delta$.  Se dice que un morfismo de módulos
+$$
+\varphi : M \lto M'
+$$
+es de {\sf grado} \index{grado de un morfismo}$j$ si $\varphi (M_i) \subset M'_{i+j}$.
+
+\end{defi}
+
+Fácilmente se comprueba que la composición de dos morfismos de grado definido nos da otro morfismo cuyo grado se obtiene sumando los grados de los dos morfismos.
+
+\bigskip
+
+\noindent{\bf Ejemplos}
+
+\begin{itemize}
+ \item La contracción interior con un vector es un morfismo del álgebra tensorial de un $k$-espacio.  Su grado es $-1$.
+
+\item  La diferencial exterior que se estudia en geometria diferencial es un morfismo entre las álgebras exteriores de las variedades y tiene grado~$+1$.  Se cumple que su cuadrado es nulo.  Estas son las condiciones preliminares que nos van a servir para estudiar una teoría de cohomología.  En este caso la cohomología resultante se denomina {\rm cohomología de De Rham}. \index{cohomología de De Rham}
+
+\item  Multiplicar en un algebra por un elemento homogéneo de grado $i$, es un morfismo de grado $i$.
+\end{itemize}
+
+\begin{propo}
+
+Sea $M, M'$  módulos graduados.  $\varphi : M \lto M'$ un morfismo de grado $r$.  Entonces $\Ker (\varphi)$ e $\Img (\varphi)$ son submódulos graduados.
+
+\end{propo}
+
+\dem
+
+Sea $e' \in \Img (\varphi)$.  Existe $e \in M$ tal que $\varphi (e) = e'$.  Descomponemos $e$ en sus componentes homogéneas
+$e = \sum e_i$.  Por lo tanto $e' = \sum \varphi (e_i)$ que es la descomposición en componentes homogéneas de $e'$.  Así las componentes homogéneas están en la imagen y el submódulo es graduado.
+
+La otra parte de la demostración utiliza argumentos análogos. \fin
+
+
+
+
+
+
+
+\section*{Problemas}
+
+\begin{pro}
+
+Defínanse los cocientes de módulos graduados de tal forma que la proyección canónica sea de grado cero.
+
+\end{pro}
+
+\begin{pro}
+
+Sea $A$ un anillo y $I$ un ideal.  Formamos el anillo graduado  $A^* = \oplus_{n=0}^\infty I^n$, definiendo de modo natural la multiplicación.
+
+Sea $M$ un $A$-módulo, $M_n = I^n M$ son submódulos.  $M^* = \oplus_{n=0}^\infty M_n$ puede dotarse de una estructura de $A^*$-módulo graduado.
+
+\end{pro}
+
+\begin{pro}
+
+Las componentes de grado cero de un anillo forman un sub\-anillo.
+
+\end{pro}
+
+\begin{pro}
+
+Supongamos un anillo graduado sobre $\N$ o $\Z$.  Entonces existe una graduación asociada sobre $\Z_2$, sin más que considerar los elementos de grado par y los elementos de grado impar.
+
+\end{pro}
+
+\begin{pro}
+
+Si $M, N$ son dos módulos graduados sobre un conjunto $\Delta$, introducir una graduación en la suma directa.
+
+\end{pro}
+
+
+
+
+
+\section{Producto tensorial}\label{cap:producto_tensorial}
+
+Construiremos un módulo que satisfaga cierta propiedad universal referente a las aplicaciones bilineales.  La exis\-tencia de este módulo está garantizada por teoremas ``fuertes'' de la teoría de categorías.  Nosotros no emplearemos esos argumentos, sino que seguiremos una línea más rupestre y menos elegante, pero a la vez más constructiva.
+
+\begin{defi}
+
+Sean $M,N,P$ tres módulos. Una función $\varphi : M \times N \lto P$ es {\sf $A$-bilineal} \index{aplicación!bilineal} si:
+
+\begin{enumerate}[\indent i) ]
+
+ \item $\varphi (m+m', n) = \varphi (m,n)+\varphi (m',n)$
+
+\item  $\varphi (m, n+n') = \varphi (m,n)+\varphi (m,n')$
+
+\item $\varphi (am, n) = a \varphi (m,n) = \varphi ( m ,an)$
+
+\end{enumerate}
+
+\end{defi}
+
+El conjunto de todas la aplicaciones bilineales de $ M \times N$ en $P$ se denotará por  $\Bil (M \times N , P)$ o por 
+$L_2(M\times N,P)$. La suma y el producto por escalares dotan de estructura de $A$-módulo a este conjunto.
+
+\bigskip
+
+\noindent {\bf Ejemplos.}
+
+\begin{itemize}
+
+\item El producto de un anillo 
+$$
+\begin{tabular}{cccc}
+$\varphi :$& $A \times A$& $\lto$ & $A$ \\
+& $(a,b)$& $\lto$ & $ab$ \\
+\end{tabular}
+$$
+es una aplicación bilineal de $ A \times A$ en $A$.
+
+\item El producto por escalares de un módulo $M$
+$$
+\begin{tabular}{cccc}
+$\varphi :$& $A \times M$& $\lto$ & $M$ \\
+& $(a,m)$& $\lto$ & $am$ \\
+\end{tabular}
+$$
+es una aplicación bilineal de $ A \times M$ en $M$.
+
+\item Dados $M$ y su dual $M^*$ la aplicación$$
+\begin{tabular}{cccc}
+$\varphi :$& $M \times M^*$& $\lto$ & $A$ \\
+& $(m,\omega)$& $\lto$ & $\omega(m)$ \\
+\end{tabular}
+$$
+
+\item  Dado un espacio vectorial $E$, el producto escalar es una aplicación bilineal de $E \times E$ en el cuerpo base.
+
+\item Si $B$ es una $A$-álgebra, entonces la multiplicación del álgebra define una aplicación bilineal de $ B \times B $ en $B$.
+
+\end{itemize}
+
+La aplicación $\varphi_m : N \lto P$ que manda $n$ hasta $\varphi (m,n)$ es una aplicación lineal.  La función 
+$\varphi : M \lto \Hom_A (N,P)$ que manda $m$ hasta $\varphi_m$ es asimismo lineal.  Con estas construciones tenemos el siguiente isomorfismo
+$$
+L_2 (M \times N, P) \sim \Hom (M, \Hom (N,P))
+$$
+
+El lector puede comprobar que efectivamente es un isomorfismo.  Esta cons\-trucción no es más que la generalización del concepto de {\sf polaridad} \index{polaridad} asociado a una métrica o a una forma cuadrática que se estudia en el Algebra Lineal.
+
+\begin{defi}
+
+Llamamos  {\sf producto tensorial} \index{producto!tensorial}  de $M$ y $N$ a un par $(g, H)$ cons\-tituido por una función $g$ y módulo $H$ con las siguientes propiedades:
+
+\begin{enumerate}[\indent i) ]
+
+ \item $g : M \times N \lto H$ es bilineal.
+
+\item {\sf (Propiedad universal)}  Si $\varphi : M \times N \lto P$ es una aplicación bilineal, existe una única aplicación lineal $\overline{\varphi}$ que hace conmutativo el diagrama
+
+\begin{diagram}
+M \times N & \rTo^g & H \\
+\dTo^\varphi& \ldTo_{\overline{\varphi}} \\
+P & & 
+\end{diagram}
+\end{enumerate}
+
+\end{defi}
+
+Veamos que si dos módulos $H$ y $H'$ son un producto tensorial de $M$ y$N$, con aplicaciones bilineales $g$ y $g'$, entonces existe un único isomorfismo $h  : H \lto H'$ que hace conmutativo el diagrama
+
+\begin{diagram}
+& &  M \times N & & \\
+&\ruTo^g& & \luTo^{g'}& \\
+H & & \rTo_h & & H' \\
+\end{diagram}
+
+Por lo tanto, el producto tensorial de $M$ y $N$, si existe, es único salvo isomorfismos.
+
+Supongamos que $P=H'$ y $\varphi = g'$.  Existe un único morfismo $h: H \lto H'$ tal que $gh = g'$.  Cambiando los papeles, existe un único morfismo $h' : H' \lto H$ que cumple $g' h' =g$.  Luego $g' (h'h) = g'$.  Así $h'h$ debe ser la identidad de $M$.  Por ello $h$ es inyectivo.  El mismo argumento prueba la epiyectividad.
+
+Veamos ahora que efectivamente el producto tensorial existe.
+
+Sea $L$ un módulo libre, con una base cuyo cardinal sea igual al cardinal del producto cartesiano $M \times N$.
+
+Sea $\gamma : M \times N \lto L$ una biyección de $M \times N $ con una base de $L$.  Si $\varphi: M \times N \lto P$ es una función arbitraria, existe una única aplicación lineal $\varphi'$ que cierra el diagrama
+
+\begin{diagram}
+M \times N & \rTo^\varphi & P \\
+\dTo^\gamma & \ruTo_{\varphi'}& \\
+L & & \\
+\end{diagram}
+
+Resulta que $\varphi$ es bilineal si solo si $\varphi'$ se anula sobre los elementos:
+
+\begin{eqnarray}\nonumber
+\gamma (m + m', n) - \gamma(m,n) -\gamma (m',n)\\ \nonumber
+\gamma (m , n+n') - \gamma(m,n) -\gamma (m,n')\\ \nonumber
+\gamma (am , n) - a\gamma(m,n) \\ \nonumber
+\gamma (m , an) - a\gamma(m,n) \\ \nonumber
+\end{eqnarray}
+
+Si designamos por $M$ al submódulo generado por estos elementos, $\varphi'$ se anula sobre todo $M$.  Debido a esto factoriza, de modo único a traves de la proyección canónica dando una aplicación $\overline{\varphi} : L/M \lto P$ que hace conmutativo el diagrama
+
+\begin{diagram}
+L & \rTo^\pi & L/M \\
+\dTo_\varphi& \ldTo_{\overline{\varphi}}& \\
+P &&
+\end{diagram}
+
+Por ello el par $(\pi \: \gamma ,\:  L/M)$ satisface la definición de producto tensorial pues $\overline{\varphi}$ es única.  Hemos probado entonces la existencia del producto tensorial de dos módulos cualesquiera.
+
+El producto  tensorial se denota $ M \otimes_A N$ o simplemente $M \otimes N$ si se sobreentiende el anillo $A$.  Existe entonces una aplicación bilineal 
+$$
+g : M\times N \lto M \otimes N
+$$
+La imagen del par $(m,n)$ por esta aplicación se denota $ m \otimes n = g(m,n)$ y leeremos ``m tensorial n''.
+
+Las propiedades de bilinealidad se traducen en la nueva notación en que $\otimes$ sea un ``producto'':
+\begin{eqnarray} \nonumber
+(m +m') \otimes n = m \otimes n + m' \otimes n \\ \nonumber
+m \otimes (n+n') = m \otimes n + m \otimes n' \\ \nonumber
+a(m \otimes n) = (am) \otimes n = m \otimes (an) \nonumber
+\end{eqnarray}
+
+Utilizando la definición de base del módulo libre $L$ es fácil comprobar que $g(M \times N)$ genera linealmente el módulo $ M \otimes N$.  Todo elemento del producto tensorial es combinación lineal finita de elementos de la forma $ m \otimes n$.  Ello no significa sin embargo que todo elemento del producto tensorial sea de la forma $m \otimes n$, afirmación que en general es falsa.
+
+Sea ahora $\varphi : M \lto M' $ y $\phi : N \lto N'$ lineales.  La aplicación
+$$
+\begin{tabular} {cccc}
+$\varphi \times \phi  :$& $M \times N$& $\lto$ & $M' \otimes N'$ \\ 
+&$( m,n)$ &$\lto$ & $\varphi (m) \otimes \phi (n)$ \\ 
+\end{tabular}
+$$
+es bilineal.  Existe  una  aplicación lineal, que denotamos $\varphi \otimes \phi$ que satisface
+$$
+\varphi \otimes \phi \: (m \otimes n) = \varphi(m) \otimes \phi(n)
+$$
+
+Recordemos que $\varphi \otimes \phi$ es pura y simplemente notación.  No debe considerarse como el producto tensorial de dos elementos de los módulos de homomorfismos.
+
+\begin{lema}
+$ M \otimes_A A \sim M$
+\end{lema}
+
+\dem
+
+La función producto por escalares $\varphi : A \times M \lto M$ es bilineal.  Existe una única aplicación lineal $\overline{\varphi} :
+A \otimes M \lto M$ que cierra el diagrama. La aplicación es epiyectiva  puesto que $m= \overline{\varphi} ( 1 \otimes m)$.
+
+Todo elemento de $ A \otimes M$ es combinación lineal finita de elementos de la forma $a \otimes m$.  Si $\overline{\varphi} (a \otimes m) = 0$ entonces $am$ debe ser cero y por lo tanto 
+$a \otimes m = 1 \otimes am = 0$. \fin
+
+
+\begin{teo}
+
+$ M' \stackrel{\varphi}{\lto} M \stackrel{\phi}{\lto} M'' \lto 0$ es exacta si y solo si para todo módulo $N$ la sucesión
+\begin{diagram}
+M' \otimes N & \rTo^{\varphi \otimes \Id}& M \otimes N & \rTo^{\phi \otimes \Id}& M'' \otimes N & \rTo& 0
+\end{diagram}
+es exacta.
+
+\end{teo}
+
+La suficiencia es consecuencia del lema.  La necesidad es puro cálculo.  También puede realizarse la demostración teniendo en cuenta el  isomorfismo
+$$
+\Hom (M \otimes N, P) \sim \Hom (M , \Hom(N,P))
+$$
+y el resultado análogo a este teorema pero utilizando los módulos de homomorfismos. \fin
+
+Estudiemos ahora algunas propiedades del producto tensorial.  Daremos los isomorfismos y la forma en la que se construyen.
+
+\bigskip
+
+\noindent {\bf Propiedades.}
+
+\begin{itemize}
+
+\item $ (M \otimes N ) \otimes P = M \otimes (M \otimes P)$ ;
+$\quad (m \otimes n) \otimes p \lto m \otimes ( n \otimes p)$.  Asociatividad. En general dicho módulos se denota simplemente
+$ M \otimes N  \otimes P $. 
+
+\item $M \otimes N = N \otimes M $ : $ \quad m \otimes n \lto n \otimes m $.  Conmutatividad.  
+
+
+\item $(\oplus_{i \in I} M _i) \otimes N = \oplus_{i \in I} ( M_i \otimes N)$;
+ $\quad (\sum m_i)\otimes n \lto \sum (m_i \otimes n)$.  Distrubutividad (infinita).
+
+\item $M \otimes A = A \otimes M = M$.  Elemento neutro.
+
+\end{itemize}
+
+Estas propiedades justifican el nombre de producto que recibe la construcción que hemos realizado.
+
+\section*{Problemas}
+
+\begin{pro}
+Sea $A$ un subanillo de $B$ ($A \subset B$).  Comprobar si  $M \otimes_A N $ es igual a 
+$M \otimes_B N$ o no lo es.
+
+\end{pro}
+
+\begin{pro}
+Si $p$ y $q$ son dos números primos entre si  entonces
+$$
+\Z_p \otimes_\Z \Z_q = 0
+$$
+
+En general $\Z_n \otimes_\Z \Z_m = \Z_d$ donde $d$ es el máximo común divisor de $m$ y $n$.
+\end{pro}
+
+\begin{pro}
+
+Probar que el producto tensorial de módulos libres es libre.  Dadas dos bases en los módulos encontrar una base de $M \otimes N$.  Determinar la dimensión del producto tensorial.
+
+\end{pro}
+
+\begin{pro}
+Si una sucesión exacta escinde la sucesión que se obtiene haciendo producto tensorial con otro módulo es también exacta.
+
+\end{pro}
+
+\begin{pro}
+
+Probar que $\Id \otimes \Id = \Id$.
+
+Probar que $(f\circ f') \otimes (g \circ g') = (f \otimes g) \circ (f' \otimes g')$.
+
+Probar que si $f$ y $g$ son isomorfismos entonces $ f \otimes g$ también.
+
+\end{pro}
+
+\begin{pro}
+
+Probar que el  producto tensorial de dos módulos $M$ y $N$  está generado por elementos de la forma $m \otimes n$.
+
+Probar que la aplicación $g : M \times N \lto M \otimes N$ no es nunca inyectiva, por lo que nunca se puede considerar a $M \times N$ como un submódulo del producto tensorial.
+
+\end{pro}
+
+\begin{pro}
+
+Considerense aplicaciones trilineales y construyase del mismo modo un producto tensorial de tres módulos.  Probar que el módulo resultante se puede obtener a partir del producto tensorial de aplicaciones bilineales.
+
+\end{pro}
+
+\begin{pro}
+
+Sea $G$ un grupo finito. Entonces $\Q \otimes_\Z G = 0$.  En el capítulo \ref{cap:localizacion} generalizaremos este resultado a todo módulo de torsión.
+
+\end{pro}
+
+\begin{pro}
+
+Sea $A$ un anillo y $\mathfrak{a}$ un ideal. Probar que 
+$$
+(A/\mathfrak{a}) \otimes_A M \sim M/\mathfrak{a} M
+$$
+\end{pro}
+
+
+
+
+\section{Extensión de escalares}
+
+Sea $A$ y $B$ dos anillos con unidad y $\varphi : A \lto B $ un morfismo de anillos con unidad.
+Si $M$ es un conjunto dotado de estructura de $B$-módulo, introducimos en él una estructura de $A$-módulo, asociada al morfismo $\varphi$.  Por definición
+$$
+am = \varphi (a) m
+$$
+
+El $A$-módulo construido se dice que se ha obtenido del $B$-módulo $M$ por {\sf restricción de escalares} \index{restricción de escalares}  a través del morfismo $\varphi$.  Normalmente cometeremos el abuso de notación de sobreentender $\varphi$. En muchos casos el morfismo será inyectivo.
+
+Está asociación es un functor covariante de la categoría de $A$-módulos en la de $B$-módulos, pues toda aplicación lineal sobre el anillo $B$ también lo es sobre el anillo $A$.
+
+El problema que nos proponemos ahora es el inverso.  Dado un $A$-módulo construir un $B$-módulo, de tal manera que la asociación sea un functor cova\-riante entre las categorías de $A$-módulos y la categoría de $B$-módulos. Para no recargar la notación, emplearemos muchas veces $1$ en lugar de la identidad $\Id$ del respectivo módulo.
+
+Si $\varphi : A \lto B$ es un morfismo de anillos, entonces $B$ se puede considerar un $A$-módulo.
+Sea $M_B = M \otimes_A B$.  Naturalmente este conjunto tiene estructura de $A$-módulo.  Introduciremos en él una estructura de $B$-módulo.
+
+Dado $b \in B$ se tiene que la aplicación
+$$
+1 \otimes \: b : M_B \lto M_B
+$$
+es un morfismo de grupos.  Definiendo el morfismo
+
+$$
+\begin{tabular}{ccc}
+$B$ & $\lto$ & $\End_{gr} (M_B)$\\
+$b$ & $\lto $ & $1 \otimes \: b$
+\end{tabular}
+$$
+se obtiene una estructura de módulo sobre el anillo $B$.  Esta multiplicación cumple la propiedad
+$$
+b(m \otimes b') = m \otimes bb'
+$$
+que es la propiedad que normalmente empleamos en los cálculos.
+
+Decimos que el $B$-módulo $M_B$ se ha obtenido del $A$-módulo $M$ por {\sf extensión de escalares} \index{extensión de escalares} o por el {\sf cambio de base}  \index{cambio de base} $\varphi : A \lto B$.
+\bigskip
+
+\noindent{\bf Ejemplos.}
+
+\begin{itemize}
+
+\item El $\C$-espacio vectorial obtenido a partir del $\R$-espacio $\R^n$ es justamente $\C^n$,
+donde el morfismo de anillos es  la inyección natural.
+
+\item Del mismo modo a partir de $\Z^n$ se obtiene $\R^n$.
+
+\item Si $G$ es un grupo finito entendido como $\Z$-módulo resulta que $G_\Q = 0$.
+
+\item Sea $A$ un anillo y $I$ un ideal.  El morfismo de paso al cociente $\pi : A \lto A/ I$ sirve para definir una extensión de escalares.  En particular cuando el ideal es máximal, sabemos que $A/ I$ es un cuerpo y por tanto la extensión de escalares produce un espacio vectorial.  Esta construcción se empleará a veces para probar  resultados sobre módulos, basandonos en los resultados sobre espacios vectoriales.
+
+\end{itemize}
+
+
+Si $\varphi : M \lto M'$ es un morfismo de $A$-módulos entonces 
+$$
+\varphi \otimes 1 : M_B \lto M_B
+$$
+ es un morfismo de $B$ módulos. En general denotaremos $\varphi_B = \varphi \otimes 1$. Se cumple la fórmula $(\varphi \phi)_B = \varphi_B \phi_B$. Ya podemos construir entonces un functor covariante, asociando a cada \mbox{$A$-módulo} el $B$-módulo $M_B$ y a cada aplicación lineal sobre $A$, el \mbox{$B$-morfismo} $\varphi_B$.
+
+
+
+
+\begin{teo}[{\sf Propiedad universal}]
+
+Sea $\varphi : A \lto B$ de anillos.  $M$ un  $A$-mó\-dulo y $N$ un $B$-módulo, que lo entenderemos también como $A$-módulo restringiendo escalares.  Sea $h : M \lto N$ un morfismo de $A$-módulos.  Existe una única aplicación $B$-lineal $\overline{h}$
+$$
+\overline{h} : M_B \lto N
+$$
+que cumple $\overline{h} ( x \otimes 1) = h (x)$.
+
+\end{teo}
+
+\dem
+
+Como se cumple que $m \otimes b = b (m \otimes 1)$, necesariamente sobre estos elementos debe definirse como
+$$
+\overline{h} ( m \otimes b) = b \overline{h} (m \otimes 1) = b h (m)
+$$
+
+Por la propiedad universal del producto tensorial $\overline{h}$ existe.  Unicamente queda probar que en efecto en morfismo de $B$-módulos, lo cual es sencillo de ver.
+
+Se tiene entonces la igualdad
+$$
+\Hom_A (M,N) = \Hom_B (M_B,N)
+$$
+que es precisamente la propiedad universal. \fin
+
+\section*{Problemas}
+
+\begin{pro}
+Probar las afirmaciones:
+\begin{itemize}
+
+\item Si $M$ es finito generado sobre $A$, entonces $M_B$ es finito generado sobre $B$.
+
+\item Si $M$ es libre sobre $A$, entonces $M_B$ es libre sobre $B$.
+
+\item Si $M$ es proyectivo sobre $A$, entonces $M_B$ es proyectivo sobre $B$.
+
+\end{itemize}
+
+\end{pro}
+
+\begin{pro}
+Probar la verdad o falsedad de la afirmación:
+
+El morfismo $\varphi : M \lto M_B$ dado por $m \lto m \otimes 1$ es inyectivo.
+
+\end{pro}
+
+\begin{pro}
+
+Consideremos la aplicación
+$$
+\begin{tabular}{ccc}
+$B \times B \times M$  & $\lto$  & $ B \otimes M$ \\
+$(a,b,x)$ & & $ab \otimes m$
+\end{tabular}
+$$
+es trilineal sobre $A$.  Así se induce una aplicación lineal
+$$
+B \otimes ( B \otimes M) \lto B \otimes M
+$$
+y esta una aplicación bilineal
+$$
+B \times ( B \otimes M) \lto B \otimes M
+$$
+
+Comprobar que esta aplicación dota al conjunto $B \otimes M$ de estructura de \linebreak \mbox{$B$-módulo} y que tal estructura coincide con la introducida en el texto.
+
+\end{pro}
+
+\begin{pro}
+
+Sea $\varphi : A \lto B$ y $\mu : B \lto C$ morfismo de anillos.  Comprobar que se cumple la igualdad $(M_B)_C = M_C$ donde la estructura de $C$-módulo esta asociada a la composición de aplicaciones.
+
+\end{pro}
+
+\begin{pro}
+
+Demostrar que $ (M \otimes_A N)_B $ y $ (M_B \otimes_B N_B)$ son isomorfos como $B$-módulos.
+
+\end{pro}
+
+\begin{pro}
+
+Sabemos que todo anillo tiene un ideal máximal.  Por lo tanto en todo anillo existe al menos un morfismo de anillos $\varphi : A \lto k$ valorado en un cuerpo.  Utilizar esta extensión para probar que dos bases finitas de un módulo libre de rango finito tienen siempre igual número de elementos.
+
+\end{pro}
+
+
+
+
+
+\section{Algebras sobre anillos}
+
+
+Gran parte de los conceptos y construcciones de este capítulo son exactamente iguales a los que se estudian en la teoría de anillos.  Muchos resultados se prueban y provienen de esta teoría, que suponemos conocida del lector.  Otros resultados se dan en los problemas.
+
+\begin{defi}
+
+Sea $\mathcal{B}$ un  conjunto.  Una estructura de $A$-álgebra sobre $\mathcal{B}$ es la dada por: \index{algebra@álgebra}
+\begin{enumerate}[i) ]
+
+\item Una estructura de $A$-módulo sobre $\mathcal{B}$.
+
+\item Una aplicación bilineal $\varphi : \mathcal{B} \times \mathcal{B} \lto \mathcal{B}$, llamada producto o multiplicación.
+
+\end{enumerate}
+
+\end{defi}
+
+Normalmente $\varphi (a,b)$ se denota $a \cdot b$ o simplemente $ab$.  Esta operación es distributiva respecto a ambos factores y además cumple
+$$
+a(xy) = x (ay) = (ax) y
+$$
+donde $a \in A$ y $x,y \in \mathcal{B}$.
+
+Si la multiplicación es una operación asociativa, el álgebra se denomina álgebra asociativa.  Si el producto es conmutativo, el álgebra se llama conmutativa.  Si el producto posee un elemento neutro, este necesariamente debe ser único.  Este elemento se  llama unidad del álgebra y se dice que $\mathcal{B}$ es un álgebra con unidad.
+
+\begin{defi}
+
+Sean $\mathcal{B}$ y $\mathcal{B}'$ dos álgebras sobre $A$.  Una función $\varphi : \mathcal{B} \lto \mathcal{B}'$ es un morfismo de $A$-álgebras si:
+
+\begin{enumerate}[i) ]
+
+\item $\varphi$ es morfismo de las estructuras de $A$-módulo.
+
+\item $\varphi (xy) = \varphi (x) \varphi (y) \text{ para todo elemento del álgebra}$.
+
+\end{enumerate}
+
+\end{defi}
+
+Si las álgebras tienen unidad y se cumple $\varphi (1) =1$, se dice que es un morfismo de álgebras con unidad.
+
+Tomando las $A$-álgebras como objetos y los morfismos de $A$-álgebra tenemos una categoría, la categoría de $A$-álgebras.
+
+\bigskip
+
+\noindent{\bf Ejemplos.}
+
+\begin{itemize}
+
+\item Todo anillo $A$ se puede considerar como una $A$-álgebra.
+
+\item Todo anillo es una $\Z$-álgebra.
+
+\item Si $X$ es un espacio topológico, $ C (X, \R)$ es una $\R$-álgebra.
+
+\item  El conjunto de tensores sobre un espacio vectorial forman una $k$-álgebra, el álgebra tensorial del $k$-espacio.
+
+\item Un espacio vectorial junto con un tensor de tipo $T_2^1$ es un álgebra aunque en general no será ni asociativa ni conmutativa.
+
+\item Los endomorfismos de un  módulo junto con  la composición.
+
+\item Los endomorfismos de un módulo, con el producto
+$$
+f \cdot g = [f, g]= fg-gf
+$$
+forman un álgebra no asociativa, ni conmutativa.
+
+
+\item Los polinomios sobre $A$, ya sea en una o varias variables.
+
+\item Sea $k$ un cuerpo e $I$ un ideal del anillo de polinomios.  El conjunto $k(x)/I$ es un álgebra de dimensión finita sobre $k$.  El estudio de las álgebras de dimensión finita sobre un cuerpo es una parte importante de lo que en matemáticas se denomina teoría de Galois.
+\index{teoría de Galois}
+
+\end{itemize}
+
+
+
+
+
+Nosotros consideraremos solamente álgebras asociativas y con unidad.  Por lo tanto de ahora en adelante, cuando nos refiramos a una 
+$A$-álgebra supondremos implicitamente que es asociativa y que tiene una unidad, que denotaremos $1$.  Alguna de las álgebras que construiremos no será conmutativa.  Por lo tanto podemos dar una nueva definición de $A$-álgebra:
+
+\begin{defi}
+
+Un $A$-álgebra $\mathcal{B}$ es un anillo (posiblemente no conmutativo)
+que tiene una estructura de $A$-módulo que verifica:
+$$
+a(mn) = (am)n = m(an) \quad a \in A , \quad m, \: n \in \mathcal{B}
+$$
+
+\end{defi}
+
+\begin{defi}
+Un subconjunto $\mathcal{C} $ de $\mathcal{B}$ es una subálgebra si:
+
+\begin{enumerate}[\indent i) ]
+
+\item $\mathcal{C}$ es un submódulo.
+
+\item $\mathcal{C}$ es un subanillo de $\mathcal{B}$.
+
+\end{enumerate}
+Es una subálgebra con unidad si $1 \in \mathcal{C}$.
+\end{defi}
+
+La intersección de subálgebras es otra subálgebra.  Podemos hablar de la subálgebra engendrada por un subconjunto de $\mathcal{B}$.  Exactamente igual podemos hablar  de la subálgebra con unidad engendrada por un subconjunto.  En este caso necesariamente debe contener a $1$.
+
+\begin{defi}
+Un subconjunto $\mathcal{I} \subset \mathcal{B}$ es un ideal (bilateral) si:
+
+\begin{enumerate}[\indent i) ]
+
+\item $\mathcal{I}$ es un submódulo.
+
+\item $\mathcal{I}$ es un ideal de $\mathcal{B}$.
+
+\end{enumerate}
+
+\end{defi}
+
+La intersección de ideales es un ideal.  Tiene sentido entonces hablar del ideal engendrado por un subconjunto de $\mathcal{B}$.
+
+Se puede introducir en $\mathcal{B}$ una relación de equivalencia módulo un ideal. El conjunto cociente adquiere entonces una estructura de módulo, pero además también tiene una estructura de álgebra dada por la multiplicación
+$$
+\pi (x) \pi (y) = \pi (xy)
+$$
+que no depende de los representantes que tomemos.
+La aplicación canónica de paso al cociente es un morfismo de álgebras.
+
+El conjunto de polinomios sobre un anillo $A$ es un objeto libre en la categoría.  Para no recargar la notación enunciaremos su propiedad universal para conjuntos finitos, pero es también válida para cualquier conjunto.
+
+\begin{teo}{\sf (Propiedad universal)} \index{propiedad universal!de los polinomios}
+Sea $\mathcal{B}$ un $A$-álgebra.  Sea $\{b_1, \dots , b_s\}$ un subconjunto de $\mathcal{B}$.  Existe un único morfismo de $A$-álgebras
+$$
+\varphi : A(x_1, \dots, x_s) \lto \mathcal{B}
+$$
+que cumple $\varphi (x_i) = b_i$.
+
+\end{teo}
+
+
+\dem
+
+Como $\varphi  $ es un morfismo de anillos cumple $\varphi (x_i^n)=b_i^n$. Así podemos cons\-truir $\varphi$ aplicando dicho propiedad a cada monomio utilizando la propiedad multiplicativa del morfismo.  \fin
+
+Si $\mathcal{B}$ es una $A$-álgebra, una graduación del módulo $\mathcal{B}$ de tipo $\Delta$ es compatible con la estructura de $A$-álgebra si:
+
+\begin{enumerate}[\indent i) ]
+
+\item $\mathcal{B}_\lambda \cdot \mathcal{B}_\mu \subset \mathcal{B}_{\lambda + \mu}$
+
+\item $A \cdot \mathcal{B}_\lambda \subset \mathcal{B}_\lambda$
+
+\end{enumerate}
+
+\begin{defi}
+
+Un {\sf álgebra graduada} \index{algebra@álgebra!graduada} es un álgebra con una graduación compatible.
+
+\end{defi}
+
+Llamamos {\sf morfismos de álgebras graduadas} \index{morfismo!de álgebras graduadas} a los morfismos de álgebra que se sean de grado $0$.  Podemos entonces formar la categoría de $A$-álgebras graduadas.
+
+Seab $\mathcal{B}$ y $\mathcal{C}$ dos $A$-álgebras con unidad. Consideremos la siguiente aplicación
+$$
+\mathcal{B} \times \mathcal{C} \times \mathcal{B} \times \mathcal{C} \lto \mathcal{B} \otimes \mathcal{C}
+$$
+$$
+(e,f,e',f') \lto ee' \otimes ff'
+$$
+
+Esta aplicación es multilineal.  Por la propiedad universal del producto tensorial, le corresponde una única aplicación lineal
+$$
+\mathcal{B} \otimes \mathcal{C} \otimes \mathcal{B} \otimes \mathcal{C} \lto \mathcal{B} \otimes \mathcal{C}
+$$
+
+Por la asociatividad, esta aplicación lineal induce una aplicación lineal
+$$
+(\mathcal{B} \otimes \mathcal{C}) \otimes (\mathcal{B} \otimes \mathcal{C}) \lto \mathcal{B} \otimes \mathcal{C}
+$$
+
+De nuevo aplicando la propiedad universal del producto tensorial, a esta función le corresponde una aplicación bilineal
+$$
+(\mathcal{B} \otimes \mathcal{C}) \times (\mathcal{B} \otimes \mathcal{C}) \lto \mathcal{B} \otimes \mathcal{C}
+$$
+
+\begin{defi}
+
+Llamamos {\sf producto tensorial de las $A$-álgebras} \index{producto!tensorial de álgebras} $\mathcal{B}$ y $\mathcal{C}$, al mó\-dulo $\mathcal{B} \otimes \mathcal{C}$ dotado de la aplicación bilineal que se ha construido anteriormente.
+
+\end{defi}
+
+El álgebra que acabamos de construir es asociativa con unidad. El producto en dicha álgebra cumple la relación:
+$$
+(e \otimes f) \cdot ( e' \otimes f') = ee' \otimes ff'
+$$
+
+Naturalmente la identidad de este álgebra es $1 \otimes 1$ y el inverso de $e \otimes f$ es 
+$e^{-1} \otimes f^{-1}$.
+
+Para cada álgebra $\mathcal{B}$ existe una aplicación canónica de $\mathcal{B} \lto \mathcal{B} \otimes \mathcal{C}$ dada por $e \lto e \otimes 1$ que es un morfismo de álgebras con unidad.  Esta aplicación se denotara $i_\mathcal{B}$ y es la inyección natural de $\mathcal{B}$ en $\mathcal{B} \otimes \mathcal{C}$.
+
+Como casi todas las construcciones que realizamos, el producto tensorial de álgebras tiene una propiedad universal que pasamos a enunciar.
+\begin{propo}
+Cada par de morfismos de álgebras con unidad $\varphi :\mathcal{B} \lto \mathcal{G}$ y $\phi : \mathcal{C} \lto \mathcal{G}$ define un morfismo de álgebras
+$$
+\varphi \oplus \phi : \mathcal{B} \otimes \mathcal{C} \lto \mathcal{G}
+$$
+mediante la fórmula $\varphi \oplus \phi = m (\varphi \otimes \phi)$, donde $m$ es la aplicación bilineal de $\mathcal{G} \times \mathcal{G} $ en $\mathcal{G}$ que lo dota de estructura de álgebra.
+
+Reciprocamente, cada morfismo $h : \mathcal{B} \otimes \mathcal{C} \lto \mathcal{G}$ es de la forma $\varphi \oplus \phi$ para un único par de morfismos.
+\end{propo}
+
+\dem
+
+$\Rightarrow )$ Simple comprobación.  Solo hay que comprobar que es morfismo de anillos, pues la linealidad se tiene por construcción.
+
+$\Leftarrow  ) $ Si $ h: \mathcal{B} \otimes \mathcal{C} \lto \mathcal{G}$ es un morfismo de álgebras, entonces $\varphi = h \circ i_\mathcal{B}$ cumple $\varphi (x) = h(x \otimes 1)$.  Analogamente se construye $\phi = h \circ i_\mathcal{C}$.  Naturalmente tanto $\varphi$ como $\phi$ son morfismos de álgebras y cumplen $h = \varphi \oplus \phi$. \fin
+
+Este teorema se puede expresar por el isomorfismo
+$$
+\Hom_{A-al} ( \mathcal{B} \otimes \mathcal{C} , \mathcal{G}) \sim \Hom_{A-al} (\mathcal{B},\mathcal{G}) \times \Hom_{A-al} (\mathcal{C},\mathcal{G})
+$$
+
+Esta propiedad nos dice que el producto tensorial es justamente la suma directa en la categoría de $A$-álgebras con unidad.  Por eso se utiliza la notación $ \varphi \oplus \phi$.
+
+\section*{Problemas}
+
+\begin{pro}
+
+Por analogía con la teoría de anillos, el lector probará los siguien\-tes resultados referentes a la teoría de $A$-álgebras:
+
+\begin{itemize}
+
+\item  Enunciar el teorema de factorización canónica.
+
+\item Caracterizar la mínima subálgebra que contiene a un subconjunto.
+
+\item Definir centro de un álgebra.
+
+\item Construir el producto directo de dos álgebras.
+
+\item Suma e intersección de ideales.
+
+\end{itemize}
+
+\end{pro}
+
+\begin{pro}
+
+Definir subálgebra e ideal graduados.  Construyase el cociente de un álgebra graduada módulo un ideal graduado.
+
+Calcula el grado de la unidad y del inverso de un elemento homogéneo, naturalmente suponiendo que existen.
+
+\end{pro}
+
+\begin{pro}
+
+Resolver las siguientes cuestiones:
+
+\begin{itemize}
+
+\item Definir el concepto de álgebra de generación finita.
+
+\item Probar que toda $A$-álgebra de generación finita es isomorfa a un cociente de un anillo de polinomios en un número finito de variables.
+
+\item Probar que toda $A$-álgebra  es isomorfa a un cociente de un anillo de polinomios, en general con un número infinito de variables.
+
+\end{itemize}
+
+\end{pro}
+
+\begin{pro}
+
+Calcular el producto tensorial de $A(x)$ con $A(y)$.
+
+\end{pro}
+
+\begin{pro}
+
+Resolver las siguientes cuestiones:
+
+\begin{itemize}
+
+\item Si $\mathcal{B}$ y $ \mathcal{C}$ son conmutativas, ¿lo es $\mathcal{B} \otimes \mathcal{C}$?
+
+\item Si $\mathcal{B}$ y $ \mathcal{C}$ son asociativas, ¿lo es $\mathcal{B} \otimes \mathcal{C}$?
+
+\item Si $A \subset B$ es un subanillo.  Calcular $A(x) \otimes B$.
+
+\end{itemize}
+
+\end{pro}
+
+\begin{pro}
+
+Comprobar que $ \mathcal{B} \otimes \mathcal {C} \sim \mathcal{C} \otimes \mathcal {B}$.
+
+\end{pro}
+ 
+
+\begin{pro}
+
+Una subálgebra es graduada si y solo si puede ser generada por elementos homogéneos.
+
+\end{pro}
+
+\begin{pro}
+
+Definir el concepto de extensión de escalares para una $A$-álgebra.
+
+\end{pro}
+
+\begin{pro}
+
+Dado un morfismo de álgebras, ver que sucede con las imagenes y antiimagenes de subálgebras e ideales.
+
+\end{pro}
+
+
+\begin{pro}
+
+Sea $\varphi : A \lto B$ un morfismo de anillos con unidad, cuya imagen este en el centro del anillo $B$.  Entonces $B$ es una $A$-álgebra.
+
+\end{pro}
+
+\begin{pro} 
+
+Probar los siguientes enunciados: 
+
+\begin{itemize}
+
+\item Las series formales $A[[x]]$ es un álgebra sobre $A$.
+
+\item Los polinomios $A[x]$ forman una subálgebra. Ver si es un ideal.
+
+\item El conjunto de funciones continuas sobre $\R^n$, $C(\R^n, \R)$ es un álgebra sobre el cuerpo real.  $C^\infty(\R^n,\R)$ es una subálgebra. ¿Será un \mbox{ideal?}
+
+\item Los cuaterniones son un álgebra no conmutativa sobre el cuerpo de los reales.
+
+\end{itemize}
+
+\end{pro}
+
+\begin{pro}
+
+Probar que el centro de un álgebra es una subálgebra.  Comprobar si es o no un ideal bilátero.
+
+\end{pro}
+
+\begin{pro}
+
+Sea $k$ un cuerpo y $p(x)$ un polinomio.  Calcular la dimensión de la $k$-álgebra $k[x]/p(x)$.
+
+\end{pro}
+
+\begin{pro}
+
+Dada una $A$-álgebra $\mathcal{B}$ decimos que una aplicación
+$$
+D : \mathcal{B} \lto \mathcal{B}
+$$
+es una derivación si
+
+\begin{enumerate}[\indent i) ]
+
+\item $D(a)=0$ si $a \in A$.
+
+\item $D(bc)= D(b)c+bD(c)$ si $ b,c \in \mathcal{B}$.
+
+\end{enumerate}
+
+Dotar de estructura de $A$-módulo al conjunto de todas las derivaciones.
+
+Probar que si $D$ y $D'$ son dos derivaciones, entonces $[D,D']=DD'-D'D$ es también una derivación.
+
+Calcular las derivaciones de la $k$-álgebra $k(x)$.
+
+\end{pro}
+
+
+
+\begin{pro}
+
+Probar que los elementos invertibles de un álgebra con unidad forman un  grupo.  Aplicarlo al caso de las matrices con coeficientes en $A$.
+
+\end{pro}
+
+
+\section{Algebra tensorial}
+
+Veamos como utilizando el concepto de producto tensorial podemos construir álgebras que contienen de modo natural al anillo al anillo $A$ y al módulo $M$.
+
+\begin{defi}
+
+El producto tensorial de $p$ copias de módulo $M$ se llama {\sf potencia tensorial p-ésima} \index{potencia!tensorial} y se denota $T^p(M)$.  Por convenio $T^0(M) = A$.
+
+\end{defi}
+
+\begin{defi}
+
+Llamamos  {\sf álgebra tensorial} \index{algebra@álgebra!tensorial} de $M$, al módulo suma directa de todos  los $A$-módulos $T^p(M)$ y se denota $\tau(M)$
+$$
+\tau(M) = \oplus_{p \geq 0}\: T^p(M)
+$$
+
+\end{defi}
+
+Por definición $\tau (M)$ es un módulo graduado de tipo $\N$.  Los elementos del álgebra tensorial se denominan {\sf tensores}. \index{tensores}  A las imagenes por las inyecciones canónicas de los elementos de $T^p(M)$ se les llama {\sf tensores homogéneos} \index{tensores!homogéneos} de grado~$p$.  Cada elemento del álgebra tensorial se puede  escribir de modo único como suma finita de tensores homogéneos.
+
+Los isomorfismos canónicos $T^p(M) \otimes T^q(M) \sim T^{p+q}(M)$ deducidos de la asociatividad del producto tensorial, tienen asociadas aplicaciones bilineales:
+$$
+\varphi_{pq} : T^p(M) \times T^q(M) \lto T^{p+q}(M)
+$$ 
+
+Extendiendo estas aplicaciones por bilinealidad, tenemos una aplicación bilineal de $\tau (M) \times \tau(M) \lto \tau (M)$ que restringida a cada potencia coincide con~$\varphi_{pq}$.  Dicha aplicación se denota $\otimes$ y se llama {\sf producto tensorial}. \index{producto!tensorial}
+Esta aplicación dota a $\tau(M)$ de estructura de $A$-álgebra asociativa.  La asociatividad se deduce de la asociatividad del producto tensorial de módulos.  En general este álgebra no será conmutativa.
+
+Es de notar que la expresión $m \otimes m'$ que definimos  en el capítulo \ref{cap:producto_tensorial} era pura notación.  Sin embargo ahora es el producto de dos elementos del álgebra tensorial y es un elemento homogéneo de grado $2$.
+
+Este álgebra contiene a $A$ y a $M$   mediante las inyecciones canónicas de estos módulos en la suma directa, puesto que $T^0(M)=A$ y $T^1(M) = M$. 
+
+ Dicho álgebra está generada por estos dos conjuntos, por lo que para definir aplicaciones que sean morfismos de álgebras, solo necesitamos conocer como actuan sobre ambos conjuntos.  En el caso en que los morfismos conserven la unidad, solo es necesario conocer su acción sobre $M$. 
+
+El álgebra tensorial posee una propiedad universal y por lo tanto está definida salvo un isomorfismo.
+
+\begin{teo}{\sf (Propiedad universal)} \index{propiedad universal!del álgebra tensorial} Sea $\mathcal{B}$ una $A$-álgebra con unidad.  Cada morfismo de módulos $\varphi : M \lto \mathcal{B}$ induce un único morfismo de álgebras con unidad $\varphi_*:\tau(M)\lto  \mathcal{B}$ que sobre $M$ coincide con $\varphi$.
+
+\end{teo}
+
+\dem
+
+El teorema afirma que existe un cierto $\varphi_*$ que cierra el diagrama
+
+\begin{diagram}
+M & \rTo^\varphi & \mathcal{B} \\
+\dTo^i & \ruTo^{\varphi_*}& \\
+\tau(M) & & 
+\end{diagram}
+
+Necesariamente $\varphi_* (a) = a$ si $a \in A$.  Los elementos de la forma $m_1 \otimes \dots \otimes m_p$ generan $T^p(M)$.  Como $\varphi_*$ debe mandar el producto al producto y coincidir con $\varphi$ sobre $M$, necesariamente
+$$
+\varphi_* (m_1 \otimes m_2 \otimes \dots \otimes m_p) = \varphi (m_1) \cdot \varphi (m_2) \dots \varphi( m_p)
+$$
+
+Estos elementos generan $T^p(M)$, así  existe un único morfismo 
+$$
+\varphi_p : T^p (M) \lto  \mathcal{B}
+$$
+
+ La existencia de una aplicación lineal con estas propiedades esta garantizada por la propiedad universal del producto tensorial.  
+
+Aplicando la propiedad universal de la suma directa existe $\varphi_* : \tau(M) \lto \mathcal{B}$ que sobre cada potencia tensorial coincide con $\varphi_p$.  Una comprobación rutinaria muestra que en efecto el morfismo $\varphi_*$ así definido es morfismo de álgebras. \fin
+
+\begin{cor}
+
+Sea $\varphi : M \lto N$ un morfismo de $A$-módulos.  Existe una única aplicación
+$$
+\varphi_* : \tau(M) \lto \tau(N)
+$$
+que sobre $M$ coincide con $\varphi$.
+
+\end{cor}
+
+
+
+\dem
+
+Consideremos el morfismo $\varphi$ compuesto con la inyección natural de $N$ en su álgebra tensorial.  Aplicando la propiedad universal obtenemos el morfismo $\varphi_*$ pedido. \fin
+
+Si $\phi$ es otro morfismo tenemos que $(\varphi \phi)_* = \varphi_* \phi_*$.
+
+Por lo tanto podemos construir un functor covariante de la categoría de \mbox{$A$-módulos} en la de $A$-álgebras asociando a cada módulo su álgebra tensorial y a cada morfismo $\varphi$ el morfismo $\varphi_*$.
+
+
+\begin{propo}
+
+Se cumple la fórmula
+$$
+\tau (M \oplus N) = \tau (M) \otimes \tau(N)
+$$
+
+\end{propo}
+
+\dem
+
+
+
+$$\Hom _{A-al} (\tau (M \oplus N), \mathcal{B}) = \Hom (M \oplus N, \mathcal{B}) = 
+\Hom(M,\mathcal{B}) \times \Hom (N,\mathcal{B})$$
+aplicando la propiedad universal del álgebra tensorial y de la suma directa de módulos.  Esto es igual a
+$$
+\Hom _{A-al} (\tau (M),\mathcal{B}) \times \Hom _{A-al} (\tau(N), \mathcal{B})
+= \Hom_{A-al} (\tau(M) \otimes \tau(N) , \mathcal{B})
+$$
+
+Como ambas cumplen la misma propiedad universal concluimos que  las dos álgebras son isomorfas. \fin
+
+Si recordamos que el producto tensorial era la suma directa en la categoría de $A$-álgebras, esta proposición será más evidente.
+
+Otra propiedad importante del álgebra tensorial es su estabilidad por extensión de escalares.
+
+\begin{propo}
+
+Sea $\varphi : A \lto B$ un morfismo de anillos, que entenderemos como una extensión de escalares. Se tiene el siguiente isomorfismo:
+$$
+(\tau (M))_B \sim \tau (M_B)
+$$
+
+\end{propo}
+
+\dem
+
+Es consecuencia de la propiedad distributiva del producto tensorial de la que se deduce
+$$
+T^p(M) \otimes B = T^p(M \otimes B)
+$$
+por lo que se concluye que
+$$
+\tau (M)_B = \tau (M) \otimes B = \tau (M \otimes B) = \tau (M_B)
+$$
+que afirma que el álgebra es estable por extensión de escalares. \fin
+
+El álgebra tensorial tiene muchas propiedades, sin embargo adolece de la falta de conmutatividad.  Construiremos un álgebra que si sea conmutativa y que contenga tanto a $A$ como a $M$.
+
+\begin{defi}
+
+Sea $I$ el ideal bilatero graduado de $\tau(M)$ generado por los ele\-mentos de la forma $m \otimes m' - m' \otimes m$.  El álgebra $S(M) = \tau (M) /I$ se llama {\sf álgebra tensorial simétrica} \index{algebra@álgebra!simétrica} del módulo $M$.  El producto en este álgebra se denotará por un punto y se le llamará {\sf producto simétrico}. \index{producto!simétrico}
+
+\end{defi}
+
+Este álgebra admite una graduación inducida por la del álgebra tensorial, pues $I$ es un ideal graduado.  En efecto 
+$$
+I = \oplus_{p \geq 0} \:I^p \text{ donde } I^p = I \cap T^p(M)
+$$
+
+Si denotamos por $S^p = T^p(M) / I^p$ tenemos que $S(M) = \oplus_{p \geq 0}\: S^p$.  El módulo $S^p$ se llama {\sf p-ésima potencia simétrica} \index{potencia!simétrica} del módulo $M$.
+
+Este álgebra contiene a $A$ y a $M$ puesto que $I^0=0 =I^1$ ya que está generado por elementos homogéneos de grado $2$.
+
+\begin{teo}
+
+{\sf (Propiedad universal)} \index{propiedad universal!del producto simétrico} Sea $\mathcal{B}$ un álgebra con unidad.  Sea  $\varphi : M \lto \mathcal{B}$ un morfismo de $A$-módulos que cumpla 
+$\varphi(m) \varphi (m') = \varphi (m') \varphi (m)$ (lo cual ocurre siempre si $\mathcal{B}$ es conmutativa).  Entonces existe un único morfismo de $A$-álgebras con unidad $\varphi_* : S(M) \lto \mathcal{B}$ que sobre $M$ coincide con~$\varphi$.
+
+\end{teo}
+
+\dem
+
+Sea $\varphi_* : \tau(M) \lto \mathcal{B}$ el morfismo que sabemos que existe por la propiedad universal del álgebra tensorial.  Tenemos que $\varphi_*$ se anula sobre los generadores del ideal $I$ por la condición de conmutatividad que tenemos como hipótesis.  Así $\varphi_*$ se anula sobre todo el ideal $I$.  Sabemos entonces que factoriza dando una aplicación de $S(M)$ en $\mathcal{B}$.  La unicidad es clara pues los elementos de la forma $m_1 \cdot m_2 \dots m_p$ generan el álgebra simétrica. \fin
+
+\begin{cor}
+
+El álgebra simétrica es estable por extensión de escalares.  Si $\varphi : A \lto B$ es un morfismo de anillos
+$$
+S(M)_B = S(M_B)
+$$
+
+\end{cor}
+
+
+\begin{cor}
+
+Se tiene la fórmula
+$$
+S(M \oplus N) = S(M) \otimes S(M)
+$$
+\end{cor}
+
+
+Consideremos ahora el ideal graduado $I$ generado por los elementos de la forma $ m \otimes m$.  El álgebra cociente $\bigwedge (M) = \tau(M)/I$ se denomina {\sf álgebra exterior} \index{algebra@álgebra!exterior} del módulo $M$.  El producto en este álgebra  de denota por el símbolo $\wedge$ y se denomina {\sf producto exterior}. \index{producto!exterior}
+
+Generalice el lector los conceptos de potencia exterior $p$-ésima, de elemento homogéneo de este álgebra y la inclusión tanto de $A$ como de $M$ en el álgebra exterior. Si $\omega_p, \omega_q$ son elementos homogéneos de grado $p$ y grado $q$ del álgebras exterior se cumple
+$$
+\omega_p \wedge \omega_q = (-1)^{pq} \:\omega_q \wedge \omega_p
+$$
+
+
+\begin{teo}
+
+{\sf (Propiedad universal)} Sea $\varphi : M \lto \mathcal{B}$ un morfismo de álgebras que cumpla $ \varphi (m)^2 =0$.  Entonces existe una única aplicación de álgebras 
+$$
+\varphi_* : \textstyle{\bigwedge} (M) \lto \mathcal{B}
+$$
+ que sobre $M$ coincide con $\varphi$.
+
+\end{teo}
+
+\section*{Problemas}
+
+\begin{pro}
+
+Sea 
+$$
+I = \oplus_{p \text{ par}} T^p(M)\:,\quad \quad P = \oplus_{p \text{ impar}} T^p(M)
+$$
+
+Entonces el álgebra tensorial admite una graduación sobre el grupo $\Z_2$.
+
+
+\end{pro}
+
+\begin{pro} 
+
+Demostrar las siguientes afirmaciones:
+
+\begin{itemize}
+
+\item Los morfismo inducidos $\varphi_*$ son de grado cero.  Así podemos construir un functor de la categoría de $A$-módulos en la de $A$-álgebras graduadas.
+
+\item La restricción de $ \varphi_*$  a cada potencia tensorial coincide con $\varphi \otimes\dots \otimes \varphi$.
+
+\item Si $\varphi :M \lto N$ es epiyectiva, también es epiyectiva $\varphi_*$.
+
+\end{itemize}
+
+\end{pro}
+
+\begin{pro}
+
+Ver la relación entre las aplicaciones multilineales simétricas y la potencia simétrica.
+Análogo con las aplicaciones alternadas y la potencia exterior.
+
+\end{pro}
+
+\begin{pro}
+
+Calcular el álgebra tensorial, simétrica y exterior del $A$-módulo $A$.  Relacionar estos resultados con la teoría de polinomios.
+
+Hacer lo mismo con el módulo $A^n$.
+
+\end{pro}
+
+\begin{pro}
+
+Probar que la potencia exterior $n$-ésima del módulo $A^n$ es libre de rango $1$.
+Sea $\varphi : A^n \lto A^n$ un endomorfismo de $A^n$.  La aplicación 
+$$\varphi_* : \textstyle{\bigwedge}^n (A^n) \lto \textstyle{\bigwedge}^n(A^n)
+$$
+ consiste entonces en multiplicar por un cierto escalar.  Dicho escalar se denomina determinante de $\varphi$ y se denota $\det(\varphi)$. Generalizar los resultados conocidos de Algebra Lineal.
+\end{pro}
+
+
+
+
+
+
+\section{Localización}\label{cap:localizacion}
+
+Nos vemos obligados en este punto a estudiar con cierto detenimiento una parte de la teoría de anillos, la localización.  Después la generalización a los módulos será casi inmediata.  Como siempre consideraremos anillos conmutativos y con unidad.
+
+\begin{defi}
+
+Un subconjunto $ S \subset A$ es {\sf multiplicativamente cerrado} \index{multiplicativamente cerrado} si:
+
+\begin{enumerate}[\indent i) ]
+
+\item $ 1 \in S$.
+
+\item Si $a,b \:\in S \quad \Longrightarrow ab \in S$.
+
+\end{enumerate}
+
+\end{defi}
+
+En el conjunto $A \times S$ se define la siguiente relación, que el lector comprobará que es de equivalencia:
+$$ 
+(a,s) \sim (b,t) \Longleftrightarrow  \text{ existe } u \in S \text{ tal que } (at -bs)u =0
+$$
+
+La clase de equivalencia de $(a,s)$ se denotará con la fracción $a/s$.
+
+Con esta notación definimos las siguientes operaciones en el conjunto cociente, que denotaremos en general $A_S$.
+$$
+\frac{a}{s} + \frac{b}{t} = \frac{at+bs}{st}
+$$
+$$
+\frac{a}{s} \cdot \frac{b}{t} = \frac{ab}{st}
+$$
+
+Las definiciones dadas no dependen de los representante elegidos y dotan al conjunto $A_S$ de estructura de anillo conmutativo  y con unidad.  Decimos que el anillo $A_S$ es el {\sf anillo de fracciones} \index{anillo!de fracciones} de $A$ con denominadores en $S$.
+
+La aplicación 
+\begin{center}
+\begin{tabular}{cccc}
+$\varphi:$ & $A $& $\lto$ & $A_S$ \\
+& $x$ & $\lto$& $x/1$
+\end{tabular}
+\end{center}
+es un morfismo de anillos del anillo en su anillo de fracciones.  Si existiese confusión lo denotariamos por $\varphi_S$.  Este morfismo, en general no es inyectivo, por lo que $A$ no puede considerarse un subanillo de $A_S$.
+
+\bigskip
+
+\noindent{\bf Ejemplos.}
+
+\begin{itemize}
+
+\item Sea $A$ un dominio de integridad.  Entonces $S = A - \{0\}$ es  un subconjunto multiplicativamente cerrado.  En este caso $A_S$ es un cuerpo, llamado {\sf cuerpo de fracciones} de $A$. \index{cuerpo de fracciones} Además el morfismo $\varphi$ es inyectivo.  Si $A=\Z$, entonces $A_S= \Q$.
+
+\item Sea $a \in A$.  Entonces $S= \{a^n\}_{n \geq 0}$ es multiplicativamente cerrado.  En este caso $A_S$ se denota $A_a$.
+
+\item  Sea $S$ el conjunto de elementos invertibles de $A$.  Calcule el lector $A_S$.
+
+\item  Sea $\p $ un ideal primo de $A$.  Por definición de ideal primo, $A- \p$ es multiplicativamente cerrado.  $A$ se denota en este caso $A_\p$ y se dice que es el localizado de $A$ en el punto $\p$.
+
+\item Sea $z$ un punto del plano complejo.  El  conjunto de todos los polinomios que no se anulan en $z$ forman un conjunto multiplicativamente cerrado $S$.  $\C(x)_S$ son las funciones racionales sin polo en $z$.
+
+\end{itemize}
+
+\begin{teo} 
+
+{\sf (Propiedad universal)} \index{propiedad universal!del anillo localizado} Si $ \phi: A  \lto B$ es un morfismo de anillos con unidad y tal que $\phi(s)$ sea invertible en $B$ para todo $s$ de un subconjunto multiplicativamente cerrado $S$.  Entonces existe un único morfismo de anillos $ \phi_*$ que hace conmutativo el diagrama
+\begin{diagram}
+A &\rTo^\phi & B \\
+\dTo_\varphi& \ruTo_{\phi_*}& \\
+A_S& & 
+\end{diagram}
+\end{teo}
+
+\dem
+
+Necesariamente se cumple 
+$$
+\phi_*\big( 1/s)\big) = \big(\phi_*(s)\big)^{-1} = \big(\phi(s)\big)^{-1}
+$$
+
+Por lo tanto $\phi_*(a/s) = \phi (a) \phi (s)^{-1}$ es la única definición posible.  Un par de cuentas prueban que la definición no depende del representante y que $\phi_*$ es un morfismo de anillos.  \fin
+
+Sea ahora $M$ un módulo y $S$ un subconjunto multiplicativamente cerrado del anillo.  En $M \times S$ se introduce la relación de  equivalencia
+$$
+(m,s) \sim  (m',s') \text{ si } (ms' -m's)u =0 \text{ para algún } u \in S
+$$
+
+La clase de equivalencia se denota $m/s$.
+Se define la suma en este conjunto como
+$$
+\frac{m}{s} +\frac{m'}{s'} = \frac{ms'+m's}{ss'}
+$$
+
+El conjunto de las clases de equivalencia tiene  estructura de grupo abeliano.
+Introducimos también la multiplicación por elementos de $A_S$.
+
+$$
+\frac{a}{s} \cdot \frac{m'}{s'} = \frac{am}{ss'}
+$$
+
+Todas las construcciones son independientes del representante y dotan al conjunto cociente, que de ahora en adelante dentoraremos $M_S$, de una estructura de $A_S$-módulo.  En $M_S$ también se puede considerar la estrutura de $A$-módulo definida por el morfismo $\varphi$:
+$$
+x \cdot \frac{m}{s} = \frac{xm}{s}= \varphi(x) \cdot \frac{m}{s}
+$$
+
+Como en $M_S$ existe una estructura de módulo sobre dos anillos, siempre que exista una posible confusión se debe decir cual es el anillo considerado.
+
+Cada morfismo de $A$-módulo $\phi : M \lto N$ induce un morfismo de \mbox{$A_S$-mó}\-dulos $\phi_S$ mediante la fórmula
+
+\begin{center}
+\begin{tabular}{cccc}
+$\phi_S$ :& $M_S$ &$\lto$ & $N_S$ \\
+& $m/s$& $\lto$ & $\phi(m)/s$
+\end{tabular}
+\end{center}
+
+Si tenemos otro morfismo de módulos $\gamma  $  se cumple la relación $(\phi \gamma )_S = \phi_S \gamma _S$.
+Tenemos así construido un functor de la categoría de $A$-módulos en la de \linebreak $A_S$-módulos.
+
+Como en el caso de los anillos, cuando $S$ sea $A - \p$ con $\p$ un ideal primo, se dirá que se localiza el módulo en el punto $\p$.
+
+\begin{propo}
+
+Construir el módulo de fracciones es un functor exacto.
+
+\noindent Si $M' \stackrel{\phi}{\lto} M \stackrel{\gamma }{\lto} M''$ es exacta entonces 
+$M_S' \stackrel{\phi_S}{\lto} M_S \stackrel{\gamma_S }{\lto} M''_S$ 
+es también exacta.
+
+\end{propo}
+
+\dem
+
+$\phi \gamma =0 \Longrightarrow (\phi \gamma)_S = 0 \Longrightarrow  \phi_S \gamma_S =0$
+lo que implica que $\Img (\phi_S) \subset \Ker (\gamma_S)$.
+
+Reciprocamente, si $\gamma(m)/s =0$ entonces existe $t \in S$ tal que $$
+t(\gamma(m)) =0 \Longrightarrow \gamma(tm)= 0
+$$
+
+Entonces $tm \in \Ker (\gamma) = \Img ( \phi)$.  Así $tm = \phi (m')$ lo que conduce a que
+$$
+m/s = \phi_S (m'/s)
+$$ 
+lo que concluye la demostración. \fin
+
+
+\begin{propo}
+
+  Si $N$ y $ P$ son submódulos:
+$$
+(N+P)_S = N_S+P_S
+$$
+$$
+(N \cap P)_S = N_S \cap P_S
+$$
+$$
+(M/N)_S \sim M_S/N_S
+$$
+
+\end{propo}
+
+\dem
+
+Las dos primeras propiedades nos dicen que construir módulos de fracciones induce un morfismo de retículos.  La última se deduce de la sucesión exacta
+$$
+0 \lto N \lto M \lto M/N \lto 0
+$$ 
+teniendo en cuenta que se conserva la exactitud. \fin
+
+
+
+El siguiente teorema nos da otro método de construcción del módulo de fracciones.
+
+\begin{teo}
+
+Sea $M$ un $A$-módulo.  Existe un único isomorfismo $\phi$ de \linebreak $A_S$-módulos de $A_S \otimes_A M$ en $M_S$ que manda al punto $a/s \otimes m$ hasta $am/s$.
+
+\end{teo}
+
+
+\dem
+
+La aplicación
+\begin{center}
+\begin{tabular}{ccc}
+$A_S \times M$ & $\lto$ & $M_S$ \\
+$(a/s, m)$ & $\lto$ & $am/s$
+\end{tabular}
+\end{center}
+es $A$-bilineal.  Por la propiedad universal del producto tensorial existe una aplición $\phi : A_S \otimes M \lto M_S$ que satisface el enunciado.  Siguiendo las ideas expuestas anteriormente, compruebe el lector que en efecto es un isomorfismo y que además es un morfismo de $A_S$-módulos. \fin
+
+
+Se dice que una propiedad de un $A$-módulo es una propiedad local, cuando se cumpla lo siguiente:
+
+El $A$-módulo tiene la propiedad P si y solo si para todo punto del espectro el $A_\p$-módulo asociado tiene la propiedad P.
+
+Esta definición algebráica de localidad coincide con la idea de localidad en el sentido topológico, tras introducir en el espectro la topología de Zariski.
+
+La importancia de este concepto radica en que las propiedades locales basta estudiarlas sobre anillos locales.
+
+\begin{defi}
+
+Un anillo conmutativo y con unidad es local si tiene un único ideal maximal $\m $.  El cuerpo $k = A/ \m$ se llama cuerpo residual.
+
+\end{defi}
+
+\begin{lema}
+
+$A$ es local de ideal maximal $\m$ si y solo si todos los elementos de $A- \m$ son invertibles.
+
+\end{lema}
+
+\dem
+
+$\Rightarrow )$ Si $x \in A$ no es invertible, pertenece a algún ideal maximal.
+
+$\Leftarrow )$ Si el complementario de las unidades de $A$ es un ideal, entonces es maxi\-mal y es el único ideal maximal. \fin
+
+\begin{teo}
+$A_\p$ es local.
+\end{teo}
+
+\dem
+
+Los elementos de la forma $a/s$ con $a \in \p$ forman un ideal.  Si $s/s'$ no pertenece a ese ideal, este elemento es invertible y su inverso es $s'/s$. \fin
+
+\begin{lema} [Nakayama]
+
+Sea $A$ local, $\m$ su ideal maximal.  Si $M$ es de gene\-ración finita y $\m M = M$, entonces $M=0$.
+
+\end{lema}
+
+\dem
+
+Sea $(m_1, \dots,m_n)$ un conjunto mínimo de generadores.  Como dicho conjunto genera $M$ y además $\m M=M$ tenemos que
+$$
+m_n = a_1 m_1+ \dots +a_n m_n \text{ con } a_i \in \m
+$$
+Entonces deducimos que 
+$$
+m_n(1-a_n) = a_1 m_1 + \dots + a_{n-1} m_{n-1}
+$$
+
+Como $1-a_n$ es invertible, tenemos que $(m_1, \dots m_{n-1})$ generan $M$.  Esto solo es posible si $M=0$. \fin
+
+\begin{cor}
+
+$M_\m =0 \Longleftrightarrow M=0$.
+
+\end{cor}
+
+\dem
+
+$M_\m = M/\m M$. \fin
+
+\begin{cor}
+
+La condición necesaria y suficiente para que una familia genere $M$ es que sus imagenes generen $M_\m$.
+
+\end{cor}
+
+\dem
+
+$\Leftarrow ) $ $M_\m = M \otimes k$.  Si $\{m_i\}$ generan $M$ como $A$-módulo $\Rightarrow \{m_i \otimes 1\}$ generan $M_\m$ como $k$-espacio.
+
+$\Leftarrow )$ Sea $N$ es submódulo generado por los elementos $\{m_i\}$
+$$
+0 \lto N \lto M \lto M/N \lto 0
+$$
+
+Localizando esta sucesión tenemos
+$$
+N_\m \lto M_\m \lto (N/M)_\m \lto 0
+$$
+
+$N=M$ si solo si $N_\m \lto M_\m$ es epiyectiva y lo es pues las imagenes de $m_i$ generan $M_\m$. \fin
+
+Veamos ahora algunas propiedades locales.
+
+\begin{propo}
+
+Sea $M$ un $A$-módulo.  Son equivalentes.
+\begin{enumerate}[i) ]
+
+\item $M=0$.
+\item $M_\p =0 \quad \forall\:\: \p \text{ primo.}$
+\item $M_\m =0 \quad \forall \:\: \m \text{ maximal.}$
+
+\end{enumerate}
+\end{propo}
+
+\dem
+
+Solo tenemos que demostrar una implicación pues las otras son evidentes.
+
+Sea $I$ el anulador de $M$.  Como $m/1=0$ en $M_\m$, entonces existe un $u$ que no pertence a $\m$ tal que $um =0$.  El anulador no está contenido en ningún ideal maximal.  Por lo tanto el anulador es $A$.
+Entonces $1m =0 \Longrightarrow m=0$. \fin
+
+\begin{propo}
+
+Sea $\phi : M \lto N$ $A$-lineal.  Son equivalentes:
+
+\begin{enumerate}
+
+\item $\phi$ es inyectiva.
+
+\item $\phi_\p$ es inyectiva para todo ideal primo.
+
+\item $\phi_\m$ es inyectiva para todo ideal maximal.
+
+\end{enumerate}
+
+\end{propo}
+
+\dem
+
+Localizamos la sucesión
+$$
+0 \lto \Ker(\phi) \lto M \lto N
+$$
+y aplicamos la proposición anterior. \fin
+
+Tenemos otra proposición si sustituimos inyectiva por epiyectiva.
+
+\begin{cor}
+
+$\phi : M \lto N$ es isomorfismo si y solo si lo es al localizar en cada ideal primo.
+
+\end{cor}
+
+\begin{cor}
+
+Una sucesión $M \lto N \lto M'$ es exacta si y solo si lo es al localizarla en todos los ideales primos.
+
+\end{cor}
+
+
+\section*{Problemas}
+
+\begin{pro}
+
+Probar que el localizado de una suma directa es la suma directa de los localizados.
+
+\end{pro}
+
+\begin{pro}
+
+Probar el siguiente isomorfismo
+$$
+M_S \otimes_{A_S} N_S \sim (M \otimes N) _S
+$$
+
+\end{pro}
+
+\begin{pro}
+
+Calcular el núcleo de la aplicación canónica $m \lto m/1$.
+
+\end{pro}
+
+\begin{pro}
+
+Llamamos soporte de un módulo $M$ al conjunto de ideales primos tales que $M_\p \neq 0$.  Calcular el soporte de $k(x)/p(x)$.
+
+\end{pro}
+
+\begin{pro}
+
+Probar que $(M_S)_\tau = (M_\tau)_S$.
+
+Deducir  que la caracteristica de ser sin torsión es una propiedad local.
+
+\end{pro}
+
+\begin{pro}
+Localizando en un ideal maximal probar:
+
+\begin{itemize}
+
+\item $A^m \sim A^n$ entonces $n=m$.
+
+\item $\varphi: A^m \lto A^n$ epiyectiva $\Rightarrow  m \geq n$.
+
+\item $\varphi :A^m \lto A^n$ inyectiva $\Rightarrow  m \leq n$.
+
+\end{itemize}
+
+\end{pro}
+
+
+
+
+
+\section{Módulos noetherianos}
+
+Comenzaremos este capítulo con un teorema de teoría de conjuntos ordenados.
+
+\begin{propo}
+
+Sea $\Sigma$ un conjunto dotado de una relación de orden.  Entonces son equivalentes las condiciones que siguen:
+
+\begin{enumerate}[\indent i) ]
+
+\item   Cada sucesión creciente de elementos de $\Sigma$
+$$
+\:x_1 \leq x_2 \leq \dots \leq x_n
+$$
+ es estacionaria, que quiere decir que existe un $n$ tal que $x_n = x_{n+i}$ para todo $i >0$.
+
+\item  Cada subconjunto no vacio de $\Sigma$ admite un elemento maximal.
+
+\end{enumerate}
+
+\end{propo}
+
+\dem
+
+$i) \Rightarrow  ii) $  Si no existiera elemento maximal para el subconjunto $\Sigma$, entonces por inducción crearíamos una cadena que no estaciona.
+
+$ii) \Rightarrow  i)$  $  \{x_n\}_{n \geq 1}$tiene elemento maximal. \fin
+
+La condición $i)$ se denomina {\sf condición de cadena ascendente} \index{condición de cadena ascendente} y la condición $ii)$ la {\sf condición maximal}.\index{condición maximal}
+
+Para todo lo que sigue, $\Sigma$ será el retículo de submódulos de un módulo dado.
+
+\begin{defi}
+
+Un módulo $M$ es {\sf noetheriano} \index{módulo!noetheriano} si el conjunto $\Sigma$ de sus submó\-dulos satisface alguna de las condiciones equivalentes de la proposición anterior. El orden considerado en $\Sigma $ es el de la inclusión.
+
+\end{defi}
+
+Si $A \subset B$ son anillos y $M$ es un $B$-módulo, puede ocurrir que $M$ sea noetheriano como $B$-módulo y lo no sea como $A$-módulo.  Esto ocurre por ejemplo en el caso $A= k, \: B = k(x)$.
+
+\bigskip
+
+\noindent{\bf Ejemplos.}
+
+\begin{itemize}
+
+\item Todo grupo finito abeliano es noetheriano como $\Z$-módulo.
+
+\item  Todo módulo simple es noetheriano.
+
+\item  Todo módulo $M$ cuyo cardinal sea finito es noetheriano sobre cualquier anillo.
+
+\item Todo $k$-espacio de dimensión finita.
+
+\item Si $A$ es un dominio de ideales principales, entonces es noetheriano como $A$-módulo.
+
+\end{itemize}
+
+La importancia de los módulos noetherianos radica en el siguiente teorema
+
+\begin{teo}
+
+$M$ es un $A$-módulo noetheriano si y solo si todo submódulo de $M$ es de generación finita.
+
+\end{teo}
+
+\dem
+
+$\Rightarrow )$ Sea $N$ un submódulo de $M$ y sea $\Sigma'$ el conjunto  de todos los submódulos menores que $N$ y que además sean finito generados.  Como $\Sigma$ cumple la condición de cadena ascendente, lo mismo le ocurre a $\Sigma'$.  Sea $N'$ un elemento maximal de $\Sigma'$.  Veamos que $N' = N$.  Si esto no ocurriera, existiría un vector $m \in N -N'$.  Entonces $N' + <m>$ sería de generación finita y estaría contenido en $N$, contradiciendo la maximalidad de $N$.
+
+$\Leftarrow )$  Sea $N_1 \subset \dots \subset N_n \dots$ una cadena ascendente de submódulos.  Tenemos que $\cup_i N_i $ es un submódulo.  Sea $\{m_i\} \:\ (i = 1, \dots ,k)$ un conjunto generador  del módulo unión.  Sea $N_n$ el primer submódulo que contenga a todos los $m_i$.  La sucesión estaciona en $N_n$. \fin
+
+\begin{teo}
+
+Si $0 \stackrel{i}{\lto} M' \lto M \stackrel{\pi}{\lto} M'' \lto 0$ es exacta, entonces $M$ es noetheriano si y solo si $M'$ y $M''$ son noetherianos.
+
+\end{teo}
+
+\dem
+
+$\Rightarrow )$  Los submódulos de $M'$ son submódulos de $M$.  Entonces $M'$ es noetheriano.  Por $\pi^{-1}$ los submódulos de $M''$ se pueden considerar incluidos en los submódulos de $M$.  $M''$ es noetheriano.
+
+$\Leftarrow )$  Si $\{N_i\}$ es una cadena es $M$, entonces $\{i^{-1}(N_i)\}$ y $\{\pi^{-1}(N_i)\}$ son cadenas que estacionan.  Entonces la cadena $\{N_i\}$ estaciona y $M$ es noetheriano. \fin
+
+\begin{cor}
+
+La suma directa finita de noetherianos es un módulo noetheriano.
+
+\end{cor}
+
+\dem
+
+La sucesión
+$$
+0 \lto M_n \lto \oplus_1^n Mi \lto \oplus_1^{n-1} M_i \lto 0
+$$
+es exacta.  Se deduce del teorema anterior por inducción. \fin
+
+\begin{cor}
+
+Si $A$ es noetheriano como $A$-módulo, entonces $A^n$ es noetheriano.  Si $M$ es de generación finita es un cociente de $A^n$ y por lo tanto es noetheriano.
+
+\end{cor}
+
+\begin{propo}
+
+Si $M$ tiene longitud finita, es noetheriano.
+
+\end{propo}
+
+\dem
+
+Cada cadena se puede extender hasta una cadena irrefinable y esta es finita puesto que $M$ es de longitud finita.  Así toda cadena estaciona. \fin
+
+\begin{defi}
+
+Un anillo $A$ se llama {\sf noetheriano} \index{anillo!noetheriano} cuando sea un módulo noe\-theriano con $A$ como anillo de escalares.
+
+\end{defi}
+
+Las tres condiciones siguientes son equivalentes y definen un anillo noetheriano:
+
+\begin{enumerate}[\indent i) ]
+
+\item  Cada ideal de $A$ es de generación finita.
+
+\item  Toda cadena ascendente de ideales estaciona.
+
+\item Todo conjunto no vacio de ideales posee al menos un elemento maximal.
+
+\end{enumerate}
+
+Los anillos noetherianos son de gran importancia en álgebra y en geometría algebráica, pues incluyen a todos los anillos de polinomios en $n$ variables sobre un cuerpo (Teorema de la base).  Además los anillos noetherianos son cerrados bajo ciertas operaciones de interés.
+
+\begin{propo}
+
+Todo cociente de un anillo noetheriano es noetheriano.
+
+\end{propo}
+
+\dem
+
+Sea $A$ un anillo e $I$ un ideal.  $\pi : A \lto A/I$ la proyección canónica.  Mediante $\pi^{-1}$ se puede suponer inyectado el conjunto de ideales de $A/I$ en el retículo de ideales de $A$. \fin
+
+\begin{propo}
+
+Si $A$ es noetheriano y $S$ un conjunto multiplicativamente cerrado, $A_S$ es noetheriano.
+
+\end{propo}
+
+\dem
+
+De nuevo los ideales de $A_S$ se pueden suponer incluidos en los ideales \linebreak de $A$. Los ideales de $A_S$ se identifican con los ideales de $A$ que tienen intersección nula con $S$. \fin
+
+El siguiente teorema es de importancia clave en geometría algebráica clásica, pues nos dice que toda subvariedad de $k^n$ definida por un conjunto de polinomios en $n$ variables es la intersección de un número finito de hipersuperficies definidas por los ceros de un polinomio.
+
+\begin{teo}[de la base de Hilbert] \index{teorema!de la base Hilbert}
+
+Sea $A$ un anillo noetheriano, entonces $A[x]$ es un anillo noetheriano.
+
+\end{teo}
+
+\dem
+
+Consultar la bibliografía (\cite{atiint}).
+
+\begin{cor}
+
+Si $A$ es noetheriano, entonces $A(x_1, \dots ,x_n)$ también.
+
+\end{cor}
+
+\dem
+
+$A(x_1, \dots, x_n) = A(x_1, \dots ,x_{n-1})(x_n)$ e inducción. \fin
+
+\begin{cor}
+
+Si $A \subset B$ noetheriano y $B$ es de generación finita como álgebra sobre $A$, entonces $B$ es un anillo noetheriano.
+
+\end{cor}
+
+\dem
+
+$B$ es un cociente del anillo de polinomios. \fin
+
+\section*{Problemas}
+
+\begin{pro}
+
+Probar la siguiente proposición:
+
+
+Sea $\Sigma$ un conjunto dotado de una relación de orden.  Entonces son equivalentes las condiciones que siguen:
+
+\begin{enumerate}[\indent i) ]
+\item   Cada sucesión decreciente de elementos de $\Sigma$
+$$
+\:x_1 \geq x_2 \geq \dots \geq x_n
+$$
+ es estacionaria, que quiere decir que existe un $n$ tal que $x_n = x_{n+i}$ para todo $i >0$.
+
+\item  Cada subconjunto no vacio de $\Sigma$ admite un elemento mínimo.
+
+
+\end{enumerate}
+
+
+Un módulo que satisfaga alguna de las condiciones procedente se llama módulo {\rm  artiano}. \index{módulo!artiano}  Ver que resultados del texto son generalizables a módulos artianos.
+
+\end{pro}
+
+\begin{pro}
+
+Veamos que el anillo $C(\R^n)$ no es noetheriano.  
+
+Sea $B_n$ la bola cerrada centrada en el origen y de radio $1/n$.  Tenemos una sucesión estrictamente decreciente de cerrados.
+
+Sea 
+$$
+\mathfrak{a}_n = \{f \in C(\R^n) \: \text{ tales que } f(B_n) = 0\}
+$$
+
+Probar que $\mathfrak{a}_n$ es una sucesión creciente de ideales que no estaciona.
+
+Generalizar el resultado a espacio topólogicos más generales.
+
+Generalizar el resultado, si es posible, a los anillos $C^\infty(\V)$ donde $\V$ es una variedad diferenciable.
+
+\end{pro}
+
+
+
+
+
+\section{Módulos sobre anillos principales}
+
+En este capítulo clasificaremos los módulos de tipo finito sobre un dominio de ideales principales.  Ello equivale a dar condiciones necesarias y suficientes para que dos módulos de tipo finito sean isomorfos.
+Denotaremos por $\mathcal{C}_A$ la clase de todos los módulos finito generados sobre el anillo $A$.  En el caso en que el anillo esté claro por el contexto, simplemente lo denotaremos por $\mathcal{C}$.  En este capítulo sobreentenderemos que todo módulo es de tipo finito y que el anillo es principal.
+
+\begin{defi}
+
+Un {\sf invariante} \index{invariante} del  problema de clasificación de $A$-módulos es un par $(\varphi, X)$, donde $X$ es un conjunto y $\varphi : \mathcal{C}_A \lto X$ una función que cumple:
+
+
+Si $M,M'$ son dos elementos de $\mathcal{C}_A$ isomorfos, entonces $\varphi(M) =\varphi (M')$.
+
+\end{defi}
+
+\begin{defi}
+
+Sea $\{\varphi_i, X_i\}_{i \in I}$ una familia de invariantes. Decimos que esta familia es un {\sf sistema completo de invariantes}\index{sistema completo de invariantes} si 
+$$
+M \sim M' \Longleftrightarrow \varphi_i(M) = \varphi (M') \text{ para todo } i \in I
+$$
+
+\end{defi}
+
+Recordemos algunos resultados básicos sobre anillos principales que utilizaremos en estas notas.  Para la demostración de estas afirmaciones puede consultarse \cite{ruialg}.
+
+Un {\sf anillo principal} \index{anillo!principal} $A$ es un anillo conmutativo, con unidad, íntegro, en el que todo ideal no nulo es principal.  Por lo tanto todo ideal $\mathfrak{a}$ de $A$ es de  forma $<a>$ donde $a$ es un elemento no nulo.  Decimos que el ideal $\mathfrak{a}$ está generado por el elemento $a$.  Si $a'$ genera el mismo ideal que $a$, entonces existe un elemento invertible $u \in A$ tal que $a' = ua$.
+
+Los elementos {\sf irreducibles} \index{irreducible} son aquellos que si descomponen en  producto de dos factores, al menos uno de ellos es una unidad. Los elementos irreducibles de $A$ son precisamente aquellos que generan un ideal máximal.  En un anillo principal todos los ideales primos no nulos son maximales.  La noción de elemento primo y de elemento maximal coinciden.
+
+Llamamos {\sf máximo común divisor} \index{máximo común divisor} de dos elementos $a, b \in A$ a cualquier gene\-rador del ideal suma $<a>+<b>$.  Lo denotaremos por $MCD(a,b)$.
+Llamamos {\sf mínimo común multiplo} \index{mínimo común multiplo} de dos elementos $a,b \in A$ a cualquier generador del ideal intersección.  Se denotará $mcm(a,b)$.
+
+\begin{lema}[Bezout]\label{lema:Bezout}
+
+Si $a$ y $b$ son dos elementos de un anillo principal y $d$ es su máximo común divisor, entonces existen $\lambda, \mu  \in A$ tales que
+$$
+d =\lambda a +\mu b
+$$
+
+\end{lema}
+
+
+
+\begin{teo} 
+
+Un elemento no invertible $a$ del anillo se expresa de modo único, salvo producto por unidades, como producto de elementos primos.
+$$
+a = p_1^{\alpha_1} \cdot p_2^{\alpha_2} \cdots p_n^{\alpha_n}
+$$
+
+\end{teo}
+
+Por definición, todo anillo principal es noetheriano.
+
+Por $\Sigma$ denotaremos el cuerpo de fracciones de $A$, o lo que lo mismo, la localización de $A$ en el ideal primo nulo.
+
+\bigskip
+
+\noindent{\bf Ejemplos.}
+
+\begin{itemize}
+
+\item El anillo $\Z$ es un dominio de ideales principales.  Para probarlo se utiliza el conocido algoritmo de la división con resto.
+Su cuerpo de fracciones es~$\Q$.   Como los $\Z$-módulos son los grupos abelianos, clasificaremos todos los grupos abelianos de tipo finito.
+
+\item Si $k$ es un cuerpo, entonces el anillo de polinomios $k(x)$ es un anillo principal.  Si recordamos que dos endomorfismos de un espacio vectorial de dimensión finita sobre un cuerpo $k$, inducen estructuras de $k(x)$-módulos  isomorfas, veremos que como corolario de este capítulo se obtiene la clasificación de endomorfismos.
+
+\end{itemize}
+
+
+Recordemos ciertas propiedades de la torsión que utilizaremos en este capí\-tulo.
+
+\begin{itemize}
+
+\item La suma directa de módulos de torsión es de torsión.
+
+\item Los submódulos y los cocientes de módulos de torsión son asimismo de torsión.
+
+\item Un submódulo de un módulo sin torsión no tiene torsión.
+
+\item Los módulos libres no tienen torsión (integridad de $A$).
+
+\end{itemize}
+
+\begin{defi}
+
+Llamamos {\sf rango libre} \index{rango libre} de un módulo $M$ a la dimensión del \mbox{$\Sigma$-espacio} $M_\Sigma$.
+
+\end{defi}
+
+El rango libre de $A^n$ es precisamente $n$.  Todos los módulos de tipo finito tienen rango libre finito.  Los módulos de rango libre cero son precisamente los módulos de torsión (proposición \ref{lema:torsion}).
+
+\begin{defi}
+
+Sea $M' \subset M$ un submódulo.  El radical de $M'$ es el conjunto
+$$
+Rad (M')=\{m \in M \text{ tales que existe } a \neq 0, am \in M'\}
+$$
+
+\end{defi}
+
+De nuevo la integridad nos garantiza que el radical es un submódulo.
+
+\begin{lema}\label{lema:torsion}
+
+La siguiente sucesión es exacta:
+$$
+0 \lto M_\tau \lto M \lto M_\Sigma
+$$
+
+\end{lema}
+
+\dem
+
+Por definición $M_\Sigma = M_0$.  Por lo tanto tenemos:
+
+$m/1=0 \Longleftrightarrow \text{ existe } a \neq 0 \text{ tal que } am=0$. \fin
+
+
+\begin{propo}
+
+Sea $M$ de tipo finito.  $M$ es libre si  y solo si $M$ no tiene torsión.
+
+\end{propo}
+
+\dem
+
+$\Rightarrow ) $ $ a(m_1, \dots,m_n) = 0 \Longrightarrow am_i=0$ y como $a \neq 0 \Longrightarrow m_i=0$ para todo $i$.
+
+$\Leftarrow  )$ Procederemos por inducción sobre el rango libre.
+
+Si $M$ no tiene torsión y de rango libre 1 tenemos la sucesión exacta
+$$
+0 \lto M \	\stackrel{\varphi}{\lto} \Sigma
+$$
+
+Sea $(m_1, \dots, m_k)$ una familia generadora de $M$.  Tenemos que 
+\mbox{$\varphi(m_i) = s_i/d_i$.}  Consideramos el elemento de $A$ producto de todos los denominadores: 
+$$
+a= d_1\dots d_k
+$$
+
+Si multiplicamos cada $\varphi(m_i)$ por $a$ eliminamos todos los denominadores y por lo tanto podemos considerar que la imagen de $\varphi$ está en el anillo $A$.  Como $A$ es principal, resulta que $M$ es isomorfo a un ideal.
+
+Sea ahora $M$ de rango libre $n$.  Dado un $m \in M$ no nulo, tenemos que $Rad(m)$ es un submódulo de rango libre $1$.
+
+Tenemos la sucesión exacta
+$$
+0 \lto Rad(m) \lto M \lto M/Rad(m) \lto 0
+$$
+Ningún módulo tiene torsión y el rango de $M/Rad(m)$ es $n-1$, aplicando la exactitud de la localización.  La sucesión escinde por ser el cociente un módulo  proyectivo y se concluye puesto que $M$ es la suma de dos módulos libres. \fin
+
+La condición de finito generado es esencial en este teorema.  Por ejemplo $\Q$ es un grupo abeliano sin torsión y sin embargo no es libre.
+
+\begin{teo}
+
+Todo módulo de tipo finito descompone de modo único salvo isomorfismos, en suma directa de un módulo libre y de un módulo de torsión de tipo finito.
+
+\end{teo}
+
+\dem
+
+La sucesión exacta
+$$
+0 \lto M_\tau \lto M \lto M/M_\tau \lto 0
+$$
+escinde por ser libre el cociente.  La unicidad es clara.
+
+\begin{cor}
+
+Si dos módulos son isomorfos, sus rangos libres coinciden.  Tene\-mos un invariante.
+
+\end{cor}
+
+\begin{cor}
+
+Dos módulos son isomorfos si y solo si su rango es el mismo y sus módulos de torsión son isomorfos.
+
+\end{cor}
+
+Esto reduce el problema a clasificar los módulos de torsión finito generados.
+
+De ahora en adelante supondremos que $M$ es finito generado y de torsión.
+
+El anulador de un elemento $m \in M$ es un ideal no nulo.  El anulador de $M$ es la intersección de una familia de generadores de $M$.  El anulador de $M$ es la intersección de un número finito de ideales no nulos.  Al ser $A$  integro dicho anulador no puede ser nunca nulo.  
+Como $A$ es principal dicho anulador esta generado por un elemento $a$.
+
+
+
+
+
+\begin{teo}[Primer teorema de descomposición]
+
+Sea 
+$
+a = p_1^{n_1} \dots p_r^{n_r}
+$  la descomposición en factores primos de un generador del ideal anulador de $M$.  $M$ descompone, de modo único salvo isomorfismos, en suma directa
+$$
+M = M_1 \oplus \dots \oplus M_r 
+$$
+donde cada $M_i$ tiene por anulador a $p_i^{n_i}$.
+
+\end{teo}
+
+\dem
+
+Sea $q_1 = p_1^{n_1}, \quad q_2 = p_2^{n_2} \dots p_r^{n_r}$.  Tenemos entonces que $(q_1) + (q_2) = 1$.  Aplicando el lema de Bezout (lema \ref{lema:Bezout}) sabemos que existen elementos que cumplen:
+$$
+\lambda q_1 + \mu q_2=1
+$$
+
+Sea $M_1$ el submódulo de $M$ formado por los elementos anulados por $q_1$. 
+
+$$
+M_1 = \{ m \text{ tales que } q_1 m =0\}
+$$
+ Denotamos por $M'$ al submódulo de los elementos anulados por $q_2$.
+
+El anulador de $M_1$ es precisamente $p_1^{n_1}$.
+
+Tenemos que $m = q_1(\lambda m) + q_2(\mu m)$.  Es claro que $q_1(\lambda m)$ pertenece a $M'$ y que $q_2(\mu m)$ pertenece a $M_1$.  Así concluimos que $M= M_1 + M'$.  Veremos ahora que estos submódulos están en posición de suma directa.
+
+Si $m \in M_1 \cap M'$ se cumple
+$$
+m = \lambda (q_1m) + \mu (q_2m) = 0 + 0 = 0
+$$
+
+Por inducción se concluye. \fin
+
+La clasificación de módulos de torsión finito generados queda reducida a clasificar los módulos de torsión finito generados tales que su anulador sea una potencia de un elemento primo o irreducible.
+
+Decimos que un módulo es {\sf primario} \index{módulo!primario} cuando su anulador sea una potencia de un primo.  Los módulos cíclicos y primarios son isomorfos a $A/\p^k$ donde $\p$ es un ideal primo no nulo.
+
+El segundo teorema de descomposición afirma que todo módulo de torsión de tipo finito y primario se puede expresar como suma directa de módulos cíclicos primarios.  
+
+Para demostrar este teorema nos apoyaremos en los siguientes lemas.
+
+\begin{lema}
+
+Sea $M$ un $A$-módulo  primario de anulador $\p^k$.  Entonces:
+
+\begin{enumerate}[\indent i) ]
+
+\item  $M$ admite una estructura de $B$-módulo, donde $B= A/\p^k$ dada por la fórmula
+$$
+\pi(a)m = am
+$$
+
+\item  Existe un vector  $m$ no anulado por $\p^{k-1}$.
+
+\end{enumerate}
+
+\end{lema}
+
+\dem
+
+\begin{enumerate}[\indent i) ]
+
+\item Veamos que la definición es independiente del representante tomado
+Si $\pi(a) = \pi(b) \Longrightarrow  a-b$ es múltiplo de $\p^k$.  Entonces $a-b = \lambda \p^k$.  Aplicamos esta igualdad a cualquier vector  y obtenemos
+$$
+(a-b)m= \lambda \p^k m = 0 \Longrightarrow  am = bm
+$$
+
+ \item Si dicho vector no existiese, todo vector de $M$ estaría anulado por $\p^{k-1}$, lo que es contradictorio.  \fin
+\end{enumerate}
+
+\begin{lema}
+
+$B$ es un $B$-módulo inyectivo.
+
+\end{lema}
+
+
+\dem
+
+Utilizaremos el criterio del ideal.  Debemos probar que dado un morfismo $\varphi$, existe $\varphi_*$ que cierra el diagrama
+\begin{diagram}
+0 & \rTo & \mathfrak{a} & \rTo & B \\
+ &  & \dTo_{\varphi}&  \ldTo_{\varphi_*}  \\
+& & B & &
+\end{diagram}
+
+Los ideales de $B$ son de la forma $\pi(\p^r)$ para $r<k$.  Si $\mathfrak{q} =
+\pi(\p^r)$, entonces el anulador de $\varphi(a)$ es $\pi(\p^{n-r})$ y por tanto $\varphi(\pi(\p^r)) = b \pi(\p^{r+h})$ donde $b$ es un elemento de $B$ y $h>0$.  El morfismo definido por $\varphi_*(1)= b \pi(\p^h)$ cumple lo pedido. \fin
+
+\begin{teo}[Segundo teorema de descomposición]
+
+Sea $M$ de tipo \linebreak finito, de torsión y de anulador $\p^k$ con $\p$ primo.  Entonces
+$$
+M \sim \oplus_{i=1}^k (A/\p^i)^{v_i}
+$$
+
+\end{teo}
+
+\dem
+
+Veamos primero la unicidad.  Recordemos que si $\mathfrak{a}$ es un ideal de un anillo, entonces designamos por $\mathfrak{a}M$ al submódulo
+$$
+\mathfrak{a}M =\{m \in M \text{ tales que existe } a \in \mathfrak{a}, m' \in M \quad am'=m\}
+$$
+
+Bajo estas hipótesis se cumple:
+
+\begin{eqnarray}\nonumber
+l(\p^{k-1}M) & = & v_k \\ \nonumber
+l(\p^{k-2}M) & = & 2v_k + v_{k-1} \\\nonumber
+\dots & = & \dots \\\nonumber
+l(\p M) &= & (k-1)v_k + (k-2)v_{k-1} + \dots + v_2 \\\nonumber
+l(M) & = & kv_k + (k-1)v_{k-1} + \dots + v_1\nonumber
+\end{eqnarray}
+
+Así, los números $v_i$ se pueden despejar de las longitudes de los módulos $\p^iM$ y la descomposición es única.
+
+Veamos ahora la existencia de la descomposición.
+
+Como $\p^k$ es el anulador de $M$, existe un vector $m$ no anulado por $\p^{k-1}$.  De este modo el submódulo $<m>$ es isomorfo a $A/\p^k$ y la siguiente sucesión de $A$-módulos es exacta
+$$
+0 \lto <m>=B \lto M \lto M/<m> \lto 0
+$$
+
+Esta sucesión es también una sucesión exacta de $B$-módulos y como $B$ es inyecto escinde
+$$
+M \sim B \oplus M'
+$$
+
+$M'$ está de nuevo en la sutuación de $M$, salvo que ahora su anulador puede ser $\p^r$ con $r<n$.  Inductivamente se construye la descomposición y este proceso termina por ser el módulo de generación finita. \fin
+
+Sea ahora un módulo de torsión y finito generado.  Su anulador no tiene porqué ser una potencia de un primo.  Aplicando los dos teoremas de descomposición tendremos que 
+$$
+M \sim \oplus_{i=1}^k(\oplus(A/\p_i^{n_{ij}})^{v_{ij}}
+$$
+Los $\p_i^{n_{ij}}$ se llaman {sf divisores elementales} \index{divisores elementales} del módulo $M$.  Tenemos el siguiente teorema de clasificación
+
+\begin{teo}
+
+Dos módulos $M$ y $M'$ finito generados son isomorfos si y solo si tienen el mismo rango, el mismo anulador y los números $v_{ij}(M)$ y $v_{ij}(M')$ son los mismos para todos los factores invariantes.
+
+\end{teo}
+
+Algunos de estos números pueden ser cero.  Ello quiere decir que no entran en la descomposición.
+
+Esta teoría general se aplica a los siguientes casos particulares:
+
+\begin{itemize}
+
+\item Clasificación de grupos abelianos finito generados pues como sabemos la noción de grupo abeliano y de $\Z$-módulo coinciden.
+
+\item Endomorfismos de un $k$-espacio de dimensión finita.  Decimos que dos endomorfismos $\varphi$ y $\varphi'$ son equivalentes si son conjugados respecto a un isomorfismo
+$$
+\tau \varphi \tau^{-1} = \varphi'
+$$
+
+Dado un endomorfismo $\varphi$ de $E$, introducimos en $E$ una estructura de $k(x)$-módulo.  Este $k(x)$-módulo es de torsión y finito generado puesto que $dim (k(x)) = \infty > dim (\End(E))$.Por lo tanto clasificar endomorfismos equivale a clasificar $k(x)$-módulos de torsión y finito generados.
+
+\item Consideremos el grupo proyectivo lineal de dimensión finita.  Denotemoslo por $PGL(E)$.  Dos proyectividades son equivalentes cuando sean conjugadas.  Dos proyectividades $\pi(\varphi)$ y $\pi(\varphi')$ son equivalentes cuando $\varphi$ sea equivalente a $\varphi'$ como endomorfismos.
+
+\end{itemize} 
+
+Ya hemos clasificado los módulos de tipo finito en base a unos invariantes llamados divisores elementales.  Aquí esbozamos otra clasificación, esta vez en base a los factores invariantes del módulo.  Para las demostraciones nos remitimos a la bibliografía \cite{rennot}.
+
+Recordemos que por $\bigwedge^j M$ denotamos la $j$-ésima potencia exterior del mó\-dulo $M$.  $M$ será de torsión.
+
+\begin{defi}
+
+Llamamos  factor invariante $j$-ésimo de $M$ al anulador de $\bigwedge^jM$ y lo designamos por $\phi_j$.
+
+\end{defi}
+
+Es claro que el anulador de $\bigwedge^{j+1}M$ contiene al anulador de $\bigwedge ^jM$ y por lo tanto $\phi_{j+1}$ es múltiplo de $\phi_j$.  En definitiva, tenemos que los factores invariantes cumplen
+$$
+\phi_1 \mid \phi_2 \mid \dots \mid \phi_n
+$$
+
+
+Sea $M = M_1 \oplus \dots \oplus M_r$ la descomposición de $M$ dada por el primer teorema de descomposición. Entonces tenemos 
+$$
+\textstyle{\bigwedge^j M = \bigwedge^j M_1 \oplus \dots \oplus \bigwedge^jM_r}
+$$
+
+El anulador de $\bigwedge^jM$ es el producto de los anuladores de $\bigwedge^jM_i$.  Utilizando el segundo teorema de descomposción se puede probar que los anuladores de los $\bigwedge_jM_i$ son los divisores elementales del módulo.  Así
+$$
+\phi = \p_1^{n_{1j}} \dots \p_r^{r_{rj}}
+$$
+
+Podemos dar otro teorema de clasificación
+
+\begin{teo}
+
+Si $M$ es torsión finito generado y $\phi_j$ son los factores invariantes 
+$$
+M \sim \oplus_j A/\phi_j
+$$
+\end{teo}
+
+
+Así los factores invariantes, junto con el rango, clasifican los módulos de tipo finito sobre los anillos principales.
+
+
+
+\section*{Problemas}
+
+\begin{pro}
+
+Sea $B \subset A$ un subanillo y $M$ un $A$-módulo. ¿Son iguales los módulos de torsión, calculados sobre cada uno de los anillos?  ¿Existe alguna relación entre ellos?
+
+\end{pro}
+
+\begin{pro}
+
+Probar que un submódulo de un módulo sin torsión tampoco tiene  torsión.
+
+Probar que los submódulos y los cocientes de un módulo de torsión son de torsión.
+
+La suma directa de módulos de torsión es de torsión.
+
+\end{pro}
+
+\begin{pro}
+Si $M$ está generado por $n$ elementos, todo submódulo esta generado por $r\leq n$ elementos.
+
+\end{pro}
+
+\begin{pro}
+
+Probar que si $M$ es ciclico y primario, entonces $M$ es isomorfo a $A/\p^k$ donde $\p$ es un primo.
+
+\end{pro}
+
+\begin{pro}
+
+Sea $M$ de torsión y finitogenerado.  Para cada ideal primo $\p$ del anillo sea $M(\p)$ el conjunto
+$$
+M(\p) =\{m \in M \text{ tales que existe } j \quad \p^jm=0\}
+$$
+
+\begin{itemize}
+
+\item $M(\p)$ es un submódulo.
+
+\item $M(\p)$ es no nulo si y solo si $\p$ es un factor del anulador.  Por lo tanto casi todos los $M(\p)$ son cero.
+
+\item $M \sim \oplus M(\p)$
+
+\end{itemize}
+
+\end{pro}
+
+\begin{pro}
+
+Calcular la longitud de $A/\p^k$.
+
+Calcular la longitud de $\p^r A/p^k$. $(r<k)$
+
+\end{pro}
+
+\begin{pro}
+
+Probar
+\begin{itemize}
+
+\item Si $M$ es de tipo finito, entonces es de rango libre finito.
+
+\item El rango libre de $A^n$ es $n$.
+
+\item El rango libre de una suma directa finita es la suma de los rangos libre de cada sumando.
+
+\item Rango libre cero equivale a módulo de torsión.
+
+\item  Los rangos libres de los cocientes y de los submódulos de $M$ son menores que el rango libre de $M$.
+
+\item  El rango libre, ¿es una función aditiva?
+
+\item El rango libre de $M = M_\tau \oplus L$ es el rango libre de $L$.
+
+\end{itemize}
+
+\end{pro}
+
+\begin{pro}
+
+Los submódulos de un módulo de tipo finito son de tipo finito.
+
+Los submódulos de un módulo libre de tipo finito, son asimismo libres.
+
+Para módulos de tipo finito sobre anillos principales, libre es equivalente a proyectivo.
+
+\end{pro}
+
+\begin{pro}
+
+En el primer teorema de descomposición, demostrar que en efecto el anulador de $M_1$ es $p_1^{n_1}$.
+
+\end{pro}
+
+\begin{*pro}
+
+Sea $M$ libre, con rango posiblemente infinito.  Si $N$ es un submó\-dulo de $M$, entonces $N$ es libre. La demostación puede hallarse en \cite{wilalg}.
+
+Una vez probado esa afirmación demostrar que proyectivo equivale a libre, aunque el módulo no sea finito generado.
+
+\end{*pro}
+
+
+\end{document}
